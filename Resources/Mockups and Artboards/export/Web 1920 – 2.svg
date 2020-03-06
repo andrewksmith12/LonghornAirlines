@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <clipPath id="clip-Web_1920_2">
+      <rect width="1920" height="1080"/>
+    </clipPath>
+  </defs>
+  <g id="Web_1920_2" data-name="Web 1920 – 2" clip-path="url(#clip-Web_1920_2)">
+    <rect width="1920" height="1080" fill="#fff"/>
+    <g id="Rectangle_1" data-name="Rectangle 1" fill="#fdd847" stroke="#707070" stroke-width="1">
+      <rect width="1920" height="123" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1919" height="122" fill="none"/>
+    </g>
+    <text id="Login_Logout_If_Signed_In_My_Account_" data-name="Login / Logout
+(If Signed In, My Account)" transform="translate(1677 68)" fill="#707070" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Login / Logout</tspan><tspan x="0" y="27">(If Signed In, My Account)</tspan></text>
+    <g id="Longhorn_Airlines_Logo" data-name="Longhorn Airlines Logo">
+      <g id="Longhorn_Airlines_Logo_Placeholder" data-name="Longhorn Airlines Logo Placeholder" transform="translate(33 32)" fill="#fff" stroke="#707070" stroke-width="1">
+        <rect width="398" height="63" stroke="none"/>
+        <rect x="0.5" y="0.5" width="397" height="62" fill="none"/>
+      </g>
+      <text id="Longhorn_Airlines_Logo-2" data-name="Longhorn Airlines Logo" transform="translate(74 75)" fill="#707070" font-size="27" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Longhorn Airlines Logo</tspan></text>
+    </g>
+    <g id="Rectangle_3" data-name="Rectangle 3" transform="translate(513 43)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="1078" height="52" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1077" height="51" fill="none"/>
+    </g>
+    <text id="Navigation:_Book_A_Flight_Manage_Reservations" data-name="Navigation: Book A Flight, Manage Reservations" transform="translate(542 75)" fill="#707070" font-size="27" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Navigation: Book A Flight, Manage Reservations</tspan></text>
+    <g id="Rectangle_14" data-name="Rectangle 14" transform="translate(120 303)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="1671" height="600" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1670" height="599" fill="none"/>
+    </g>
+    <g id="Results_Header" data-name="Results Header" transform="translate(120 233)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="1671" height="70" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1670" height="69" fill="none"/>
+    </g>
+    <g id="Results_Element" data-name="Results Element" transform="translate(120 303)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="1671" height="131" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1670" height="130" fill="none"/>
+    </g>
+    <text id="Flight_Number_" data-name="Flight Number ####" transform="translate(166 333)" fill="#707070" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Flight Number ####</tspan></text>
+    <text id="_12:00_AM" data-name="12:00 AM" transform="translate(166 394)" fill="#707070" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">12:00 AM</tspan></text>
+    <text id="_7:30_AM" data-name="7:30 AM" transform="translate(366 394)" fill="#707070" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">7:30 AM</tspan></text>
+    <text id="Duration:_7h_30m" data-name="Duration: 7h 30m" transform="translate(542 367)" fill="#707070" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Duration: 7h 30m</tspan></text>
+    <text id="First_Class" data-name="First Class" transform="translate(1448 274)" fill="#707070" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">First Class</tspan></text>
+    <text id="Economy" transform="translate(1653 274)" fill="#707070" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Economy</tspan></text>
+    <text id="_1_000" data-name="$1,000" transform="translate(1495 372)" fill="#707070" font-size="25" font-family="SegoeUI, Segoe UI"><tspan x="-36.401" y="0">$1,000</tspan></text>
+    <text id="_500" data-name="$500" transform="translate(1697 372)" fill="#707070" font-size="25" font-family="SegoeUI, Segoe UI"><tspan x="-26.953" y="0">$500</tspan></text>
+  </g>
+</svg>
