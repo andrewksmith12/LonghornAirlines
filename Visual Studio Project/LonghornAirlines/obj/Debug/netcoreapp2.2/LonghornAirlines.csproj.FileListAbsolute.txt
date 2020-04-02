@@ -4,3 +4,34 @@ C:\Users\aksmith\Documents\GitHub\LonghornAirlines\LonghornAirlines\obj\Debug\ne
 C:\Users\aksmith\Documents\GitHub\LonghornAirlines\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.RazorAssemblyInfo.cs
 C:\Users\aksmith\Documents\GitHub\LonghornAirlines\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.AssemblyInfoInputs.cache
 C:\Users\aksmith\Documents\GitHub\LonghornAirlines\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.AssemblyInfo.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csprojAssemblyReference.cache
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csproj.CoreCompileInputs.cache
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.RazorAssemblyInfo.cache
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.RazorAssemblyInfo.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.AssemblyInfoInputs.cache
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.AssemblyInfo.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\bin\Debug\netcoreapp2.2\libman.json
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\bin\Debug\netcoreapp2.2\LonghornAirlines.deps.json
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\bin\Debug\netcoreapp2.2\LonghornAirlines.runtimeconfig.json
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\bin\Debug\netcoreapp2.2\LonghornAirlines.runtimeconfig.dev.json
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\bin\Debug\netcoreapp2.2\LonghornAirlines.dll
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\bin\Debug\netcoreapp2.2\LonghornAirlines.pdb
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\bin\Debug\netcoreapp2.2\LonghornAirlines.Views.dll
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\bin\Debug\netcoreapp2.2\LonghornAirlines.Views.pdb
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.TagHelpers.input.cache
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.TagHelpers.output.cache
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.RazorCoreGenerate.cache
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.RazorTargetAssemblyInfo.cache
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.RazorTargetAssemblyInfo.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.Views.pdb
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.dll
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.pdb
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.genruntimeconfig.cache
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csproj.CopyComplete

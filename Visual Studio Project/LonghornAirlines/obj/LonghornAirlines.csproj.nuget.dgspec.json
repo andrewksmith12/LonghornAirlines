@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aksmith\\Documents\\GitHub\\LonghornAirlines\\LonghornAirlines\\LonghornAirlines.csproj": {}
+    "C:\\Users\\aksmith\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj": {}
   },
   "projects": {
-    "C:\\Users\\aksmith\\Documents\\GitHub\\LonghornAirlines\\LonghornAirlines\\LonghornAirlines.csproj": {
+    "C:\\Users\\aksmith\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aksmith\\Documents\\GitHub\\LonghornAirlines\\LonghornAirlines\\LonghornAirlines.csproj",
+        "projectUniqueName": "C:\\Users\\aksmith\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj",
         "projectName": "LonghornAirlines",
-        "projectPath": "C:\\Users\\aksmith\\Documents\\GitHub\\LonghornAirlines\\LonghornAirlines\\LonghornAirlines.csproj",
+        "projectPath": "C:\\Users\\aksmith\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj",
         "packagesPath": "C:\\Users\\aksmith\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aksmith\\Documents\\GitHub\\LonghornAirlines\\LonghornAirlines\\obj\\",
+        "outputPath": "C:\\Users\\aksmith\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
