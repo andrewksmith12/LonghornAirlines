@@ -8,9 +8,14 @@ namespace LonghornAirlines.Models.Business
 {
     public class Route
     {
+        [Display(Name = "Route ID: ")]
+        public int RouteID { get; set; }
         
         [Display(Name = "Flight Distance: ")]
-        public String Distance { get; set; }
+        public int Distance { get; set; }
+        
+        [Display(Name = "Flight Time - in minutes: ")]
+        public int FlightTime { get; set; }
         
         //Navigation Properties
         [Display(Name = "From: ")]
