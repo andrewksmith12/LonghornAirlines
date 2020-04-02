@@ -1,0 +1,6 @@
+C:\Users\aksmith\Documents\GitHub\LonghornAirlines\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csprojAssemblyReference.cache
+C:\Users\aksmith\Documents\GitHub\LonghornAirlines\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csproj.CoreCompileInputs.cache
+C:\Users\aksmith\Documents\GitHub\LonghornAirlines\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.RazorAssemblyInfo.cache
+C:\Users\aksmith\Documents\GitHub\LonghornAirlines\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.RazorAssemblyInfo.cs
+C:\Users\aksmith\Documents\GitHub\LonghornAirlines\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.AssemblyInfoInputs.cache
+C:\Users\aksmith\Documents\GitHub\LonghornAirlines\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.AssemblyInfo.cs
