@@ -18,6 +18,9 @@ namespace LonghornAirlines.Models.Business
         [Display(Name = "Reservation Type: ")]
         public TypeOfReservation ReservationType { get; set; }
 
+        [Display(Name = "Payment Method")]
+        public string ReservationMethod { get; set;}
+
         //Navigational Properties
         [Display(Name = "Customer ID: ")]
         public AppUser Customer { get; set; }
