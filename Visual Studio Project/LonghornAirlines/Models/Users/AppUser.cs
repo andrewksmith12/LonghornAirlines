@@ -49,8 +49,5 @@ namespace LonghornAirlines.Models.Users
 
         [Display(Name = "Ticket IDs: ")]
         public List<Ticket> Tickets { get; set; }
-
-        [Display(Name = "User ID: ")]
-        public UserRole UserRole { get; set; }
     }
 }
