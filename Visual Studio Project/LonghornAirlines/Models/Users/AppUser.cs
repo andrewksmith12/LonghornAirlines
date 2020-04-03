@@ -39,6 +39,9 @@ namespace LonghornAirlines.Models.Users
 
         [Display(Name = "Zip Code: ")]
         public String ZIP { get; set; }
+
+        [Display(Name = "Active")]
+        public Boolean isActive { get; set; }
         
         //Navigation Properties
         [Display(Name = "Reservation IDs: ")]
