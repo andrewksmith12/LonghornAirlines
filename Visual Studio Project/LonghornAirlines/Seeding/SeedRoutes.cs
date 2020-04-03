@@ -3,6 +3,7 @@ using LonghornAirlines.Models.Business;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace LonghornAirlines.Seeding
@@ -125,6 +126,36 @@ namespace LonghornAirlines.Seeding
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "ELP"),
                 CityTo = db.Cities.FirstOrDefault(c => c.CityCode == "HOU"),
             });
+
+            //create a counter to help debug
+            int intRouteID = 0;
+
+            try
+            {
+                foreach (Route seedRoute in AllRoutes)
+                {
+                    //updates the counter to get info on where the problem is
+                    intRouteID = seedRoute.RouteID;
+
+                    //find the genre in the database
+                    Route dbRoute = db.Routes.FirstOrDefault(r => r.RouteID == intRouteID);
+
+                    if (dbRoute == null) //the genre isn't in the database
+                    {
+                        //add the genre
+                        db.Routes.Add(seedRoute);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                StringBuilder msg = new StringBuilder();
+                msg.Append("There was an error adding the ");
+                msg.Append(intRouteID);
+                msg.Append(" route.");
+                throw new Exception(msg.ToString(), ex);
+            }
         }
     }
-}
+}  

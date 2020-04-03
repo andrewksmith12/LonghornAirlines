@@ -53,4 +53,5 @@ namespace LonghornAirlines.Seeding
                 throw new Exception(msg.ToString(), ex);
             }
         }
+    }
 }

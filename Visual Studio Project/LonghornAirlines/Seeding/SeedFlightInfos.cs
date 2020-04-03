@@ -3,6 +3,7 @@ using LonghornAirlines.Models.Business;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace LonghornAirlines.Seeding
@@ -222,6 +223,36 @@ namespace LonghornAirlines.Seeding
                 Saturday = true,
                 Sunday = false
             });
+
+            //create a counter to help debug
+            int intflightInfoID = 1000;
+
+            try
+            {
+                foreach (FlightInfo seedInfo in AllFlightInfos)
+                {
+                    //updates the counter to get info on where the problem is
+                    intflightInfoID = seedInfo.FlightNumber;
+
+                    //find the genre in the database
+                    FlightInfo dbInfo = db.FlightInfos.FirstOrDefault(f => f.FlightNumber == seedInfo.FlightNumber);
+
+                    if (dbInfo == null) //the genre isn't in the database
+                    {
+                        //add the genre
+                        db.FlightInfos.Add(seedInfo);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                StringBuilder msg = new StringBuilder();
+                msg.Append("There was an error adding the ");
+                msg.Append(intflightInfoID);
+                msg.Append(" flight.");
+                throw new Exception(msg.ToString(), ex);
+            }
         }
     }
 }
