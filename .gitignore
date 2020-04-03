@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Visual Studio Project/LonghornAirlines/obj/LonghornAirlines.csproj.nuget.cache
+/Visual Studio Project/.vs/LonghornAirlines/v16/Server/sqlite3/db.lock
+/Visual Studio Project/.vs/LonghornAirlines/v16/Server/sqlite3/storage.ide
+/Visual Studio Project/.vs/LonghornAirlines/v16/Server/sqlite3/storage.ide-shm
+/Visual Studio Project/.vs/LonghornAirlines/v16/Server/sqlite3/storage.ide-wal
