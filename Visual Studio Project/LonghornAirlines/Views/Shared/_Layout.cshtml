@@ -2,12 +2,72 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewBag.Title</title>
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet"/>
+    <link href="~/static/style.css" rel="stylesheet"/>
 </head>
 <body>
-    <div>
-        @RenderBody()
-    </div>
+    <nav class="navbar navbar-expand-md" style="background-color: RGB(253,216,71)">
+        <a class="navbar-brand" style="color:white" href="#">
+            Longhorn Airlines
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon">
+                <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
+            </span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item mr-md-3">
+                    Booking
+                </li>
+                <li class="nav-item mr-md-3">
+                    Reservations
+                </li>
+            </ul>
+            @if (@ViewBag.isAuthenticated == true)
+            {
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Dropdown link
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">My Account</a>
+                        <a class="dropdown-item" href="#">Support</a>
+                        <a class="dropdown-item" href="#">Log Out</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <button class="btn btn-outline-light my-2 my-sm-0" type="button">Log In</button>
+            }
+
+        </div>
+    </nav>
+    <!-- Full Page Image Header with Vertically Centered Content -->
+    <header class="masthead">
+        <div class="container bg-transparent">
+            <div class="card">
+                <div class="card-body">
+                    @RenderSection("imageContent")
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <section class="py-5">
+        <div class="container">
+            @RenderSection("pageContent")
+        </div>
+    </section>
+    <script src="~/lib/jquery/jquery.slim.min.js"></script>
+    <script src="~/lib/popper.js/umd/popper.min.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -7,5 +7,6 @@
 /Visual Studio Project/.vs/LonghornAirlines/v16/Server/sqlite3/storage.ide
 /Visual Studio Project/.vs/LonghornAirlines/v16/Server/sqlite3/storage.ide-shm
 /Visual Studio Project/.vs/LonghornAirlines/v16/Server/sqlite3/storage.ide-wal
-/Visual Studio Project/LonghornAirlines/bin
-/Visual Studio Project/LonghornAirlines/obj
+/Visual Studio Project/LonghornAirlines/bin/**
+/Visual Studio Project/LonghornAirlines/obj/**
+/Visual Studio Project/.vs/LonghornAirlines/config/applicationhost.config

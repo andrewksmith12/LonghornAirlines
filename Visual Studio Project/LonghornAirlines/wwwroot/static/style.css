@@ -1,0 +1,11 @@
+﻿.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('airport-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
