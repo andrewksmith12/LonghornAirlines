@@ -9,7 +9,10 @@ namespace LonghornAirlines.Models.Business
     public class City
     {
         [Display(Name = "City ID: ")]
-        public String CityID { get; set; }
+        public int CityID { get; set; }
+
+        [Display(Name ="City Code: ")]
+        public String CityCode { get; set; }
 
         [Display(Name = "State: ")]
         public String CityState { get; set; }
