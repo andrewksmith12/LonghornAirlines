@@ -19,9 +19,5 @@ namespace LonghornAirlines.Models.Business
 
         [Display(Name = "City: ")]
         public String CityName { get; set; }
-        
-        //Navigation Properties
-        [Display(Name = "Route IDs: ")]
-        public List<Route> Routes { get; set; }
     }
 }

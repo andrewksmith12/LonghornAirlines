@@ -12,7 +12,9 @@
 }
 
 .background-card {
-    background-color: rgba(245, 245, 245, 1);
-    opacity: 1;
+    background-color: rgba(254, 235, 201, .3);
     min-height: 80vh;
+}
+.background-card-content {
+    background-color: rgba(254, 235, 201, .75);
 }

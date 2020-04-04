@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\ViewModels\" />
     <Folder Include="DAL\" />
     <Folder Include="wwwroot\lib\NewFolder\" />
   </ItemGroup>

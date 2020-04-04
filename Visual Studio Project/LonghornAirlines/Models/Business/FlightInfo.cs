@@ -9,7 +9,7 @@ namespace LonghornAirlines.Models.Business
     public class FlightInfo
     {
         [Display(Name = "Flight Number: ")]
-        public Int32 FlightNumber { get; set; }
+        public Int32 FlightInfoID { get; set; }
 
         [Display(Name = "Flight Time: ")]
         public String FlightTime { get; set; }

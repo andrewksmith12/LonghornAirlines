@@ -54,7 +54,7 @@
         <div class="container-fluid">
             <div class="card m-md-5 background-card">
                 <div class="card-body">
-                    @RenderSection("imageContent")
+                    @RenderSection("imageContent", required:false)
                 </div>
             </div>
         </div>
@@ -63,11 +63,12 @@
     <!-- Page Content -->
     <section class="py-5">
         <div class="container">
-            @RenderSection("pageContent")
+            @RenderSection("pageContent", required: false)
         </div>
     </section>
     <script src="~/lib/jquery/jquery.slim.min.js"></script>
     <script src="~/lib/popper.js/umd/popper.min.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

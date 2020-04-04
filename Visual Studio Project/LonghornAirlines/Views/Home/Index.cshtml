@@ -1,27 +1,104 @@
-﻿
+﻿@model LonghornAirlines.Models.ViewModels.BookingSearchModel
 @{
     ViewData["Title"] = "Index";
 }
 
 @section imageContent
 {
-   <div class="row">
+    <div class="row mt-md-4">
         <div class="col-md-9">
-            <div class="card background-card">
+            <div class="card background-card-content">
                 <div class="card-header">
                     <h3>Book your flight today!</h3>
+                    @ViewBag.Today
                 </div>
                 <div class="card-body">
-
+                    <form asp-action="BookingSearchResults" asp-controller="Home" method="get">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label asp-for="DepartCityID" class="control-label"></label>
+                                    @Html.DropDownListFor(model => model.DepartCityID, (SelectList)ViewBag.AllCities, new { @class = "form-control" })
+                                    <span asp-validation-for="DepartCityID" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label asp-for="DepartDate" class="control-label"></label>
+                                    <input type="date" id="departID" min="2020-04-15" value="ViewBag.Today" max="2020-06-30" asp-for="DepartDate" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div id="arrC" class="form-group">
+                                    <label asp-for="ArriveCityID" class="control-label"></label>
+                                    @Html.DropDownListFor(model => model.ArriveCityID, (SelectList)ViewBag.AllCities, new { @class = "form-control" })
+                                    <span asp-validation-for="ArriveCityID" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div id="arrD" class="col-6">
+                                <div class="form-group">
+                                    <label asp-for="ArriveDate" class="control-label"></label>
+                                    <input type="date" id="arriveID" min="2020-04-15" max="2020-06-30" value="ViewBag.Today" asp-for="ArriveDate" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label asp-for="PassengerCount" class="control-label"></label>
+                                    <input min=1 max=99 asp-for="PassengerCount" class="form-control" value="1"/>
+                                </div>
+                            </div>
+                            <div class="col-3"></div>
+                            <div class="col-4">
+                                <div class="form-check form-check-inline">
+                                    <input asp-for="isRoundTrip" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="false">
+                                    <label class="form-check-label" for="inlineRadio1">Single Trip</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input asp-for="isRoundTrip" class="form-check-input" type="radio" checked name="inlineRadioOptions" id="inlineRadio2" value="true">
+                                    <label class="form-check-label" for="inlineRadio2">Round Trip</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group float-md-right">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
                 </div>
             </div>
+            <div class="mt-4 card background-card-content overflow-auto" style="height: 30vh;">
+                <p>
+
+                </p>
+            </div> 
         </div>
         <div class="col-md-3 d-none d-lg-block">
-            <img class="img-fluid w-100" src="~/static/ad_beta.jpg" style="height:80vh;">
+            <img class="img-fluid w-100" src="~/static/ad_beta.jpg" style="height:75vh;">
         </div>
     </div>
 }
 @section pageContent
 {
-Wazzup
+    Wazzup
+}
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("input:radio").click(function () {
+                if ($(this).val() == "false") {
+                    $("#arrD").hide();
+                } else {
+                    $("#arrD").show();
+                }
+            });
+        });
+        
+        document.getElementById('departID').valueAsDate = new Date();
+        document.getElementById('arriveID').valueAsDate = new Date();
+    </script>
 }

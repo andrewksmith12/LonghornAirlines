@@ -15,7 +15,7 @@ namespace LonghornAirlines.Seeding
             List<FlightInfo> AllFlightInfos = new List<FlightInfo>();
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1000,
+                FlightInfoID = 1000,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 0),
                 FlightTime = "8:00",
                 BaseFare = 105.00m,
@@ -29,7 +29,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1001,
+                FlightInfoID = 1001,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 1),
                 FlightTime = "9:00",
                 BaseFare = 105.00m,
@@ -43,7 +43,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1002,
+                FlightInfoID = 1002,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 2),
                 FlightTime = "11:15",
                 BaseFare = 130.00m,
@@ -57,7 +57,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1003,
+                FlightInfoID = 1003,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 3),
                 FlightTime = "12:00",
                 BaseFare = 130.00m,
@@ -71,7 +71,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1004,
+                FlightInfoID = 1004,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 10),
                 FlightTime = "13:00",
                 BaseFare = 140.00m,
@@ -85,7 +85,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1005,
+                FlightInfoID = 1005,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 11),
                 FlightTime = "15:00",
                 BaseFare = 140.00m,
@@ -99,7 +99,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1006,
+                FlightInfoID = 1006,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 8),
                 FlightTime = "09:00",
                 BaseFare = 98.00m,
@@ -113,7 +113,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1007,
+                FlightInfoID = 1007,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 9),
                 FlightTime = "10:15",
                 BaseFare = 100.00m,
@@ -127,7 +127,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1008,
+                FlightInfoID = 1008,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 4),
                 FlightTime = "13:00",
                 BaseFare = 115.00m,
@@ -141,7 +141,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1009,
+                FlightInfoID = 1009,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 5),
                 FlightTime = "14:30",
                 BaseFare = 115.00m,
@@ -155,7 +155,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1010,
+                FlightInfoID = 1010,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 6),
                 FlightTime = "14:00",
                 BaseFare = 110.00m,
@@ -169,7 +169,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1011,
+                FlightInfoID = 1011,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 7),
                 FlightTime = "14:45",
                 BaseFare = 110.00m,
@@ -183,7 +183,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1012,
+                FlightInfoID = 1012,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 4),
                 FlightTime = "18:00",
                 BaseFare = 105.00m,
@@ -197,7 +197,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1013,
+                FlightInfoID = 1013,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 5),
                 FlightTime = "19:45",
                 BaseFare = 105.00m,
@@ -211,7 +211,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                FlightNumber = 1014,
+                FlightInfoID = 1014,
                 Route = db.Routes.FirstOrDefault(r => r.RouteID == 6),
                 FlightTime = "10:30",
                 BaseFare = 225.00m,
@@ -232,10 +232,10 @@ namespace LonghornAirlines.Seeding
                 foreach (FlightInfo seedInfo in AllFlightInfos)
                 {
                     //updates the counter to get info on where the problem is
-                    intflightInfoID = seedInfo.FlightNumber;
+                    intflightInfoID = seedInfo.FlightInfoID;
 
                     //find the genre in the database
-                    FlightInfo dbInfo = db.FlightInfos.FirstOrDefault(f => f.FlightNumber == seedInfo.FlightNumber);
+                    FlightInfo dbInfo = db.FlightInfos.FirstOrDefault(f => f.FlightInfoID == seedInfo.FlightInfoID);
 
                     if (dbInfo == null) //the genre isn't in the database
                     {

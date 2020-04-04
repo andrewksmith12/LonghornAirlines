@@ -14,10 +14,10 @@ namespace LonghornAirlines.Seeding
         {
             List<City> AllCities = new List<City>();
 
-            AllCities.Add(new City { CityID = 8001, CityName = "Austin", CityCode = "AUS", CityState = "TX" });
-            AllCities.Add(new City { CityID = 8002, CityName = "Dallas", CityCode = "DFW", CityState = "TX" });
-            AllCities.Add(new City { CityID = 8003, CityName = "Houston", CityCode = "HOU", CityState = "TX" });
-            AllCities.Add(new City { CityID = 8004, CityName = "El Paso", CityCode = "ELP", CityState = "TX" });
+            AllCities.Add(new City {CityName = "Austin", CityCode = "AUS", CityState = "TX" });
+            AllCities.Add(new City {CityName = "Dallas", CityCode = "DFW", CityState = "TX" });
+            AllCities.Add(new City {CityName = "Houston", CityCode = "HOU", CityState = "TX" });
+            AllCities.Add(new City {CityName = "El Paso", CityCode = "ELP", CityState = "TX" });
 
             //create a counter to help debug
             int intCityID = 0;

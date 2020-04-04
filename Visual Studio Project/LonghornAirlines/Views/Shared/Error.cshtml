@@ -1,0 +1,16 @@
+﻿@model IEnumerable<String>
+@section imageContent{ }
+<h1>Error</h1>
+
+<p>Oops - something went wrong.</p>
+
+@if (Model != null)
+{
+    foreach (String message in Model)
+    {
+        <p><span class="text-danger">@message</span></p>
+    }
+}
+
+<a asp-action="Index" asp-controller="Home" class="btn btn-danger">Take me home!</a>
+}

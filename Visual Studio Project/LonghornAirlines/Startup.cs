@@ -20,7 +20,7 @@ namespace LonghornAirlines
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //String connectionString = "Server=tcp:mis333ksp20.database.windows.net,1433;Initial Catalog=MIS333kSP20-102;Persist Security Info=False;User ID=MIS333kSP20102user;Password=!333Ksp201675;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            String connectionString = "Server=tcp:mis333ksp20.database.windows.net,1433;Initial Catalog=MIS333kSP20-102;Persist Security Info=False;User ID=MIS333kSP20102user;Password=!333Ksp201675;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
             services.AddIdentity<AppUser, IdentityRole>(opts =>
             {
@@ -31,7 +31,7 @@ namespace LonghornAirlines
                 opts.Password.RequireUppercase = false;
                 opts.Password.RequireDigit = false;
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
-            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
             services.AddMvc();
         }
 
