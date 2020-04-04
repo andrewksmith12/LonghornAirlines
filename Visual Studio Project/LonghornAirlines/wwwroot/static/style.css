@@ -1,5 +1,5 @@
 ﻿.masthead {
-    height: 100vh;
+    height: 95vh;
     min-height: 500px;
     background-image: url('airport-bg.jpg');
     background-size: cover;
@@ -8,4 +8,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow:hidden;
+}
+
+.background-card {
+    background-color: rgba(245, 245, 245, 1);
+    opacity: 1;
+    min-height: 80vh;
 }
