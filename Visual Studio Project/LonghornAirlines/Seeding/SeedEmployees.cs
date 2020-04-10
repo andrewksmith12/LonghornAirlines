@@ -422,7 +422,7 @@ namespace LonghornAirlines.Seeding
 
                     if (newUser == null) //the user isn't in the database
                     {
-                    //add the user
+                        newUser = new AppUser();
                         newUser.UserID = seedUser.UserID;
                         newUser.UserName = seedUser.Email;
                         newUser.Email = seedUser.Email;
