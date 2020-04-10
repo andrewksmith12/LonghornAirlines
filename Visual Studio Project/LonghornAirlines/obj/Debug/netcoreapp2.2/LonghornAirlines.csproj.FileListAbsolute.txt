@@ -35,3 +35,7 @@ C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirline
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.pdb
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.genruntimeconfig.cache
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csproj.CopyComplete
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Seed\Index.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Confirm.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
