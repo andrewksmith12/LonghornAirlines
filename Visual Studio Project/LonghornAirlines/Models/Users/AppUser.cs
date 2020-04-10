@@ -38,10 +38,19 @@ namespace LonghornAirlines.Models.Users
         public String State { get; set; }
 
         [Display(Name = "Zip Code: ")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "ZIP Code must be 5 characters")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "ZIP Code must only contain numbers")]
         public String ZIP { get; set; }
+
+        [Display(Name = "Middle Initial: ")]
+        [StringLength(0, MinimumLength = 1, ErrorMessage = "Middle Initial must be between 0 and 1 characters")]
+        public String MI { get; set; }
 
         [Display(Name = "Active")]
         public Boolean isActive { get; set; }
+
+        [Display(Name = "Social Security Number")]
+        public String SSN { get; set; }
         
         //Navigation Properties
         [Display(Name = "Reservation IDs: ")]

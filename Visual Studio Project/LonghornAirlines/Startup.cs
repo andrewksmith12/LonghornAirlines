@@ -25,7 +25,7 @@ namespace LonghornAirlines
             services.AddIdentity<AppUser, IdentityRole>(opts =>
             {
                 opts.User.RequireUniqueEmail = false;
-                opts.Password.RequiredLength = 6;
+                opts.Password.RequiredLength = 3;
                 opts.Password.RequireNonAlphanumeric = false;
                 opts.Password.RequireLowercase = false;
                 opts.Password.RequireUppercase = false;
@@ -49,7 +49,7 @@ namespace LonghornAirlines
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });
             });
-            //Seeding.SeedEmployees.AddEmployees(service).Wait();
+            //Seeding.SeedCustomers.AddCustomers(service).Wait();
         }
     }
 }

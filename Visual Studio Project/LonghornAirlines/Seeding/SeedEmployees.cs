@@ -8,7 +8,7 @@ using LonghornAirlines.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-//TODO: Debug why this isn't working. 
+//Seeded as of 4/10/2020 
 
 namespace LonghornAirlines.Seeding
 {
@@ -34,7 +34,9 @@ namespace LonghornAirlines.Seeding
                 Email = "t.jacobs@longhornairlines.neet",
                 Phone = "4694653365",
                 EmpType = "Agent",
-                Password = "society"
+                Password = "society",
+                MI = "L",
+                SSN = "341553365"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -48,7 +50,9 @@ namespace LonghornAirlines.Seeding
                 Email = "e.rice@longhornairlines.neet",
                 Phone = "4693876657",
                 EmpType = "Manager",
-                Password = "ricearoni"
+                Password = "ricearoni",
+                MI = "M",
+                SSN = "454776657"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -62,7 +66,9 @@ namespace LonghornAirlines.Seeding
                 Email = "b.ingram@longhornairlines.neet",
                 Phone = "4694678821",
                 EmpType = "Pilot",
-                Password = "ingram45"
+                Password = "ingram45",
+                MI = "S",
+                SSN = "797348821"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -76,7 +82,9 @@ namespace LonghornAirlines.Seeding
                 Email = "a.taylor@longhornairlines.neet",
                 Phone = "4694748452",
                 EmpType = "Agent",
-                Password = "nostalgic"
+                Password = "nostalgic",
+                MI = "R",
+                SSN = "934778452"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -90,7 +98,9 @@ namespace LonghornAirlines.Seeding
                 Email = "g.martinez@longhornairlines.neet",
                 Phone = "5128746718",
                 EmpType = "Co-Pilot",
-                Password = "fungus"
+                Password = "fungus",
+                MI = "R",
+                SSN = "463566718"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -104,7 +114,9 @@ namespace LonghornAirlines.Seeding
                 Email = "m.sheffield@longhornairlines.neet",
                 Phone = "4695479167",
                 EmpType = "Agent",
-                Password = "longhorns"
+                Password = "longhorns",
+                MI = "J",
+                SSN = "223449167"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -118,7 +130,9 @@ namespace LonghornAirlines.Seeding
                 Email = "j.macleod@longhornairlines.neet",
                 Phone = "2814748138",
                 EmpType = "Agent",
-                Password = "smitty"
+                Password = "smitty",
+                MI = "D",
+                SSN = "775908138"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -132,7 +146,9 @@ namespace LonghornAirlines.Seeding
                 Email = "j.tanner@longhornairlines.neet",
                 Phone = "5124590929",
                 EmpType = "Agent",
-                Password = "tanman"
+                Password = "tanman",
+                MI = "S",
+                SSN = "904440929"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -146,7 +162,9 @@ namespace LonghornAirlines.Seeding
                 Email = "m.rhodes@longhornairlines.neet",
                 Phone = "4693744746",
                 EmpType = "Flight Attendant",
-                Password = "countryrhodes"
+                Password = "countryrhodes",
+                MI = "C",
+                SSN = "353904746"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -160,7 +178,9 @@ namespace LonghornAirlines.Seeding
                 Email = "e.stuart@longhornairlines.neet",
                 Phone = "5128178335",
                 EmpType = "Agent",
-                Password = "stewboy"
+                Password = "stewboy",
+                MI = "F",
+                SSN = "363998335"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -174,7 +194,9 @@ namespace LonghornAirlines.Seeding
                 Email = "c.miller@longhornairlines.neet",
                 Phone = "9157458615",
                 EmpType = "Agent",
-                Password = "squirrel"
+                Password = "squirrel",
+                MI = "R",
+                SSN = "353308615"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -188,7 +210,9 @@ namespace LonghornAirlines.Seeding
                 Email = "r.taylor@longhornairlines.neet",
                 Phone = "2814512631",
                 EmpType = "Manager",
-                Password = "swansong"
+                Password = "swansong",
+                MI = "O",
+                SSN = "393412631"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -202,7 +226,9 @@ namespace LonghornAirlines.Seeding
                 Email = "v.lawrence@longhornairlines.neet",
                 Phone = "2819457399",
                 EmpType = "Agent",
-                Password = "lottery"
+                Password = "lottery",
+                MI = "Y",
+                SSN = "770097399"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -216,7 +242,9 @@ namespace LonghornAirlines.Seeding
                 Email = "a.rogers@longhornairlines.neet",
                 Phone = "4698752943",
                 EmpType = "Manager",
-                Password = "evanescent"
+                Password = "evanescent",
+                MI = "H",
+                SSN = "700002943"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -230,7 +258,9 @@ namespace LonghornAirlines.Seeding
                 Email = "e.markham@longhornairlines.neet",
                 Phone = "5124579845",
                 EmpType = "Agent",
-                Password = "monty3"
+                Password = "monty3",
+                MI = "K",
+                SSN = "101529845"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -244,7 +274,9 @@ namespace LonghornAirlines.Seeding
                 Email = "c.baker@longhornairlines.neet",
                 Phone = "5125571146",
                 EmpType = "Flight Attendant",
-                Password = "hecktour"
+                Password = "hecktour",
+                MI = "E",
+                SSN = "401661146"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -258,7 +290,9 @@ namespace LonghornAirlines.Seeding
                 Email = "s.saunders@longhornairlines.neet",
                 Phone = "5123497810",
                 EmpType = "Agent",
-                Password = "rankmary"
+                Password = "rankmary",
+                MI = "M",
+                SSN = "500987810"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -272,7 +306,9 @@ namespace LonghornAirlines.Seeding
                 Email = "w.sewell@longhornairlines.neet",
                 Phone = "5124510084",
                 EmpType = "Manager",
-                Password = "walkamile"
+                Password = "walkamile",
+                MI = "G",
+                SSN = "500830084"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -286,7 +322,9 @@ namespace LonghornAirlines.Seeding
                 Email = "j.mason@longhornairlines.neet",
                 Phone = "2818833432",
                 EmpType = "Flight Attendant",
-                Password = "changalang"
+                Password = "changalang",
+                MI = "L",
+                SSN = "1112223232"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -300,7 +338,9 @@ namespace LonghornAirlines.Seeding
                 Email = "j.jackson@longhornairlines.neet",
                 Phone = "2815554545",
                 EmpType = "Co-Pilot",
-                Password = "offbeat"
+                Password = "offbeat",
+                MI = "J",
+                SSN = "8889993434"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -314,7 +354,9 @@ namespace LonghornAirlines.Seeding
                 Email = "m.nguyen@longhornairlines.neet",
                 Phone = "4695524141",
                 EmpType = "Pilot",
-                Password = "landus"
+                Password = "landus",
+                MI = "J",
+                SSN = "7776665555"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -328,7 +370,9 @@ namespace LonghornAirlines.Seeding
                 Email = "s.barnes@longhornairlines.neet",
                 Phone = "2816662323",
                 EmpType = "Flight Attendant",
-                Password = "rhythm"
+                Password = "rhythm",
+                MI = "M",
+                SSN = "1112221212"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -342,7 +386,9 @@ namespace LonghornAirlines.Seeding
                 Email = "l.jones@longhornairlines.neet",
                 Phone = "2816662222",
                 EmpType = "Co-Pilot",
-                Password = "kindly"
+                Password = "kindly",
+                MI = "L",
+                SSN = "9099099999"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -356,7 +402,9 @@ namespace LonghornAirlines.Seeding
                 Email = "h.garcia@longhornairlines.neet",
                 Phone = "2811114444",
                 EmpType = "Pilot",
-                Password = "instrument"
+                Password = "instrument",
+                MI = "W",
+                SSN = "4445554343"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -370,7 +418,9 @@ namespace LonghornAirlines.Seeding
                 Email = "c.silva@longhornairlines.neet",
                 Phone = "5121113333",
                 EmpType = "Flight Attendant",
-                Password = "arched"
+                Password = "arched",
+                MI = "S",
+                SSN = "7776661111"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -384,7 +434,9 @@ namespace LonghornAirlines.Seeding
                 Email = "m.lopez@longhornairlines.neet",
                 Phone = "5124442222",
                 EmpType = "Co-Pilot",
-                Password = "median"
+                Password = "median",
+                MI = "T",
+                SSN = "2223332222"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -398,7 +450,9 @@ namespace LonghornAirlines.Seeding
                 Email = "b.larson@longhornairlines.neet",
                 Phone = "2815554444",
                 EmpType = "Pilot",
-                Password = "approval"
+                Password = "approval",
+                MI = "B",
+                SSN = "5554443333"
             });
             EmployeesList.Add(new SeedUserModel
             {
@@ -412,45 +466,51 @@ namespace LonghornAirlines.Seeding
                 Email = "s.rankin@longhornairlines.neet",
                 Phone = "4693336666",
                 EmpType = "Flight Attendant",
-                Password = "decorate"
+                Password = "decorate",
+                MI = "R",
+                SSN = "1911919111"
             });
 
-                foreach (SeedUserModel seedUser in EmployeesList)
+
+            foreach (SeedUserModel seedUser in EmployeesList)
+            {
+                //Check if user is in database
+                AppUser newUser = _db.Users.FirstOrDefault(u => u.Email == seedUser.Email);
+
+                if (newUser == null) //the user isn't in the database
                 {
-                    //Check if user is in database
-                    AppUser newUser = _db.Users.FirstOrDefault(u => u.Email == seedUser.Email);
+                    newUser = new AppUser();
+                    newUser.UserID = seedUser.UserID;
+                    newUser.UserName = seedUser.Email;
+                    newUser.Email = seedUser.Email;
+                    newUser.FirstName = seedUser.FirstName;
+                    newUser.LastName = seedUser.LastName;
+                    newUser.Street = seedUser.Street;
+                    newUser.City = seedUser.City;
+                    newUser.ZIP = seedUser.ZIP;
+                    newUser.PhoneNumber = seedUser.Phone;
+                    newUser.MI = seedUser.MI;
+                    newUser.SSN = seedUser.SSN;
+                    newUser.isActive = true;
 
-                    if (newUser == null) //the user isn't in the database
+                    var result = await _userManager.CreateAsync(newUser, seedUser.Password);
+                    if (result.Succeeded == false)
                     {
-                        newUser = new AppUser();
-                        newUser.UserID = seedUser.UserID;
-                        newUser.UserName = seedUser.Email;
-                        newUser.Email = seedUser.Email;
-                        newUser.FirstName = seedUser.FirstName;
-                        newUser.LastName = seedUser.LastName;
-                        newUser.Street = seedUser.Street;
-                        newUser.City = seedUser.City;
-                        newUser.ZIP = seedUser.ZIP;
-                        newUser.PhoneNumber = seedUser.Phone;
-
-                        var result = await _userManager.CreateAsync(newUser, seedUser.Password);
-                        if (result.Succeeded == false)
-                        {
-                            throw new Exception("This user can't be added - " + result.ToString());
-                        }
-                        _db.SaveChanges();
-                        newUser = _db.Users.FirstOrDefault(u => u.UserName == seedUser.Email);
-                        if (await _userManager.IsInRoleAsync(newUser, "Employee") == false)
-                        {
-                            await _userManager.AddToRoleAsync(newUser, "Employee");
-                        }
-                        if (await _userManager.IsInRoleAsync(newUser, seedUser.EmpType) == false)
-                        {
-                            await _userManager.AddToRoleAsync(newUser, seedUser.EmpType);
-                        }
-                        _db.SaveChanges();
+                        throw new Exception("This user can't be added - " + result.ToString());
                     }
+                    _db.SaveChanges();
+                    newUser = _db.Users.FirstOrDefault(u => u.UserName == seedUser.Email);
+                    if (await _userManager.IsInRoleAsync(newUser, "Employee") == false)
+                    {
+                        await _userManager.AddToRoleAsync(newUser, "Employee");
+                    }
+                    if (await _userManager.IsInRoleAsync(newUser, seedUser.EmpType) == false)
+                    {
+                        await _userManager.AddToRoleAsync(newUser, seedUser.EmpType);
+                    }
+                    _db.SaveChanges();
                 }
             }
         }
+    }
 }

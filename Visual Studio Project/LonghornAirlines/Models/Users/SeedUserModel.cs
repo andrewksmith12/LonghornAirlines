@@ -10,7 +10,7 @@ namespace LonghornAirlines.Models.Users
         public Int32 UserID { get; set; }
         public String FirstName { get; set; }
         public String LastName { get; set; }
-        public DateTime Birthday { get; set; }
+        public DateTime BDay { get; set; }
         public Decimal Mileage { get; set; }
         public String AdvantageNumber { get; set; }
         public String Street { get; set; }
@@ -22,5 +22,8 @@ namespace LonghornAirlines.Models.Users
         public String EmpType { get; set; }
         public String Phone { get; set; }
         public String Email { get; set; }
+        public String SSN { get; set; }
+        public String MI { get; set; }
+        public Decimal Miles { get; set; }
     }
 }
