@@ -36,7 +36,7 @@ namespace LonghornAirlines
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider service)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
@@ -49,7 +49,6 @@ namespace LonghornAirlines
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });
             });
-            //Seeding.SeedCustomers.AddCustomers(service).Wait();
         }
     }
 }
