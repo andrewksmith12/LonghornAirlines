@@ -38,5 +38,20 @@ namespace LonghornAirlines.Controllers
 
             return View("Confirm");
         }
+        public IActionResult SeedRoles(IServiceProvider service)
+        {
+            Seeding.SeedRoles.AddRoles(service).Wait();
+            return View("Confirm");
+        }
+        public IActionResult SeedCustomers(IServiceProvider service)
+        {
+            Seeding.SeedCustomers.AddCustomers(service).Wait();
+            return View("Confirm");
+        }
+        public IActionResult SeedEmployeess(IServiceProvider service)
+        {
+            Seeding.SeedEmployees.AddEmployees(service).Wait();
+            return View("Confirm");
+        }
     }
 }
