@@ -30,7 +30,55 @@ namespace LonghornAirlines.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error", new String[] { "There was an error adding genres to the database",
+                return View("Error", new String[] { "There was an error adding cities to the database",
+                                                    ex.Message,
+                                                    ex.InnerException.Message,
+                                                    ex.InnerException.InnerException.Message});
+            }
+
+            return View("Confirm");
+        }
+        public IActionResult SeedRoutes()
+        {
+            try
+            {
+                Seeding.SeedRoutes.SeedAllRoutes(_db);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new String[] { "There was an error adding routes to the database",
+                                                    ex.Message,
+                                                    ex.InnerException.Message,
+                                                    ex.InnerException.InnerException.Message});
+            }
+
+            return View("Confirm");
+        }
+        public IActionResult SeedFlightInfos()
+        {
+            try
+            {
+                Seeding.SeedFlightInfos.SeedAllFlightInfos(_db);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new String[] { "There was an error adding flight infos to the database",
+                                                    ex.Message,
+                                                    ex.InnerException.Message,
+                                                    ex.InnerException.InnerException.Message});
+            }
+
+            return View("Confirm");
+        }
+        public IActionResult SeedFlights()
+        {
+            try
+            {
+                Seeding.SeedFlights.SeedAllFlights(_db);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new String[] { "There was an error adding flights to the database",
                                                     ex.Message,
                                                     ex.InnerException.Message,
                                                     ex.InnerException.InnerException.Message});

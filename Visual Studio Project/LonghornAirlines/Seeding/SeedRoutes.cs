@@ -16,7 +16,6 @@ namespace LonghornAirlines.Seeding
             //AUS -> DFW
             AllRoutes.Add(new Route
             {
-                RouteID = 0,
                 Distance = 190,
                 FlightTime = 55,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "AUS"),
@@ -25,7 +24,6 @@ namespace LonghornAirlines.Seeding
             //DFW -> AUS
             AllRoutes.Add(new Route
             {
-                RouteID = 1,
                 Distance = 190,
                 FlightTime = 55,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "DFW"),
@@ -35,7 +33,6 @@ namespace LonghornAirlines.Seeding
             //AUS -> HOU
             AllRoutes.Add(new Route
             {
-                RouteID = 2,
                 Distance = 148,
                 FlightTime = 60,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "AUS"),
@@ -44,7 +41,6 @@ namespace LonghornAirlines.Seeding
             //HOU -> AUS
             AllRoutes.Add(new Route
             {
-                RouteID = 3,
                 Distance = 148,
                 FlightTime = 60,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "HOU"),
@@ -54,7 +50,6 @@ namespace LonghornAirlines.Seeding
             //AUS -> ELP
             AllRoutes.Add(new Route
             {
-                RouteID = 4,
                 Distance = 527,
                 FlightTime = 100,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "AUS"),
@@ -63,7 +58,6 @@ namespace LonghornAirlines.Seeding
             //ELP -> AUS
             AllRoutes.Add(new Route
             {
-                RouteID = 5,
                 Distance = 527,
                 FlightTime = 100,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "ELP"),
@@ -73,7 +67,6 @@ namespace LonghornAirlines.Seeding
             //DFW -> HOU
             AllRoutes.Add(new Route
             {
-                RouteID = 6,
                 Distance = 224,
                 FlightTime = 73,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "DFW"),
@@ -82,7 +75,6 @@ namespace LonghornAirlines.Seeding
             //HOU -> DFW
             AllRoutes.Add(new Route
             {
-                RouteID = 7,
                 Distance = 527,
                 FlightTime = 100,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "HOU"),
@@ -92,7 +84,6 @@ namespace LonghornAirlines.Seeding
             //DFW -> ELP
             AllRoutes.Add(new Route
             {
-                RouteID = 8,
                 Distance = 551,
                 FlightTime = 113,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "DFW"),
@@ -101,7 +92,6 @@ namespace LonghornAirlines.Seeding
             //ELP -> DFW
             AllRoutes.Add(new Route
             {
-                RouteID = 9,
                 Distance = 551,
                 FlightTime = 113,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "ELP"),
@@ -111,7 +101,6 @@ namespace LonghornAirlines.Seeding
             //HOU -> ELP
             AllRoutes.Add(new Route
             {
-                RouteID = 10,
                 Distance = 667,
                 FlightTime = 129,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "HOU"),
@@ -120,7 +109,6 @@ namespace LonghornAirlines.Seeding
             //ELP -> HOU
             AllRoutes.Add(new Route
             {
-                RouteID = 11,
                 Distance = 667,
                 FlightTime = 129,
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "ELP"),
@@ -134,18 +122,19 @@ namespace LonghornAirlines.Seeding
             {
                 foreach (Route seedRoute in AllRoutes)
                 {
-                    //updates the counter to get info on where the problem is
-                    intRouteID = seedRoute.RouteID;
 
                     //find the genre in the database
                     Route dbRoute = db.Routes.FirstOrDefault(r => r.RouteID == intRouteID);
 
-                    if (dbRoute == null) //the genre isn't in the database
+                    if (dbRoute == null) //the route isn't in the database
                     {
-                        //add the genre
+                        //add the route
                         db.Routes.Add(seedRoute);
                         db.SaveChanges();
                     }
+
+                    //updates the counter to get info on where the problem is
+                    intRouteID++;
                 }
             }
             catch (Exception ex)
