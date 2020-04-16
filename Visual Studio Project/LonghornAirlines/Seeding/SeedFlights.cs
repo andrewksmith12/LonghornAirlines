@@ -36,7 +36,7 @@ namespace LonghornAirlines.Seeding
                         int weekDay = i;
                         int startWeekDay = Convert.ToInt32(startDate.DayOfWeek);
 
-                        DateTime flightDate = startDate.AddDays(startWeekDay - weekDay);
+                        DateTime flightDate = startDate.AddDays(weekDay - startWeekDay);
                         if (weekDay >= startWeekDay)
                         {
                             //Adds the flight for the first week
@@ -47,7 +47,7 @@ namespace LonghornAirlines.Seeding
                             };
                             AllFlights.Add(tempFlight);
                         }
-                        flightDate = startDate.AddDays(7);
+                        flightDate = flightDate.AddDays(7);
                         //Adds flights for all weeks after first week
                         while (flightDate <= endDate)
                         {
