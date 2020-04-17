@@ -13,6 +13,7 @@ namespace LonghornAirlines.Models.Business
         public Int32 FlightID { get; set; }
 
         [Display(Name = "Date: ")]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime Date { get; set; }
 
         [Display(Name = "Departed")]
