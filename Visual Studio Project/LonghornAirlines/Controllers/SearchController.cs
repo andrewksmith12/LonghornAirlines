@@ -28,7 +28,8 @@ namespace LonghornAirlines.Controllers
             {
                 //If its one-way
                 query = query.Where(f => f.Date.Date == bookingSearchModel.DepartDate.Date);
-                query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == bookingSearchModel.ArriveCityID || f.FlightInfo.Route.CityTo.CityID == bookingSearchModel.DepartCityID);
+                query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == bookingSearchModel.DepartCityID);
+                query = query.Where(f => f.FlightInfo.Route.CityTo.CityID == bookingSearchModel.ArriveCityID);
             }
             return View("FlightResults", query.Include(f => f.FlightInfo).ToList());
         }
