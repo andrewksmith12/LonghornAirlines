@@ -101,5 +101,10 @@ namespace LonghornAirlines.Controllers
             Seeding.SeedEmployees.AddEmployees(service).Wait();
             return View("Confirm");
         }
+        public IActionResult SeedAdmin(IServiceProvider service)
+        {
+            Seeding.SeedAdminUser.SeedAdmin(service).Wait();
+            return View("Confirm");
+        }
     }
 }

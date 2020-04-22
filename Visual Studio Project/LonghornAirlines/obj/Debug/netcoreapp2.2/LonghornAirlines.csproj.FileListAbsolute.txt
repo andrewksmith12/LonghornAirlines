@@ -71,3 +71,14 @@ C:\Users\Nalakava\Source\Repos\333kteam\Visual Studio Project\LonghornAirlines\o
 C:\Users\Nalakava\Source\Repos\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.dll
 C:\Users\Nalakava\Source\Repos\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.pdb
 C:\Users\Nalakava\Source\Repos\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csproj.CopyComplete
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csprojAssemblyReference.cache
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Search\FlightResults.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Account\ChangePassword.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Account\Index.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Account\Register.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\RoleAdmin\Create.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\RoleAdmin\Edit.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\RoleAdmin\Index.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Home\Support.cshtml.g.cs

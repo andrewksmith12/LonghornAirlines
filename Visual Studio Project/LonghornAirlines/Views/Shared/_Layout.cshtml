@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -7,12 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewBag.Title</title>
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet"/>
-    <link href="~/static/style.css" rel="stylesheet"/>
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/static/style.css" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar navbar-expand-md" style="background-color: RGB(253,216,71)">
-        <a class="navbar-brand" style="color:white" href="#">
+        <a class="navbar-brand" style="color:white" href="/Home">
             Longhorn Airlines
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -29,22 +32,27 @@
                     Reservations
                 </li>
             </ul>
-            @if (@ViewBag.isAuthenticated == true)
+            @if (User.Identity.IsAuthenticated)
             {
                 <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Dropdown link
+                        Welcome @User.Identity.Name!
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">My Account</a>
-                        <a class="dropdown-item" href="#">Support</a>
-                        <a class="dropdown-item" href="#">Log Out</a>
+                        <a asp-action="Index" asp-controller="Account" title="Manage" class="dropdown-item">My Account</a>
+                        <a class="dropdown-item" href="">Support</a>
+                        <form asp-action="LogOff" asp-controller="Account" method="post" id="logoutForm" class="navbar-right" )>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()"><span class="dropdown-item">Log Off</span></a></li>
+                            </ul>
+                        </form>
                     </div>
                 </div>
             }
             else
             {
-                <button class="btn btn-outline-light my-2 my-sm-0" type="button">Log In</button>
+                <a asp-action="Login" asp-controller="Account" class="btn btn-outline-light my-2 my-sm-0" style="margin:5px" type="button">Log In</a>
+                <a asp-action="Register" asp-controller="Account" class="btn btn-outline-light my-2 my-sm-0" style="margin:5px" type="button">Register</a>
             }
 
         </div>
@@ -54,7 +62,8 @@
         <div class="container-fluid">
             <div class="card m-md-5 background-card">
                 <div class="card-body">
-                    @RenderSection("imageContent", required:false)
+                    @RenderSection("imageContent", required: false)
+                    @RenderBody()
                 </div>
             </div>
         </div>

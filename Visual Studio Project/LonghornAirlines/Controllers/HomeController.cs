@@ -30,5 +30,9 @@ namespace LonghornAirlines.Controllers
 
             return new SelectList(cityList.OrderBy(c => c.CityID), "CityID", "CityName");
         }
+        public IActionResult Support()
+        {
+            return View("Support");
+        }
     }
 }

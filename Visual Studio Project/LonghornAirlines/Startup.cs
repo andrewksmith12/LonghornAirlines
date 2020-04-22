@@ -20,7 +20,7 @@ namespace LonghornAirlines
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            String connectionString = "Server=tcp:mis333ksp20.database.windows.net,1433;Initial Catalog=MIS333kSP20-102;Persist Security Info=False;User ID=MIS333kSP20102user;Password=!333Ksp201675;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            String connectionString = "Server=tcp:mis333ksp20.database.windows.net,1433;Initial Catalog=MIS333kSP20-102;Persist Security Info=False;User ID=MIS333kSP20102user;Password=!333Ksp201675;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
             services.AddIdentity<AppUser, IdentityRole>(opts =>
             {
@@ -36,7 +36,7 @@ namespace LonghornAirlines
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider service)
         {
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
@@ -49,6 +49,7 @@ namespace LonghornAirlines
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });
             });
+            //Seeding.SeedAdminUser.SeedAdmin(service).Wait();
         }
     }
 }
