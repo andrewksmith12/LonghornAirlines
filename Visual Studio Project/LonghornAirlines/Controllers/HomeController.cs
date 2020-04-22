@@ -34,5 +34,14 @@ namespace LonghornAirlines.Controllers
         {
             return View("Support");
         }
+
+        /*public IActionResult ConfirmReservation(Int32 confirmationNumber)
+        {
+            var query = from r in _db.Reservations
+                        select r;
+            query = query.Where(Reservation.ReservationID == confirmationNumber);
+
+            return View("ReservationConfirmation", query.Include(r => r.Tickets.ToList()));
+        }*/
     }
 }

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aksmith\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj": {}
+    "C:\\Users\\danal\\OneDrive\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj": {}
   },
   "projects": {
-    "C:\\Users\\aksmith\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj": {
+    "C:\\Users\\danal\\OneDrive\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aksmith\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj",
+        "projectUniqueName": "C:\\Users\\danal\\OneDrive\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj",
         "projectName": "LonghornAirlines",
-        "projectPath": "C:\\Users\\aksmith\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj",
-        "packagesPath": "C:\\Users\\aksmith\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aksmith\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\obj\\",
+        "projectPath": "C:\\Users\\danal\\OneDrive\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj",
+        "packagesPath": "C:\\Users\\danal\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danal\\OneDrive\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\aksmith\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\danal\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -73,7 +73,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
