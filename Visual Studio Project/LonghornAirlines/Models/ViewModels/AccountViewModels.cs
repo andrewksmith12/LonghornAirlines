@@ -28,6 +28,40 @@ namespace LonghornAirlines.Models.Users
         [Display(Name = "First Name")]
         public String FirstName { get; set; }
 
+        [Required]
+        [Display(Name = "Last Name: ")]
+        public String LastName { get; set; }
+
+        [Display(Name = "Middle Initial: ")]
+        [StringLength(1, MinimumLength = 0, ErrorMessage = "Middle Initial must be between 0 and 1 characters")]
+        public String MI { get; set; }
+
+        [Required]
+        [Display(Name = "Birthday: ")]
+        public DateTime Birthday { get; set; }
+
+        [Required]
+        [Display(Name = "Advantage Number: ")]
+        public String AdvantageNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Street: ")]
+        public String Street { get; set; }
+
+        [Required]
+        [Display(Name = "City: ")]
+        public String City { get; set; }
+
+        [Required]
+        [Display(Name = "State: ")]
+        public String State { get; set; }
+
+        [Required]
+        [Display(Name = "Zip Code: ")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "ZIP Code must be 5 characters")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "ZIP Code must only contain numbers")]
+        public String ZIP { get; set; }
+
         //NOTE: Here is the property for email
         [Required]
         [EmailAddress]
@@ -40,6 +74,12 @@ namespace LonghornAirlines.Models.Users
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
+        [Display(Name = "Social Security Number")]
+        public String SSN { get; set; }
+
+        [Display(Name = "Enter the employee's Role (Must exist in db)")]
+        public String Role { get; set; }
+
         //NOTE: Here is the logic for putting in a password
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -47,11 +87,13 @@ namespace LonghornAirlines.Models.Users
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
     public class ChangePasswordViewModel
     {
         [Required]

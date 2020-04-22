@@ -47,7 +47,17 @@ namespace LonghornAirlines.Controllers
                     //TODO: Add the rest of the custom user fields here
                     UserName = model.Email,
                     Email = model.Email,
-                    FirstName = model.FirstName
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Birthday = model.Birthday,
+                    PhoneNumber = model.PhoneNumber,
+                    ZIP = model.ZIP,
+                    State = model.State,
+                    Street = model.Street,
+                    City = model.City,
+                    AdvantageNumber = model.AdvantageNumber,
+                    UserID = Convert.ToInt32(model.AdvantageNumber),
+                    Mileage = 0
                 };
 
                 IdentityResult result = await _userManager.CreateAsync(user, model.Password);
@@ -69,6 +79,62 @@ namespace LonghornAirlines.Controllers
             }
             return View(model);
         }
+
+
+
+        // GET: /Account/RegisterEmployee
+        [Authorize(Roles = "Admin")]
+        public ActionResult RegisterEmployee()
+        {
+            return View();
+        }
+
+        // POST: /Account/RegisterEmployee
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterEmployee(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = new AppUser
+                {
+                    //TODO: Add the rest of the custom user fields here
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Birthday = model.Birthday,
+                    PhoneNumber = model.PhoneNumber,
+                    ZIP = model.ZIP,
+                    State = model.State,
+                    Street = model.Street,
+                    City = model.City,
+                    UserID = Convert.ToInt32(model.AdvantageNumber),
+                    SSN = model.SSN
+                };
+
+                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    //TODO: Add user to desired role. This example adds the user to the customer role
+                    await _userManager.AddToRoleAsync(user, "Employee");
+                    await _userManager.AddToRoleAsync(user, model.Role);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            return View(model);
+        }
+
+
+
 
         // GET: /Account/Login
         [AllowAnonymous]
@@ -180,6 +246,5 @@ namespace LonghornAirlines.Controllers
                 ModelState.AddModelError("", error.Description);
             }
         }
-
     }
 }

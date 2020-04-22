@@ -63,7 +63,6 @@
             <div class="card m-md-5 background-card">
                 <div class="card-body">
                     @RenderSection("imageContent", required: false)
-                    @RenderBody()
                 </div>
             </div>
         </div>
@@ -73,6 +72,7 @@
     <section class="py-5">
         <div class="container">
             @RenderSection("pageContent", required: false)
+            @RenderBody()
         </div>
     </section>
     <script src="~/lib/jquery/jquery.slim.min.js"></script>
