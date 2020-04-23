@@ -19,6 +19,8 @@ namespace LonghornAirlines.Controllers
         }
         public IActionResult FlightResults(BookingSearchModel bookingSearchModel)
         {
+            ViewBag.CityToName = _db.Cities.FirstOrDefault(c => c.CityID == bookingSearchModel.ArriveCityID).CityName;
+            ViewBag.CityFromName = _db.Cities.FirstOrDefault(c => c.CityID == bookingSearchModel.DepartCityID).CityName;
             var query = from f in _db.Flights
                         select f;
 
@@ -42,7 +44,11 @@ namespace LonghornAirlines.Controllers
                     query = query.Append(f);
                 }
             }
-            return View("FlightResults", query.Include(f => f.FlightInfo).ToList());
+            return View("FlightResults", query.Include(f => f.FlightInfo)
+                .Include(f => f.FlightInfo.Route)
+                .Include(f => f.FlightInfo.Route.CityFrom)
+                .Include(f => f.FlightInfo.Route.CityTo)
+                .ToList());
         }
     }
 }

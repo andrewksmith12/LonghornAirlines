@@ -8,6 +8,7 @@
     <h1>View</h1>
 
     <p>
+        From @ViewBag.CityFromName To @ViewBag.CityToName
         <a asp-action="Create">Create New</a>
     </p>
     <table class="table">
@@ -20,7 +21,7 @@
                     @Html.DisplayNameFor(model => model.Date)
                 </th>
                 <th>
-                    From
+                    From 
                 </th>
                 <th>
                     To
@@ -48,10 +49,10 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    Routes Model Issue
+                    @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityFrom.CityCode)
                 </td>
                 <td>
-                    Routes
+                    @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityTo.CityCode)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.hasDeparted)
