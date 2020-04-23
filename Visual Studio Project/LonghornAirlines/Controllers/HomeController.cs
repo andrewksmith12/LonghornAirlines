@@ -8,6 +8,7 @@ using LonghornAirlines.Models.Business;
 using LonghornAirlines.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace LonghornAirlines.Controllers
 {
@@ -35,13 +36,13 @@ namespace LonghornAirlines.Controllers
             return View("Support");
         }
 
-        /*public IActionResult ConfirmReservation(Int32 confirmationNumber)
+        public IActionResult ConfirmReservation(Int32 confirmationNumber)
         {
             var query = from r in _db.Reservations
                         select r;
-            query = query.Where(Reservation.ReservationID == confirmationNumber);
+            query = query.Where(r => r.ReservationID == confirmationNumber);
 
-            return View("ReservationConfirmation", query.Include(r => r.Tickets.ToList()));
-        }*/
+            return View("ReservationConfirmation", query.Include(r => r.Tickets).ToList());
+        }
     }
 }

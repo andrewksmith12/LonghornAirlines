@@ -12949,23 +12949,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danal\\.nuget\\packages\\": {},
+    "C:\\Users\\theno\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danal\\OneDrive\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj",
+      "projectUniqueName": "C:\\Users\\theno\\Documents\\Noah\\College\\Academic\\1Senior\\5 - MIS333K\\Project\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj",
       "projectName": "LonghornAirlines",
-      "projectPath": "C:\\Users\\danal\\OneDrive\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj",
-      "packagesPath": "C:\\Users\\danal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danal\\OneDrive\\Documents\\GitHub\\333kteam\\Visual Studio Project\\LonghornAirlines\\obj\\",
+      "projectPath": "C:\\Users\\theno\\Documents\\Noah\\College\\Academic\\1Senior\\5 - MIS333K\\Project\\333kteam\\Visual Studio Project\\LonghornAirlines\\LonghornAirlines.csproj",
+      "packagesPath": "C:\\Users\\theno\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\theno\\Documents\\Noah\\College\\Academic\\1Senior\\5 - MIS333K\\Project\\333kteam\\Visual Studio Project\\LonghornAirlines\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\danal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\theno\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
