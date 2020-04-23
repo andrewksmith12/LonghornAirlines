@@ -7,10 +7,9 @@
 {
     <h1>View</h1>
 
-    <p>
+    <h4>
         From @ViewBag.CityFromName To @ViewBag.CityToName
-        <a asp-action="Create">Create New</a>
-    </p>
+    </h4>
     <table class="table">
         <thead>
             <tr>
@@ -27,10 +26,10 @@
                     To
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.hasDeparted)
+                    Economy
                 </th>
                 <th>
-                    Fare
+                    First Class
                 </th>
                 <th>
                     Flight Time
@@ -55,19 +54,15 @@
                     @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityTo.CityCode)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.hasDeparted)
+                    @item.FlightInfo.BaseFare
                 </td>
                 <td>
-                    @item.FlightInfo.BaseFare
+                    
                 </td>
                 <td>
                     @item.FlightInfo.FlightTime
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.FlightID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.FlightID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.FlightID">Delete</a>
-                </td>
+
             </tr>
             }
         </tbody>
