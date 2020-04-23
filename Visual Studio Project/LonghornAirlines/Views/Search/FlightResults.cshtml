@@ -23,7 +23,16 @@
                     Departure
                 </th>
                 <th>
+                    Arrival
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.hasDeparted)
+                </th>
+                <th>
+                    Fare
+                </th>
+                <th>
+                    Flight Time
                 </th>
                 <th></th>
             </tr>
@@ -39,13 +48,19 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @item.FlightInfo.FlightTime
+                    @item.FlightInfo.Route.CityFrom.CityName
+                </td>
+                <td>
+                    @item.FlightInfo.Route.CityTo.CityName
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.hasDeparted)
                 </td>
                 <td>
                     @item.FlightInfo.BaseFare
+                </td>
+                <td>
+                    @item.FlightInfo.FlightTime
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.FlightID">Edit</a> |

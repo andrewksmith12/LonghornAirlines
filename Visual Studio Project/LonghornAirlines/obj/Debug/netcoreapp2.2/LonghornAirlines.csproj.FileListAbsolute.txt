@@ -84,7 +84,6 @@ C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirline
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Home\Support.cshtml.g.cs
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Account\View.cshtml.g.cs
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Account\RegisterEmployee.cshtml.g.cs
-C:\Users\danal\OneDrive\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csprojAssemblyReference.cache
 C:\Users\danal\OneDrive\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.RazorAssemblyInfo.cache
 C:\Users\danal\OneDrive\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.RazorAssemblyInfo.cs
 C:\Users\danal\OneDrive\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.AssemblyInfoInputs.cache
