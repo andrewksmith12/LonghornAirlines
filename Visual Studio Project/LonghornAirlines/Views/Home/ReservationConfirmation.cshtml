@@ -1,0 +1,49 @@
+﻿@model LonghornAirlines.Models.Business.Reservation
+
+@{
+    ViewData["Title"] = "Confirm Your Reservation";
+}
+
+<h1>Confirm Reservation</h1>
+
+<div>
+    <h4>From @ViewBag.CityFromName To @ViewBag.CityToName is Booked!</h4>
+    <h5>Booking Confirmation Number: @Html.DisplayFor(model => model.ReservationID) </h5>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Passenger Name
+                </th>
+                <th>
+                    Seat
+                </th>
+                <th>
+                    Fare
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Ticket.TicketID
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Seat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reservation.Ticket.Fare)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ReservationID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

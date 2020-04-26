@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Business;
 using LonghornAirlines.Models.ViewModels;
+using LonghornAirlines.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +43,11 @@ namespace LonghornAirlines.Controllers
                         select r;
             query = query.Where(r => r.ReservationID == confirmationNumber);
 
-            return View("ReservationConfirmation", query.Include(r => r.Tickets).ToList());
+            return View("ReservationConfirmation", query.Include(r => r.Tickets)
+                .Include (r => r.Tickets)
+                .Include( r => r.Tickets)
+                .Include (r => r.Tickets)
+                .ToList());
         }
     }
 }
