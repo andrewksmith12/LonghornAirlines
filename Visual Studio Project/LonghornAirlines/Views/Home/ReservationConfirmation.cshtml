@@ -25,17 +25,18 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Tickets)
             {
                 <tr>
                     <td>
-                        @item.Ticket.TicketID
+                        @item.Customer.FirstName
+                        @item.Customer.LastName
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Seat)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Reservation.Ticket.Fare)
+                        @Html.DisplayFor(modelItem => item.Fare)
                     </td>
 
                 </tr>
