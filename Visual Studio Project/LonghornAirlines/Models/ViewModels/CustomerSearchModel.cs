@@ -15,7 +15,7 @@ namespace LonghornAirlines.Models.ViewModels
         public String LastName { get; set; }
 
         [Display(Name = "Advantage Number: ")]
-        public Int32 AdvantageNumber { get; set; }
+        public String AdvantageNumber { get; set; }
 
         [Display(Name = "New Customer")]
         public Boolean NewCustomer { get; set; }

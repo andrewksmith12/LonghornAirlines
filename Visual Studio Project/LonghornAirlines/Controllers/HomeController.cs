@@ -44,10 +44,27 @@ namespace LonghornAirlines.Controllers
             query = query.Where(r => r.ReservationID == confirmationNumber);
 
             return View("ReservationConfirmation", query.Include(r => r.Tickets)
+                .ThenInclude(t => t.Customer)
                 .Include (r => r.Tickets)
-                .Include( r => r.Tickets)
+                .Include (r => r.Tickets)
                 .Include (r => r.Tickets)
                 .ToList());
+        }
+
+        public IActionResult CustomerSearch(CustomerSearchModel customerSearchModel)
+        {
+            var query = from c in _db.Users
+                        select c;
+            if (customerSearchModel.LastName != null && customerSearchModel.LastName != "")
+            {
+                query = query.Where(c => c.LastName.Contains(customerSearchModel.LastName));
+            }
+            if (customerSearchModel.AdvantageNumber != null && customerSearchModel.AdvantageNumber != "")
+            {
+                query = query.Where(c => c.AdvantageNumber.Contains(customerSearchModel.AdvantageNumber));
+            }
+            List<AppUser> SelectedUsers = query.Include(c => c.UserID).ToList();
+            return View(SelectedUsers);
         }
     }
 }
