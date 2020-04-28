@@ -7,12 +7,11 @@ namespace LonghornAirlines.Utilities
 {
     public static class GenerateAccountNumber
     {
-        public static Int32 GetNextCourseNumber(AppDbContext _context)
+        public static Int32 GetFFNum(AppDbContext _context)
         {
             // TODO: Get Advantage account number generation working
 
             Int32 intMaxCourseNumber; //the current maximum course number
-            Int32 intNextCourseNumber; //the course number for the next class
             {
                 //intMaxCourseNumber = _context.AppUser.Max(c => c.AdvantageNumber); //this is the highest number in the database right now
             }

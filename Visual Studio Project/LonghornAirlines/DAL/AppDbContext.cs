@@ -21,5 +21,6 @@ namespace LonghornAirlines.DAL
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Route> Routes { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+        public object AppUser { get; internal set; }
     }
 }

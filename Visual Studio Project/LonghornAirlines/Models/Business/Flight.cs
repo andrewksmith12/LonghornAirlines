@@ -18,7 +18,9 @@ namespace LonghornAirlines.Models.Business
 
         [Display(Name = "Departed")]
         public Boolean hasDeparted { get; set; } = false;
-        
+
+
+       
         //Navigational Properties
         [Display(Name = "Flight Information: ")]
         public FlightInfo FlightInfo { get; set; }

@@ -27,5 +27,7 @@ namespace LonghornAirlines.Models.Business
 
         [Display(Name = "Ticket IDs: ")]
         public List<Ticket> Tickets { get; set; }
+        [Display(Name = "Reservation Complete?: ")]
+        public Boolean ReservationComplete { get; set; }
     }
 }

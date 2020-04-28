@@ -15,6 +15,7 @@ namespace LonghornAirlines.Models.Business
         public String FlightTime { get; set; }
 
         [Display(Name = "Base Fare: ")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public Decimal BaseFare { get; set; }
 
         //Boolean Properties for Days Operational
@@ -32,6 +33,14 @@ namespace LonghornAirlines.Models.Business
         public Boolean Saturday { get; set; }
         [Display(Name = "Sunday")]
         public Boolean Sunday { get; set; }
+
+        // Non-DB Properties
+        [Display(Name = "First Class Fare: ")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public Decimal FirstClassFare
+        {
+            get { return (BaseFare * 1.2m); }
+        }
 
         //Navigational Properties
         [Display(Name = "Route ID: ")]
