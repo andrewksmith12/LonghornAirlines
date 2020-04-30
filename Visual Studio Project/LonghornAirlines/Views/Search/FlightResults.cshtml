@@ -40,30 +40,29 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @item.FlightInfo.FlightInfoID
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityFrom.CityCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityTo.CityCode)
-                </td>
-                <td>
-                    @item.FlightInfo.BaseFare
-                </td>
-                <td>
-                    @item.FlightInfo.FirstClassFare
-                </td>
-                <td>
-                    @item.FlightInfo.FlightTime
-                </td>
-
-            </tr>
+                    <tr>
+                        <td>
+                            @item.FlightInfo.FlightInfoID
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityFrom.CityCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityTo.CityCode)
+                        </td>
+                        <td>
+                            <a asp-action="CustomerCreate" asp-controller="Reservations" asp-route-FlightID="@item.FlightID" asp-route-ResType="@ViewBag.BookingType" asp-route-NumPassengers="@ViewBag.NumPassengers">@item.FlightInfo.BaseFare</a>
+                        </td>
+                        <td>
+                            <a asp-action="CustomerCreate" asp-controller="Reservations" asp-route-FlightID="@item.FlightID" asp-route-ResType="@ViewBag.BookingType" asp-route-NumPassengers="@ViewBag.NumPassengers">@item.FlightInfo.FirstClassFare</a>
+                        </td>
+                        <td>
+                            @item.FlightInfo.FlightTime
+                        </td>
+                </tr>
             }
         </tbody>
     </table>

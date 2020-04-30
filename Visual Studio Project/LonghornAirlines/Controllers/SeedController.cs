@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LonghornAirlines.DAL;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using LonghornAirlines.Models.Users;
 
 namespace LonghornAirlines.Controllers
 {
     public class SeedController : Controller
     {
         private AppDbContext _db;
+        private readonly UserManager<AppUser> _userManager;
 
-        public SeedController(AppDbContext context)
+        public SeedController(AppDbContext context, IServiceProvider service)
         {
             _db = context;
+            _userManager = service.GetRequiredService<UserManager<AppUser>>();
+
         }
 
         // GET: /<controller>/

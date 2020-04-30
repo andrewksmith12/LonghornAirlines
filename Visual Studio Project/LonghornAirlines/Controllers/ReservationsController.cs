@@ -7,19 +7,51 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Business;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+using LonghornAirlines.Models.Users;
 
 namespace LonghornAirlines.Views
 {
     public class ReservationsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ReservationsController(AppDbContext context)
+        public ReservationsController(AppDbContext context, IServiceProvider service)
         {
             _context = context;
+            _userManager = service.GetRequiredService<UserManager<AppUser>>();
         }
 
-        // GET: Reservations
+        private bool ReservationExists(int id)
+        {
+            return _context.Reservations.Any(e => e.ReservationID == id);
+        }
+
+        public async Task<IActionResult> CustomerCreate(int FlightID, bool BookingType, int NumPassengers)
+        {
+            Reservation reservation = new Reservation();
+            if (BookingType == true){
+                reservation.ReservationType = TypeOfReservation.RoundTrip;
+            }
+            else
+            {
+                reservation.ReservationType = TypeOfReservation.OneWay;
+            }
+            reservation.Customer = await _userManager.FindByNameAsync(User.Identity.Name);
+            reservation.ReservationComplete = false;
+            reservation.NumPassengers = NumPassengers;
+            _context.Add(reservation);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Create", "Tickets"/*, new { resID = reservation.ReservationID }*/);
+            // TODO: Connect this to the create ticket screen linking reservation. 
+        }
+
+    }
+}
+
+/*         // GET: Reservations
         public async Task<IActionResult> Index()
         {
             return View(await _context.Reservations.ToListAsync());
@@ -44,9 +76,11 @@ namespace LonghornAirlines.Views
         }
 
         // GET: Reservations/Create
-        public IActionResult Create()
+        public IActionResult Create(TypeOfReservation ReservationType)
         {
-            return View();
+            Reservation res = new Reservation();
+            res.ReservationType = ReservationType;
+            return View(res);
         }
 
         // POST: Reservations/Create
@@ -145,9 +179,4 @@ namespace LonghornAirlines.Views
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ReservationExists(int id)
-        {
-            return _context.Reservations.Any(e => e.ReservationID == id);
-        }
-    }
-}
+    */

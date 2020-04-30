@@ -21,6 +21,8 @@ namespace LonghornAirlines.Controllers
         {
             ViewBag.CityToName = _db.Cities.FirstOrDefault(c => c.CityID == bookingSearchModel.ArriveCityID).CityName;
             ViewBag.CityFromName = _db.Cities.FirstOrDefault(c => c.CityID == bookingSearchModel.DepartCityID).CityName;
+            ViewBag.BookingType = bookingSearchModel.isRoundTrip;
+            ViewBag.NumPassengers = bookingSearchModel.PassengerCount;
             var query = from f in _db.Flights
                         select f;
 

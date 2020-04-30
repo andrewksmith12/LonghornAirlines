@@ -10,11 +10,13 @@ using LonghornAirlines.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace LonghornAirlines.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly UserManager<AppUser> _userManager;
         private AppDbContext _db; 
         public HomeController(AppDbContext context)
         {
