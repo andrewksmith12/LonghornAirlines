@@ -1,0 +1,43 @@
+﻿@model LonghornAirlines.Models.Business.Reservation
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@section imageContent{
+<h1>Welcome to your Reservation Selection</h1>
+<h5>Confirm all information is correct and proceed to seat selection!</h5>
+
+<table class="table">
+    <tr>
+        <th>Ticket No</th>
+        <th>Ticket Holder</th>
+        <th>Flight Number</th>
+        <th>Flight Date</th>
+        <th>Flight Time</th>
+        <th>Seat Selection</th>
+    </tr>
+    <tbody>
+        @foreach(Ticket t in Model.Tickets)
+        {
+            <tr>
+                <td>@t.TicketID</td>
+                <td>
+                    @if (t.Customer == null)
+                    {
+                        @Html.DropDownList("SelectedCustomerID", (SelectList)ViewBag.ReservationCustomers, new { @class = "form-control" })
+                    }
+                    else
+                    {
+                        @t.Customer.NormalizedUserName
+                    }
+                </td>
+                <td>@t.Flight.FlightInfo.FlightInfoID</td>
+                <td>@t.Flight.Date</td>
+                <td>@t.Flight.FlightInfo.FlightTime</td>
+                <td><a class="btn btn-outline-danger" asp-controller="ReservationController" asp-action="SeatSelection" asp-route-ticketID="@t.TicketID">Choose Seat</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
