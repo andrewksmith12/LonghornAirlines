@@ -19,8 +19,15 @@ namespace LonghornAirlines.Models.Business
         [Display(Name = "Departed")]
         public Boolean hasDeparted { get; set; } = false;
 
+        [Display(Name = "Base Fare: ")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public Decimal BaseFare { get; set; }
 
-       
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public Decimal FirstClassFare
+        {
+            get { return (BaseFare * 1.2m); }
+        }
         //Navigational Properties
         [Display(Name = "Flight Information: ")]
         public FlightInfo FlightInfo { get; set; }
@@ -36,5 +43,13 @@ namespace LonghornAirlines.Models.Business
 
         [Display(Name = "Ticket IDs: ")]
         public List<Ticket> Tickets { get; set; }
+
+        public Flight()
+        {
+            if (Tickets == null)
+            {
+                Tickets = new List<Ticket>();
+            }
+        }
     }
 }

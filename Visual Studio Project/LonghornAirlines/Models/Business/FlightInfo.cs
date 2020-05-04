@@ -34,14 +34,6 @@ namespace LonghornAirlines.Models.Business
         [Display(Name = "Sunday")]
         public Boolean Sunday { get; set; }
 
-        // Non-DB Properties
-        [Display(Name = "First Class Fare: ")]
-        [DisplayFormat(DataFormatString = "{0:C}")]
-        public Decimal FirstClassFare
-        {
-            get { return (BaseFare * 1.2m); }
-        }
-
         //Navigational Properties
         [Display(Name = "Route ID: ")]
         public Route Route { get; set; }

@@ -57,7 +57,7 @@
                             <a asp-action="CustomerCreate" asp-controller="Reservations" asp-route-FlightID="@item.FlightID" asp-route-ResType="@ViewBag.BookingType" asp-route-NumPassengers="@ViewBag.NumPassengers">@item.FlightInfo.BaseFare</a>
                         </td>
                         <td>
-                            <a asp-action="CustomerCreate" asp-controller="Reservations" asp-route-FlightID="@item.FlightID" asp-route-ResType="@ViewBag.BookingType" asp-route-NumPassengers="@ViewBag.NumPassengers">@item.FlightInfo.FirstClassFare</a>
+                            <a asp-action="CustomerCreate" asp-controller="Reservations" asp-route-FlightID="@item.FlightID" asp-route-ResType="@ViewBag.BookingType" asp-route-NumPassengers="@ViewBag.NumPassengers">@item.FirstClassFare</a>
                         </td>
                         <td>
                             @item.FlightInfo.FlightTime

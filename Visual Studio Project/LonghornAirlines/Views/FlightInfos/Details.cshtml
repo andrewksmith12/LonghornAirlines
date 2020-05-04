@@ -1,0 +1,72 @@
+﻿@model LonghornAirlines.Models.Business.FlightInfo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Flight Info Number: @Html.DisplayFor(model => model.FlightInfoID) From @Html.DisplayFor(model => model.Route.CityFrom) To @Html.DisplayFor(</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FlightTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FlightTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BaseFare)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BaseFare)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Monday)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Monday)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tuesday)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tuesday)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Wednesday)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Wednesday)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Thursday)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Thursday)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Friday)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Friday)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Saturday)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Saturday)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sunday)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sunday)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.FlightInfoID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

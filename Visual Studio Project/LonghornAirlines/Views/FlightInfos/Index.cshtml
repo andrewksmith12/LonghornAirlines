@@ -1,0 +1,101 @@
+﻿@model IEnumerable<LonghornAirlines.Models.Business.FlightInfo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightInfoID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Route.CityFrom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Route.CityTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseFare)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Monday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tuesday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Wednesday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Thursday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Friday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Saturday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sunday)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightInfoID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Route.CityFrom.CityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Route.CityTo.CityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaseFare)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Monday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tuesday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wednesday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Thursday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Friday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Saturday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sunday)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FlightInfoID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FlightInfoID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FlightInfoID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

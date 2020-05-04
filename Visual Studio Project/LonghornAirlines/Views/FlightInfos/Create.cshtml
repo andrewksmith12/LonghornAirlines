@@ -1,0 +1,70 @@
+﻿@model LonghornAirlines.Models.Business.FlightInfo
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>FlightInfo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FlightTime" class="control-label"></label>
+                <input asp-for="FlightTime" class="form-control" />
+                <span asp-validation-for="FlightTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseFare" class="control-label"></label>
+                <input asp-for="BaseFare" class="form-control" />
+                <span asp-validation-for="BaseFare" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Monday" /> @Html.DisplayNameFor(model => model.Monday)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Tuesday" /> @Html.DisplayNameFor(model => model.Tuesday)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Wednesday" /> @Html.DisplayNameFor(model => model.Wednesday)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Thursday" /> @Html.DisplayNameFor(model => model.Thursday)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Friday" /> @Html.DisplayNameFor(model => model.Friday)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Saturday" /> @Html.DisplayNameFor(model => model.Saturday)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Sunday" /> @Html.DisplayNameFor(model => model.Sunday)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
