@@ -21,7 +21,20 @@ namespace LonghornAirlines.Models.Business
 
         [Display(Name = "Base Fare: ")]
         [DisplayFormat(DataFormatString = "{0:C}")]
-        public Decimal BaseFare { get; set; }
+        public Decimal BaseFare
+        {
+            get
+            {
+                if (BaseFare == 0.0m)
+                {
+                    return FlightInfo.BaseFare;
+                }
+                else
+                {
+                    return BaseFare;
+                }
+            }
+        }
 
         [DisplayFormat(DataFormatString = "{0:C}")]
         public Decimal FirstClassFare

@@ -7,7 +7,10 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Flight Info Number: @Html.DisplayFor(model => model.FlightInfoID) From @Html.DisplayFor(model => model.Route.CityFrom) To @Html.DisplayFor(</h4>
+    <h4>
+        Flight Number @Html.DisplayFor(model => model.FlightInfoID)<br />
+        From: @Html.DisplayFor(model => model.Route.CityFrom.CityName) (@Html.DisplayFor(model => model.Route.CityFrom.CityCode))  To: @Html.DisplayFor(model => model.Route.CityTo.CityName) (@Html.DisplayFor(model => model.Route.CityTo.CityCode))
+    </h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">

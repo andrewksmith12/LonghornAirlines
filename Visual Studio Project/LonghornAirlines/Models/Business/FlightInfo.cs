@@ -14,7 +14,7 @@ namespace LonghornAirlines.Models.Business
         [Display(Name = "Flight Time: ")]
         public String FlightTime { get; set; }
 
-        [Display(Name = "Base Fare: ")]
+        [Display(Name = "Default Base Fare: ")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public Decimal BaseFare { get; set; }
 
