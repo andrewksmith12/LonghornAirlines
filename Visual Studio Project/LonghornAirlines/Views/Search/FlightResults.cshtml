@@ -1,11 +1,17 @@
 ﻿@model IEnumerable<LonghornAirlines.Models.Business.Flight>
-
 @{
     ViewData["Title"] = "View";
 }
 @section imageContent
 {
-    <h1>View</h1>
+    @if (ViewBag.isRoundTrip)
+    {
+        <h1>Select your first leg flight</h1>
+    }
+    else
+    {
+        <h1>Select your flight</h1>
+    }
 
     <h4>
         From @ViewBag.CityFromName To @ViewBag.CityToName
@@ -20,7 +26,7 @@
                     @Html.DisplayNameFor(model => model.Date)
                 </th>
                 <th>
-                    From 
+                    From
                 </th>
                 <th>
                     To
@@ -40,28 +46,45 @@
         <tbody>
             @foreach (var item in Model)
             {
-                    <tr>
-                        <td>
-                            @item.FlightInfo.FlightInfoID
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityFrom.CityCode)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityTo.CityCode)
-                        </td>
-                        <td>
-                            <a asp-action="CustomerCreate" asp-controller="Reservations" asp-route-FlightID="@item.FlightID" asp-route-ResType="@ViewBag.BookingType" asp-route-NumPassengers="@ViewBag.NumPassengers">@item.FlightInfo.BaseFare</a>
-                        </td>
-                        <td>
-                            <a asp-action="CustomerCreate" asp-controller="Reservations" asp-route-FlightID="@item.FlightID" asp-route-ResType="@ViewBag.BookingType" asp-route-NumPassengers="@ViewBag.NumPassengers">@item.FirstClassFare</a>
-                        </td>
-                        <td>
-                            @item.FlightInfo.FlightTime
-                        </td>
+                <tr>
+                    <td>
+                        @item.FlightInfo.FlightInfoID
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityFrom.CityCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityTo.CityCode)
+                    </td>
+                    <td>
+                        @item.FlightInfo.BaseFare
+                    </td>
+                    <td>
+                        @item.FlightInfo.FirstClassFare
+                    </td>
+                    <td>
+                        @item.FlightInfo.FlightTime
+                    </td>
+                    <td>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-controller="Reservation"
+                               asp-action="Create"
+                               asp-route-NumPassengers="@ViewBag.passengerCount"
+                               asp-route-FlightID="@item.FlightID"
+                               asp-route-isRoundTrip=@ViewBag.isRoundTrip
+                               class="btn btn-outline-primary">Select Flight</a>
+                        }
+                        else
+                        {
+                            <!--TODO: Add link to log in page-->
+                            <p>Log in</p>
+                        }
+
+                    </td>
                 </tr>
             }
         </tbody>
