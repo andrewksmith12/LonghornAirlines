@@ -155,14 +155,32 @@ namespace LonghornAirlines.Views
                 reservationUsers.Add(await _userManager.FindByNameAsync(User.Identity.Name));
             }
             return new SelectList(reservationUsers, "UserID", "FirstName");
-        }
-    }
-}
 
-/*         // GET: Reservations
+        }
+
+        // GET: Reservations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Reservations.ToListAsync());
+            //get all the reservations from the database
+            List<Models.Business.Reservation> reservations = new List<Models.Business.Reservation>();
+
+            if (User.IsInRole("Admin"))
+            {
+                reservations = _context.Reservations.Include(r => r.Tickets)
+                    .ThenInclude (r => r.Flight)
+                    .ThenInclude (r => r.FlightInfo)
+                    .ToList();
+            }
+
+            else
+            {
+                reservations = _context.Reservations.Where(r => r.Customer.UserName == User.Identity.Name).Include(r => r.Tickets)
+                    .ThenInclude(r => r.Flight)
+                    .ThenInclude(r => r.FlightInfo)
+                    .ToList();
+            }
+
+            return View(reservations);
         }
 
         // GET: Reservations/Details/5
@@ -170,20 +188,35 @@ namespace LonghornAirlines.Views
         {
             if (id == null)
             {
-                return NotFound();
+                return View("Error", new String[] { "Please specify a reservation to view!" });
             }
 
-            var reservation = await _context.Reservations
+            //update this statement to have an include clause to get the reservation details and ticket info
+            Models.Business.Reservation reservation = await _context.Reservations
+                .Include( r => r.Tickets)
+                .ThenInclude( r => r.Flight)
+                .ThenInclude(r => r.FlightInfo)
                 .FirstOrDefaultAsync(m => m.ReservationID == id);
-            if (reservation == null)
+
+            if (reservation == null) //reservation not found
             {
-                return NotFound();
+                return View("Error", new String[] { "Cannot find this reservation!" });
+            }
+
+            if (User.IsInRole("Admin") == false && reservation.Customer.UserName != User.Identity.Name) //they are trying to see something that isn't theirs
+            {
+                return View("Error", new String[] { "Unauthorized: You are attempting to view another customer's reservation!" });
             }
 
             return View(reservation);
         }
 
-        // GET: Reservations/Create
+    }
+}
+
+     
+
+/*        // GET: Reservations/Create
         public IActionResult Create(TypeOfReservation ReservationType)
         {
             Reservation res = new Reservation();
