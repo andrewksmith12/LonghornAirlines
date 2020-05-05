@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\NewFolder\**" />
+    <Content Remove="wwwroot\lib\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\lib\NewFolder\**" />
+    <None Remove="wwwroot\lib\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
@@ -13,7 +20,10 @@
 
   <ItemGroup>
     <Folder Include="DAL\" />
-    <Folder Include="wwwroot\lib\NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\static\drawing.svg" />
   </ItemGroup>
 
 </Project>

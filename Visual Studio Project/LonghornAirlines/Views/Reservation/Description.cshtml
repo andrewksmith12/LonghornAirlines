@@ -23,7 +23,7 @@
                     <td>
                         @if (t.Customer == null)
                         {
-                            @Html.DropDownList("SelectedCustomerID", (SelectList)ViewBag.ReservationCustomers, new { @class = "form-control" })
+                            <p>No customer selected for this ticket</p>
                         }
                         else
                         {
@@ -33,7 +33,7 @@
                     <td>@t.Flight.FlightInfo.FlightInfoID</td>
                     <td>@t.Flight.Date</td>
                     <td>@t.Flight.FlightInfo.FlightTime</td>
-                    <td><a class="btn btn-outline-danger" asp-controller="ReservationController" asp-action="SeatSelection" asp-route-ticketID="@t.TicketID">Choose Seat</a></td>
+                    <td><a class="btn btn-outline-danger" asp-controller="Tickets" asp-action="Edit" asp-route-id="@t.TicketID" >Choose Seat</a></td>
                 </tr>
             }
         </tbody>
