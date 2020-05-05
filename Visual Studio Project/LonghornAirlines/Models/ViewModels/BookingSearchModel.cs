@@ -29,5 +29,7 @@ namespace LonghornAirlines.Models.ViewModels
         public Int32 PassengerCount { get; set; }
         [Display(Name = "Round Trip?")]
         public Boolean isRoundTrip { get; set; }
+
+        public Int32 ReservationID { get; set; }
     }
 }

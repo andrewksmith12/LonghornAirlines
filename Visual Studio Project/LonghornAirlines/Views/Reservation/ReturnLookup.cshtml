@@ -72,13 +72,10 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <a asp-controller="Reservation"
-                               asp-action="Create"
+                               asp-action="FinishRoundTripReservation"
                                asp-route-NumPassengers="@ViewBag.passengerCount"
                                asp-route-FlightID="@item.FlightID"
-                               asp-route-isRoundTrip="@ViewBag.isRoundTrip"
-                               asp-route-cityToID="@item.FlightInfo.Route.CityTo.CityID"
-                               asp-route-cityFromID="@item.FlightInfo.Route.CityFrom.CityID"
-                               asp-route-returnDate="@ViewBag.ReturnDate"
+                               asp-route-ReservationID="@ViewBag.ReservationID"
                                class="btn btn-outline-primary">Select Flight</a>
                         }
                         else

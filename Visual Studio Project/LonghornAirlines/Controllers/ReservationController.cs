@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using LonghornAirlines.Models.Users;
 using Microsoft.AspNetCore.Http;
+using LonghornAirlines.Models.ViewModels;
 
 namespace LonghornAirlines.Views
 {
@@ -33,11 +34,11 @@ namespace LonghornAirlines.Views
 
         // Main action for reservations
         // Branches off into customer reservation, manager reservation, or an error message
-        public async Task<IActionResult> Create(int FlightID, bool isRoundTrip, int NumPassengers)
+        public async Task<IActionResult> Create(int FlightID, bool isRoundTrip, int NumPassengers, Int32 cityToID, Int32 cityFromID, DateTime returnDate)
         {
             if (User.IsInRole("Customer"))
             {
-                return await CustomerCreate(FlightID, isRoundTrip, NumPassengers);
+                return await CustomerCreate(FlightID, isRoundTrip, NumPassengers, cityToID, cityFromID, returnDate);
             }
             else if (User.IsInRole("Manager"))
             {
@@ -53,7 +54,7 @@ namespace LonghornAirlines.Views
         // GET: Reservation/Details/5
         // Details page shows all tickets and allows for ticket change
         // This is the default page everyone sees after a reservation is created
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> Description(int id)
         {
             Models.Business.Reservation reservation = _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).First(r => r.ReservationID == id);
             SelectList reservationCustomers;
@@ -64,14 +65,14 @@ namespace LonghornAirlines.Views
 
         // Handles reservation creation for customers
         // Branches off into one way reservations or round trip reservations
-        public async Task<IActionResult> CustomerCreate(int FlightID, bool isRoundTrip, int NumPassengers)
+        public async Task<IActionResult> CustomerCreate(int FlightID, bool isRoundTrip, int NumPassengers, Int32 cityToID, Int32 cityFromID, DateTime returnDate)
         {
             if (!isRoundTrip){
                 return await CreateOneWayReservation(FlightID, NumPassengers);
             }
             else
             {
-                return await CreateRoundTripReservation();
+                return await CreateRoundTripReservation(FlightID, NumPassengers, cityToID, cityFromID, returnDate);
             }
         }
 
@@ -83,22 +84,71 @@ namespace LonghornAirlines.Views
 
             if (reservation.Tickets.Count() > 0)
             {
-                return RedirectToAction("Details", new { id = reservation.ReservationID });
+                return RedirectToAction("Description", new { id = reservation.ReservationID });
             }
             else
             {
-                CreateTickets(reservation, flightID, passengerCount);
+                CreateTickets(reservation.ReservationID, flightID, passengerCount);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Details", new { id = reservation.ReservationID });
+                return RedirectToAction("Description", new { id = reservation.ReservationID });
             }
         }
         
         //TODO: Implement Round Trip
-        public async Task<ActionResult> CreateRoundTripReservation()
+        public async Task<ActionResult> CreateRoundTripReservation(Int32 flightID, Int32 passengerCount, Int32 cityToID, Int32 cityFromID, DateTime returnDate)
         {
-            return View();
+            Models.Business.Reservation reservation = await CreateBlankReservation(TypeOfReservation.RoundTrip);
+            CreateTickets(reservation.ReservationID, flightID, passengerCount);
+            await _context.SaveChangesAsync();
+
+            BookingSearchModel bsm = new BookingSearchModel
+            {
+                DepartCityID = cityToID,
+                ArriveCityID = cityFromID,
+                DepartDate = returnDate,
+                ArriveDate = returnDate,
+                PassengerCount = passengerCount,
+                isRoundTrip = false,
+                ReservationID = reservation.ReservationID
+            };
+
+            return ReturnFlightLookup(bsm);
         }
+
+        public async Task<ActionResult> FinishRoundTripReservation(Int32 NumPassengers, Int32 FlightID, Int32 ReservationID)
+        {
+            CreateTickets(ReservationID, FlightID, NumPassengers);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Description", new { id = ReservationID });
+        }
+
+        public ActionResult ReturnFlightLookup(BookingSearchModel bookingSearchModel)
+        {
+            ViewBag.CityToName = _context.Cities.FirstOrDefault(c => c.CityID == bookingSearchModel.ArriveCityID).CityName;
+            ViewBag.CityFromName = _context.Cities.FirstOrDefault(c => c.CityID == bookingSearchModel.DepartCityID).CityName;
+            var query = from f in _context.Flights
+                        select f;
+
+            query = query.Where(f => f.Date.Date == bookingSearchModel.DepartDate.Date);
+            query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == bookingSearchModel.DepartCityID);
+            query = query.Where(f => f.FlightInfo.Route.CityTo.CityID == bookingSearchModel.ArriveCityID);
+
+            //Passing Booking Search Model information to view bag so it goes to ReservationController
+            //There's probably a better way to do this
+            ViewBag.DepartingFlightsQty = query.Count();
+            ViewBag.isRoundTrip = bookingSearchModel.isRoundTrip;
+            ViewBag.passengerCount = bookingSearchModel.PassengerCount;
+            ViewBag.reservationID = bookingSearchModel.ReservationID;
+            return View("ReturnLookup", query.Include(f => f.FlightInfo)
+                .Include(f => f.FlightInfo.Route)
+                .Include(f => f.FlightInfo.Route.CityFrom)
+                .Include(f => f.FlightInfo.Route.CityTo)
+                .ToList());
+        }
+
+
 
         // Creates blank reservation
         private async Task<Models.Business.Reservation> CreateBlankReservation(TypeOfReservation type)
@@ -115,8 +165,9 @@ namespace LonghornAirlines.Views
             return reservation;
         }
 
-        private void CreateTickets(Models.Business.Reservation reservation, Int32 flightID, Int32 passengerCount)
+        private void CreateTickets(Int32 ReservationID, Int32 flightID, Int32 passengerCount)
         {
+            Models.Business.Reservation reservation = _context.Reservations.Include(r => r.Tickets).First(r=> r.ReservationID == ReservationID);
             for (int i = 0; i < passengerCount; i++)
             {
                 Ticket reservationTicket = new Ticket
