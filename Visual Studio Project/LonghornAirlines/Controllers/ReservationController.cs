@@ -55,7 +55,7 @@ namespace LonghornAirlines.Views
         // This is the default page everyone sees after a reservation is created
         public async Task<ActionResult> Details(int id)
         {
-            Reservation reservation = _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).First(r => r.ReservationID == id);
+            Models.Business.Reservation reservation = _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).First(r => r.ReservationID == id);
             SelectList reservationCustomers;
             reservationCustomers = await GetReservationCustomersAsync(reservation);
             ViewBag.ReservationCustomers = reservationCustomers;
@@ -79,7 +79,7 @@ namespace LonghornAirlines.Views
         // Creates a blank one way reservation and adds {passengerCount} tickets to it if it's empty
         public async Task<ActionResult> CreateOneWayReservation(Int32 flightID, Int32 passengerCount)
         {
-            Reservation reservation = await CreateBlankReservation(TypeOfReservation.OneWay);
+            Models.Business.Reservation reservation = await CreateBlankReservation(TypeOfReservation.OneWay);
 
             if (reservation.Tickets.Count() > 0)
             {
@@ -101,9 +101,9 @@ namespace LonghornAirlines.Views
         }
 
         // Creates blank reservation
-        private async Task<Reservation> CreateBlankReservation(TypeOfReservation type)
+        private async Task<Models.Business.Reservation> CreateBlankReservation(TypeOfReservation type)
         {
-            Reservation reservation = new Reservation
+            Models.Business.Reservation reservation = new Models.Business.Reservation
             {
                 ReservationType = type,
                 Customer = await _userManager.FindByNameAsync(User.Identity.Name),
@@ -115,7 +115,7 @@ namespace LonghornAirlines.Views
             return reservation;
         }
 
-        private void CreateTickets(Reservation reservation, Int32 flightID, Int32 passengerCount)
+        private void CreateTickets(Models.Business.Reservation reservation, Int32 flightID, Int32 passengerCount)
         {
             for (int i = 0; i < passengerCount; i++)
             {
@@ -138,7 +138,7 @@ namespace LonghornAirlines.Views
             return View(ticket);
         }
 
-        public async Task<SelectList> GetReservationCustomersAsync(Reservation reservation)
+        public async Task<SelectList> GetReservationCustomersAsync(Models.Business.Reservation reservation)
         {
             HashSet<AppUser> reservationUsers = new HashSet<AppUser>();
             Boolean hasUser = false;
