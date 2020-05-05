@@ -29,10 +29,10 @@ namespace LonghornAirlines.Views
             return _context.Reservations.Any(e => e.ReservationID == id);
         }
 
-        public async Task<IActionResult> CustomerCreate(int FlightID, bool BookingType, int NumPassengers)
+        public async Task<IActionResult> CustomerCreate(int FlightID, bool isRoundTrip, int NumPassengers)
         {
             Reservation reservation = new Reservation();
-            if (BookingType == true){
+            if (isRoundTrip){
                 reservation.ReservationType = TypeOfReservation.RoundTrip;
             }
             else
