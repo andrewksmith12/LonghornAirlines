@@ -15,7 +15,7 @@ namespace LonghornAirlines.Utilites
             {
                 UseDefaultCredentials = false,
                 //This is the SENDING email address and password
-                Credentials = new NetworkCredential("dummyemail@gmail.com", "Password123"),
+                Credentials = new NetworkCredential("longhornairlines333k@gmail.com", "alacrity_scarcely_acrid"),
                 EnableSsl = true
             };
             //Add anything that you need to the body of the message
@@ -24,7 +24,7 @@ namespace LonghornAirlines.Utilites
 
 
             //Create an email address object for the sender address
-            MailAddress senderEmail = new MailAddress("dummyemail@gmail.com", "Bevo's Bookstore");
+            MailAddress senderEmail = new MailAddress("longhornairlines333k@gmail.com", "Longhorn Airlines");
             MailMessage mm = new MailMessage();
             mm.Subject = "Team 6 - " + emailSubject;
             mm.Sender = senderEmail;

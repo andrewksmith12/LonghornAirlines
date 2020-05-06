@@ -44,17 +44,12 @@ namespace LonghornAirlines.Controllers
 
         public IActionResult ConfirmReservation(Int32 confirmationNumber)
         {
-            var query = from r in _db.Reservations
-                        select r;
-            query = query.Where(r => r.ReservationID == confirmationNumber);
-            Utilites.EmailMessaging.SendEmail();
+            Reservation dbReservation = _db.Reservations.Include(r => r.Customer).Include(r => r.Tickets).FirstOrDefault(r => r.ReservationID == confirmationNumber);
 
-            return View("ReservationConfirmation", query.Include(r => r.Tickets)
-                .ThenInclude(t => t.Customer)
-                .Include(r => r.Tickets)
-                .Include(r => r.Tickets)
-                .Include(r => r.Tickets)
-                .ToList());
+
+            Utilites.EmailMessaging.SendEmail(dbReservation.Customer.Email,"ExampleSubject", "ExampleBody");
+
+            return View("ReservationConfirmation", dbReservation.Tickets.ToList());
         }
 
         public IActionResult CustomerSearch(CustomerSearchModel customerSearchModel)
