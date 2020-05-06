@@ -46,8 +46,8 @@ namespace LonghornAirlines.Controllers
         {
             Reservation dbReservation = _db.Reservations.Include(r => r.Customer).Include(r => r.Tickets).FirstOrDefault(r => r.ReservationID == confirmationNumber);
 
-
-            Utilites.EmailMessaging.SendEmail(dbReservation.Customer.Email,"ExampleSubject", "ExampleBody");
+            String EmailBody = "Thanks for your reservation. Your subtotal is: " + dbReservation.ReservationSubtotal+ "The tax fee is: " + dbReservation.SalesTax + "Your total is: " + dbReservation.ReservationTotal;
+            Utilites.EmailMessaging.SendEmail(dbReservation.Customer.Email,"Reservation Confirmation", EmailBody);
 
             return View("ReservationConfirmation", dbReservation.Tickets.ToList());
         }
