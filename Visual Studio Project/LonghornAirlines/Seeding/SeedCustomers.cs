@@ -907,6 +907,7 @@ namespace LonghornAirlines.Seeding
                     newUser.City = seedUser.City;
                     newUser.ZIP = seedUser.ZIP;
                     newUser.PhoneNumber = seedUser.Phone;
+                    newUser.AdvantageNumber = seedUser.UserID;
                     newUser.MI = seedUser.MI;
                     newUser.SSN = seedUser.SSN;
                     newUser.Birthday = seedUser.BDay;

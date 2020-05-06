@@ -11,14 +11,14 @@ namespace LonghornAirlines.Utilities
 {
     public static class GenerateAccountNumber
     {
-        public static int GetFFNum(UserManager<AppUser> _userManager)
+        public static int GetFFNum(AppDbContext _context)
         {
             // TODO: Get Advantage account number generation working
 
-            //Int32 intMaxID; //the current maximum course number
+            Int32 intMaxID; //the current maximum course number
             {
                 IList<AppUser> customers = new List<AppUser>();
-                //customers = await _userManager.GetUsersInRoleAsync("Customer"); //this is the highest number in the database right now
+                //intMaxID = _context.Users.AdvantageNumber.Max(); //this is the highest number in the database right now
             }
 
             //add one to the current max to find the next one

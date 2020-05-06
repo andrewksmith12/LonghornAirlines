@@ -26,7 +26,7 @@ namespace LonghornAirlines.Models.Users
         public Decimal Mileage { get; set; }
 
         [Display(Name = "Advantage Number: ")]
-        public String AdvantageNumber { get; set; }
+        public Int32 AdvantageNumber { get; set; }
 
         [Display(Name = "Street: ")]
         public String Street { get; set; }

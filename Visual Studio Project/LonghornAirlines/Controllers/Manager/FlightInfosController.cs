@@ -116,7 +116,6 @@ namespace LonghornAirlines.Controllers
             Boolean fridayBoolrm = false;
             Boolean saturdayBoolrm = false;
 
-
             // Set Booleans
             if (dbFlightInfo.Sunday != flightInfo.Sunday)
             {
@@ -197,6 +196,12 @@ namespace LonghornAirlines.Controllers
             }
 
 
+
+            
+
+
+
+
             if (ModelState.IsValid)
             {
                 try
@@ -205,6 +210,7 @@ namespace LonghornAirlines.Controllers
                     _context.Update(flightInfo);
                     await _context.SaveChangesAsync();
                     Utilities.AddFlight.addBools(_context, flightInfo, sundayBooladd, mondayBooladd, tuesdayBooladd, wednesdayBooladd, thursdayBooladd, fridayBooladd, saturdayBooladd);
+                    Utilities.RemoveFlight.removeBools(_context, flightInfo, sundayBoolrm, mondayBoolrm, tuesdayBoolrm, wednesdayBoolrm, thursdayBoolrm, fridayBoolrm, saturdayBoolrm);
 
                 }
                 catch (DbUpdateConcurrencyException)

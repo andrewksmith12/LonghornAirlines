@@ -46,6 +46,8 @@ namespace LonghornAirlines.Migrations
 
                     b.Property<decimal>("BaseFare");
 
+                    b.Property<bool>("Canceled");
+
                     b.Property<string>("CoPilotId");
 
                     b.Property<DateTime>("Date");
@@ -182,7 +184,7 @@ namespace LonghornAirlines.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("AdvantageNumber");
+                    b.Property<int>("AdvantageNumber");
 
                     b.Property<DateTime>("Birthday");
 

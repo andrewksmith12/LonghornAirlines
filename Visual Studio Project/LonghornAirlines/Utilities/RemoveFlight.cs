@@ -12,7 +12,7 @@ namespace LonghornAirlines.Utilities
 {
     public static class RemoveFlight
     {
-        public static void addFunction(AppDbContext db, FlightInfo flightInfo, Boolean sun, Boolean mon, Boolean tue, Boolean wed, Boolean thurs, Boolean fri, Boolean sat)
+        public static void removeBools(AppDbContext db, FlightInfo flightInfo, Boolean sun, Boolean mon, Boolean tue, Boolean wed, Boolean thurs, Boolean fri, Boolean sat)
         {
             List<Flight> AllFlights = new List<Flight>();
             Boolean[] days = new bool[7];
@@ -40,52 +40,21 @@ namespace LonghornAirlines.Utilities
                         //Adds the flight for the first week
                         Flight tempFlight = db.Flights.FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date == flightDate);
                         {
-                            // Cancelled = true
+                            tempFlight.Canceled = true;
                         };
-                        AllFlights.Add(tempFlight);
+                        db.Update(tempFlight);
                     }
                     flightDate = flightDate.AddDays(7);
                     //Adds flights for all weeks after first week
                     while (flightDate <= endDate)
                     {
-                        Flight tempFlight = new Flight
+                        Flight tempFlight = db.Flights.FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date == flightDate);
                         {
-                            Date = flightDate,
-                            FlightInfo = db.FlightInfos.FirstOrDefault(f => f.FlightInfoID == flightInfo.FlightInfoID),
+                            tempFlight.Canceled = true;
                         };
+                        db.Update(tempFlight);
                         flightDate = flightDate.AddDays(7);
-                        AllFlights.Add(tempFlight);
                     }
-                }
-
-                //Adds all flights to the database
-                //create a counter to help debug
-                int intFlightID = 0;
-
-                try
-                {
-                    foreach (Flight seedFlight in AllFlights)
-                    {
-                        //find the flight in the database
-                        Flight dbFlight = db.Flights.FirstOrDefault(f => f.FlightID == intFlightID);
-
-                        if (dbFlight == null) //the flight isn't in the database
-                        {
-                            //add the genre
-                            db.Flights.Add(seedFlight);
-                            System.Diagnostics.Debug.Write("Flight" + dbFlight + " was created");
-                            db.SaveChanges();
-                        }
-                        intFlightID++;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    StringBuilder msg = new StringBuilder();
-                    msg.Append("There was an error adding the ");
-                    msg.Append(intFlightID);
-                    msg.Append(" flight.");
-                    throw new Exception(msg.ToString(), ex);
                 }
             }
         }

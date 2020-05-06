@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LonghornAirlines.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200430200858_adjResModel")]
-    partial class adjResModel
+    [Migration("20200506191542_Setup")]
+    partial class Setup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,6 +45,10 @@ namespace LonghornAirlines.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AttendantId");
+
+                    b.Property<decimal>("BaseFare");
+
+                    b.Property<bool>("Canceled");
 
                     b.Property<string>("CoPilotId");
 
@@ -182,7 +186,7 @@ namespace LonghornAirlines.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("AdvantageNumber");
+                    b.Property<int>("AdvantageNumber");
 
                     b.Property<DateTime>("Birthday");
 
