@@ -1,5 +1,4 @@
 ﻿@model LonghornAirlines.Models.Business.FlightInfo
-@* @model LonghornAirlines.Models.Business.Flight*@
 
 @{
     ViewData["Title"] = "Details";
@@ -76,7 +75,7 @@
     <tr>
         <th>Flight Number: </th>
         <th>Date: </th>
-        <th>Flight Time: </th>
+        <th>Time: </th>
         <th>Base Fare: </th>
         <th>Pilot: </th>
         <th>Co-Pilot: </th>
@@ -86,9 +85,9 @@
     @foreach (Flight f in Model.Flights)
     {
     <tr>
-        <td>@Html.DisplayFor(model => model.FlightInfoID)</td>
+        <td>@Html.DisplayFor(m => m.FlightInfoID)</td>
         <td>@Html.DisplayFor(ModelItem => f.Date)</td>
-        <td>@Html.DisplayFor(model => model.FlightTime)</td>
+        <td>@Html.DisplayFor(m => m.FlightTime)</td>
         <td>@Html.DisplayFor(ModelItem => f.BaseFare)</td>
         <td>@Html.DisplayFor(ModelItem => f.Pilot)</td>
         <td>@Html.DisplayFor(ModelItem => f.CoPilot)</td>
@@ -96,6 +95,7 @@
         <td>@Html.DisplayFor(ModelItem => f.hasDeparted)</td>
     </tr>
     }
+
 </table>
 
 

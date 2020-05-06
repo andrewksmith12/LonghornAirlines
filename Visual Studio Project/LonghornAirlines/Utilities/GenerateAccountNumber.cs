@@ -13,7 +13,9 @@ namespace LonghornAirlines.Utilities
 
             Int32 intMaxCourseNumber; //the current maximum course number
             {
-                //intMaxCourseNumber = _context.AppUser.Max(c => c.AdvantageNumber); //this is the highest number in the database right now
+                //AppUser.Aggregate
+
+                //intMaxCourseNumber = _context.AppUser.AdvantageNumber.Max() //this is the highest number in the database right now
             }
 
             //add one to the current max to find the next one
