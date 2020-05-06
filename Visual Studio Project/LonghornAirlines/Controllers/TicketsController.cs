@@ -122,35 +122,30 @@ namespace LonghornAirlines.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TicketID,Fare,Seat")] Ticket ticket)
+        public async Task<IActionResult> Edit(TicketCreationModel tcm)
         {
-            if (id != ticket.TicketID)
-            {
-                return NotFound();
-            }
+            Console.WriteLine("HERE\n\n\n\n\n\n\n");
+            Ticket ticket = _context.Tickets.Include(t => t.Customer).Include(t => t.Reservation).First(t => t.TicketID == tcm.TicketID);
+            ticket.Seat = tcm.SeatID;
+            ticket.Customer = _context.Users.First(c => c.UserID == tcm.CustomerID);
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(ticket);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TicketExists(ticket.TicketID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(ticket);
+                await _context.SaveChangesAsync();
             }
-            return View(ticket);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TicketExists(ticket.TicketID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Description", "Reservation", new { id = ticket.Reservation.ReservationID }); ;
         }
 
         // GET: Tickets/Delete/5

@@ -6,19 +6,22 @@
 @section imageContent
 {
 
-    <form asp-action="Edit">
+    <form asp-action="Edit" method="post">
         <div class="jumbotron">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TicketID" />
             @Html.DropDownListFor(tcm => tcm.CustomerID, (SelectList)ViewBag.ReservationCustomers, new { @class = "form-control" })
             <!--TODO: Customer Selection-->
             <a>Find new customer</a>
+
         </div>
 
         <div id="container" style="width: 500px; height: 400px;">
         </div>
-
+        <input type="hidden" id="SeatID" name="SeatID" />
+        <a href="#" class="submitForm">Save</a>
         <object style="width: 0; height: 0;" data="~/static/drawing.svg" type="image/svg+xml" id="house"></object>
+
         <script>
             anychart.onDocumentLoad(function () {
                 // note that you should use onDocumentLoad to get image contect
@@ -63,6 +66,10 @@
                 tooltips.separator("white");
 
 
+                // add a listener
+                chart.listen('pointClick', function(e){
+                    document.getElementById("SeatID").value = e.iterator.get("id");
+                });
                 // set container id for the chart
                 chart.container("container");
                 // initiate chart drawing
@@ -70,11 +77,16 @@
             });
         </script>
 
-        <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
-        </div>
+
     </form>
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+}
+
+@section Scripts{ 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("a.submitForm").click(function () {
+            $("form").submit();
+    });
+});
+</script>
 }
