@@ -15,7 +15,7 @@ namespace LonghornAirlines.Seeding
             List<FlightInfo> AllFlightInfos = new List<FlightInfo>();
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 0),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 1),
                 FlightTime = "8:00",
                 BaseFare = 105.00m,
                 Monday = true,
@@ -28,7 +28,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 1),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 2),
                 FlightTime = "9:00",
                 BaseFare = 105.00m,
                 Monday = true,
@@ -41,7 +41,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 2),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 3),
                 FlightTime = "11:15",
                 BaseFare = 130.00m,
                 Monday = true,
@@ -54,7 +54,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 3),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 4),
                 FlightTime = "12:00",
                 BaseFare = 130.00m,
                 Monday = true,
@@ -67,7 +67,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 10),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 11),
                 FlightTime = "13:00",
                 BaseFare = 140.00m,
                 Monday = true,
@@ -80,7 +80,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 11),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 12),
                 FlightTime = "15:00",
                 BaseFare = 140.00m,
                 Monday = true,
@@ -93,7 +93,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 8),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 9),
                 FlightTime = "09:00",
                 BaseFare = 98.00m,
                 Monday = true,
@@ -106,7 +106,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 9),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 10),
                 FlightTime = "10:15",
                 BaseFare = 100.00m,
                 Monday = true,
@@ -119,7 +119,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 4),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 5),
                 FlightTime = "13:00",
                 BaseFare = 115.00m,
                 Monday = true,
@@ -132,7 +132,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 5),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 6),
                 FlightTime = "14:30",
                 BaseFare = 115.00m,
                 Monday = true,
@@ -145,7 +145,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 6),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 7),
                 FlightTime = "14:00",
                 BaseFare = 110.00m,
                 Monday = true,
@@ -158,7 +158,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 7),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 8),
                 FlightTime = "14:45",
                 BaseFare = 110.00m,
                 Monday = true,
@@ -171,7 +171,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 4),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 5),
                 FlightTime = "18:00",
                 BaseFare = 105.00m,
                 Monday = true,
@@ -184,7 +184,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 5),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 6),
                 FlightTime = "19:45",
                 BaseFare = 105.00m,
                 Monday = true,
@@ -197,7 +197,7 @@ namespace LonghornAirlines.Seeding
             });
             AllFlightInfos.Add(new FlightInfo
             {
-                Route = db.Routes.FirstOrDefault(r => r.RouteID == 6),
+                Route = db.Routes.FirstOrDefault(r => r.RouteID == 7),
                 FlightTime = "10:30",
                 BaseFare = 225.00m,
                 Monday = false,

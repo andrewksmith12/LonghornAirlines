@@ -64,7 +64,7 @@ namespace LonghornAirlines.Seeding
 
                 //Adds all flights to the database
                 //create a counter to help debug
-                int intFlightID = 0;
+                int intFlightID = 1;
 
                 try
                 {

@@ -1,5 +1,6 @@
 ﻿using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Business;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,6 @@ namespace LonghornAirlines.Seeding
                 CityFrom = db.Cities.FirstOrDefault(c => c.CityCode == "DFW"),
                 CityTo = db.Cities.FirstOrDefault(c => c.CityCode == "AUS"),
             });
-
             //AUS -> HOU
             AllRoutes.Add(new Route
             {
@@ -124,13 +124,14 @@ namespace LonghornAirlines.Seeding
                 {
 
                     //find the genre in the database
-                    Route dbRoute = db.Routes.FirstOrDefault(r => r.RouteID == intRouteID);
+                    Route dbRoute = db.Routes.FirstOrDefault(r => r.CityFrom == seedRoute.CityFrom && r.CityTo == seedRoute.CityTo);
 
                     if (dbRoute == null) //the route isn't in the database
                     {
                         //add the route
                         db.Routes.Add(seedRoute);
                         db.SaveChanges();
+
                     }
 
                     //updates the counter to get info on where the problem is
