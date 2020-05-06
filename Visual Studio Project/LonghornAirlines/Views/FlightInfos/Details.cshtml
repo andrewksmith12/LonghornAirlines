@@ -1,4 +1,5 @@
 ﻿@model LonghornAirlines.Models.Business.FlightInfo
+@* @model LonghornAirlines.Models.Business.Flight*@
 
 @{
     ViewData["Title"] = "Details";
@@ -13,63 +14,92 @@
     </h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FlightTime)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FlightTime)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.BaseFare)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.BaseFare)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Monday)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Monday)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Tuesday)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Tuesday)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Wednesday)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Wednesday)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Thursday)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Thursday)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Friday)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Friday)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Saturday)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Saturday)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Sunday)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Sunday)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.FlightInfoID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<h5>Flights under this flight number: </h5>
+<table class="table table-primary">
+    <tr>
+        <th>Flight Number: </th>
+        <th>Date: </th>
+        <th>Flight Time: </th>
+        <th>Base Fare: </th>
+        <th>Pilot: </th>
+        <th>Co-Pilot: </th>
+        <th>Attendant: </th>
+        <th>Already Departed: </th>
+    </tr>
+    @foreach (Flight f in Model.Flights)
+    {
+    <tr>
+        <td>@Html.DisplayFor(model => model.FlightInfoID)</td>
+        <td>@Html.DisplayFor(ModelItem => f.Date)</td>
+        <td>@Html.DisplayFor(model => model.FlightTime)</td>
+        <td>@Html.DisplayFor(ModelItem => f.BaseFare)</td>
+        <td>@Html.DisplayFor(ModelItem => f.Pilot)</td>
+        <td>@Html.DisplayFor(ModelItem => f.CoPilot)</td>
+        <td>@Html.DisplayFor(ModelItem => f.Attendant)</td>
+        <td>@Html.DisplayFor(ModelItem => f.hasDeparted)</td>
+    </tr>
+    }
+</table>
+
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.FlightInfoID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>

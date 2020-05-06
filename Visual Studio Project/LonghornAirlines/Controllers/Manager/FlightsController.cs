@@ -7,27 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Business;
-using Microsoft.AspNetCore.Authorization;
 
-namespace LonghornAirlines.Controllers
+namespace LonghornAirlines.Controllers.Manager
 {
-    [Authorize(Roles = "Manager")]
-    public class FlightInfosController : Controller
+    public class FlightsController : Controller
     {
         private readonly AppDbContext _context;
 
-        public FlightInfosController(AppDbContext context)
+        public FlightsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: FlightInfoes
+        // GET: Flights
         public async Task<IActionResult> Index()
         {
-            return View(await _context.FlightInfos.Include(fi => fi.Route).ThenInclude(fi => fi.CityFrom).Include(fi => fi.Route).ThenInclude(fi => fi.CityTo).ToListAsync());
+            return View(await _context.Flights.ToListAsync());
         }
 
-        // GET: FlightInfoes/Details/5
+        // GET: Flights/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,39 +33,39 @@ namespace LonghornAirlines.Controllers
                 return NotFound();
             }
 
-            var flightInfo = await _context.FlightInfos.Include(fi => fi.Flights).Include(fi => fi.Route).ThenInclude(fi => fi.CityFrom).Include(fi => fi.Route).ThenInclude(fi => fi.CityTo)
-                .FirstOrDefaultAsync(m => m.FlightInfoID == id);
-            if (flightInfo == null)
+            var flight = await _context.Flights
+                .FirstOrDefaultAsync(m => m.FlightID == id);
+            if (flight == null)
             {
                 return NotFound();
             }
 
-            return View(flightInfo);
+            return View(flight);
         }
 
-        // GET: FlightInfoes/Create
+        // GET: Flights/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: FlightInfoes/Create
+        // POST: Flights/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightInfoID,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
+        public async Task<IActionResult> Create([Bind("FlightID,Date,hasDeparted")] Flight flight)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(flightInfo);
+                _context.Add(flight);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(flightInfo);
+            return View(flight);
         }
 
-        // GET: FlightInfoes/Edit/5
+        // GET: Flights/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,22 +73,22 @@ namespace LonghornAirlines.Controllers
                 return NotFound();
             }
 
-            var flightInfo = await _context.FlightInfos.Include(f => f.Route).ThenInclude(f => f.CityFrom).Include(f => f.Route).ThenInclude(f => f.CityTo).FirstOrDefaultAsync(f => f.FlightInfoID == id);
-            if (flightInfo == null)
+            var flight = await _context.Flights.FindAsync(id);
+            if (flight == null)
             {
                 return NotFound();
             }
-            return View(flightInfo);
+            return View(flight);
         }
 
-        // POST: FlightInfoes/Edit/5
+        // POST: Flights/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FlightInfoID,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("FlightID,Date,hasDeparted")] Flight flight)
         {
-            if (id != flightInfo.FlightInfoID)
+            if (id != flight.FlightID)
             {
                 return NotFound();
             }
@@ -99,12 +97,12 @@ namespace LonghornAirlines.Controllers
             {
                 try
                 {
-                    _context.Update(flightInfo);
+                    _context.Update(flight);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FlightInfoExists(flightInfo.FlightInfoID))
+                    if (!FlightExists(flight.FlightID))
                     {
                         return NotFound();
                     }
@@ -115,10 +113,10 @@ namespace LonghornAirlines.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(flightInfo);
+            return View(flight);
         }
 
-        // GET: FlightInfoes/Delete/5
+        // GET: Flights/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,32 +124,30 @@ namespace LonghornAirlines.Controllers
                 return NotFound();
             }
 
-            var flightInfo = await _context.FlightInfos
-                .FirstOrDefaultAsync(m => m.FlightInfoID == id);
-            if (flightInfo == null)
+            var flight = await _context.Flights
+                .FirstOrDefaultAsync(m => m.FlightID == id);
+            if (flight == null)
             {
                 return NotFound();
             }
 
-            return View(flightInfo);
+            return View(flight);
         }
 
-        // POST: FlightInfoes/Delete/5
+        // POST: Flights/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var flightInfo = await _context.FlightInfos.FindAsync(id);
-            _context.FlightInfos.Remove(flightInfo);
+            var flight = await _context.Flights.FindAsync(id);
+            _context.Flights.Remove(flight);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FlightInfoExists(int id)
+        private bool FlightExists(int id)
         {
-            return _context.FlightInfos.Any(e => e.FlightInfoID == id);
+            return _context.Flights.Any(e => e.FlightID == id);
         }
-
-        
     }
 }
