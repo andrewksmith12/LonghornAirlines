@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using System.Net.Mail;
+using System.Net;
+using LonghornAirlines.Utilities;
 
 namespace LonghornAirlines.Controllers
 {
@@ -44,12 +47,13 @@ namespace LonghornAirlines.Controllers
             var query = from r in _db.Reservations
                         select r;
             query = query.Where(r => r.ReservationID == confirmationNumber);
+            Utilites.EmailMessaging.SendEmail();
 
             return View("ReservationConfirmation", query.Include(r => r.Tickets)
                 .ThenInclude(t => t.Customer)
-                .Include (r => r.Tickets)
-                .Include (r => r.Tickets)
-                .Include (r => r.Tickets)
+                .Include(r => r.Tickets)
+                .Include(r => r.Tickets)
+                .Include(r => r.Tickets)
                 .ToList());
         }
 
@@ -67,6 +71,7 @@ namespace LonghornAirlines.Controllers
             }
             List<AppUser> SelectedUsers = query.Include(c => c.UserID).ToList();
             return View(SelectedUsers);
+
         }
     }
 }
