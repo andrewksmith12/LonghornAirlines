@@ -49,7 +49,11 @@ namespace LonghornAirlines
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });
             });
+            //Seeding.SeedRoles.AddRoles(service).Wait();
             //Seeding.SeedAdminUser.SeedAdmin(service).Wait();
+            //Seeding.SeedCustomers.AddCustomers(service).Wait();
+            //Seeding.SeedEmployees.AddEmployees(service).Wait();
+
         }
     }
 }

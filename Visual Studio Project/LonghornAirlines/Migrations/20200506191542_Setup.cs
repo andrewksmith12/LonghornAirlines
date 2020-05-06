@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LonghornAirlines.Migrations
 {
-    public partial class setup : Migration
+    public partial class Setup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,7 +46,7 @@ namespace LonghornAirlines.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Birthday = table.Column<DateTime>(nullable: false),
                     Mileage = table.Column<decimal>(nullable: false),
-                    AdvantageNumber = table.Column<string>(nullable: true),
+                    AdvantageNumber = table.Column<int>(nullable: false),
                     Street = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
@@ -189,7 +189,9 @@ namespace LonghornAirlines.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ReservationType = table.Column<int>(nullable: false),
                     ReservationMethod = table.Column<string>(nullable: true),
-                    CustomerId = table.Column<string>(nullable: true)
+                    CustomerId = table.Column<string>(nullable: true),
+                    ReservationComplete = table.Column<bool>(nullable: false),
+                    NumPassengers = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -266,7 +268,9 @@ namespace LonghornAirlines.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Date = table.Column<DateTime>(nullable: false),
                     hasDeparted = table.Column<bool>(nullable: false),
+                    BaseFare = table.Column<decimal>(nullable: false),
                     FlightInfoID = table.Column<int>(nullable: true),
+                    Canceled = table.Column<bool>(nullable: false),
                     PilotId = table.Column<string>(nullable: true),
                     AttendantId = table.Column<string>(nullable: true),
                     CoPilotId = table.Column<string>(nullable: true)

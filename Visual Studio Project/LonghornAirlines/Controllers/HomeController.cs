@@ -65,9 +65,9 @@ namespace LonghornAirlines.Controllers
             {
                 query = query.Where(c => c.LastName.Contains(customerSearchModel.LastName));
             }
-            if (customerSearchModel.AdvantageNumber != null && customerSearchModel.AdvantageNumber != "")
+            if (customerSearchModel.AdvantageNumber != null && customerSearchModel.AdvantageNumber != null)
             {
-                query = query.Where(c => c.AdvantageNumber.Contains(customerSearchModel.AdvantageNumber));
+                query = query.Where(c => c.AdvantageNumber == (customerSearchModel.AdvantageNumber));
             }
             List<AppUser> SelectedUsers = query.Include(c => c.UserID).ToList();
             return View(SelectedUsers);
