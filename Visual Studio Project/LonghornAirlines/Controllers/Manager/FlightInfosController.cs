@@ -35,8 +35,10 @@ namespace LonghornAirlines.Controllers
                 return NotFound();
             }
 
-            var flightInfo = await _context.FlightInfos.Include(fi => fi.Flights).Include(fi => fi.Route).ThenInclude(fi => fi.CityFrom).Include(fi => fi.Route).ThenInclude(fi => fi.CityTo)
+            var flightInfo = await _context.FlightInfos.Include(fi => fi.Flights).Include(fi => fi.Route).ThenInclude(fi => fi.CityFrom)
+                .Include(fi => fi.Route).ThenInclude(fi => fi.CityTo)
                 .FirstOrDefaultAsync(m => m.FlightInfoID == id);
+
             if (flightInfo == null)
             {
                 return NotFound();
