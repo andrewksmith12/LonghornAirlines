@@ -79,7 +79,7 @@ namespace LonghornAirlines.Controllers
                 return NotFound();
             }
 
-            var ticket = await _context.Tickets.Include(t => t.Reservation).Include(t => t.Customer).FirstAsync(t => t.TicketID == id);
+            var ticket = await _context.Tickets.Include(t => t.Reservation).Include(t => t.Customer).Include(t => t.Flight).ThenInclude(flight => flight.FlightInfo).FirstAsync(t => t.TicketID == id);
             if (ticket == null)
             {
                 return NotFound();
@@ -110,6 +110,11 @@ namespace LonghornAirlines.Controllers
             SelectList reservationCustomers;
             reservationCustomers = await GetReservationCustomersAsync(reservationID);
             ViewBag.ReservationCustomers = reservationCustomers;
+
+            //Fist Class, Budget price
+            ViewBag.firstClassFare = ticket.Flight.FlightInfo.FirstClassFare.ToString("C");
+            ViewBag.baseFare = ticket.Flight.FlightInfo.BaseFare.ToString("C");
+
             return View(tcm);
         }
 
@@ -200,7 +205,6 @@ namespace LonghornAirlines.Controllers
                 reservationUsers.Add(await _userManager.FindByNameAsync(User.Identity.Name));
             }
             return new SelectList(reservationUsers, "UserID", "FirstName");
-
         }
     }
 }

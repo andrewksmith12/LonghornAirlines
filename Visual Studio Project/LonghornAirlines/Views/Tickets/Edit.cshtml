@@ -26,13 +26,42 @@
                 // get the SVG content
                 var svgData = imageElement.contentDocument;
 
-               chart = anychart.seatMap([
-                   { id: "g0", value: "First Class" },
+                chart = anychart.seatMap();
+                seatMapSeries = chart.choropleth();
+                seatMapSeries.data([
+                   { id: "g0", value: "First Class", fill: "gold 0.5", hoverFill: "green 0.1", hoverStroke: "3 green"},
                    { id: "g1", value: "Budget" },
-                   {id: "1A", value: "1-A"}
-                ]);
+                   { id: "1A", value: "1A", info: "@ViewBag.firstClassFare"},
+                   { id: "1B", value: "1B", info: "@ViewBag.firstClassFare"},
+                   { id: "2A", value: "2A", info: "@ViewBag.firstClassFare"},
+                   { id: "2B", value: "2B", info: "@ViewBag.firstClassFare"},
+                   { id: "3A", value: "3A", info: "@ViewBag.baseFare"},
+                   { id: "3B", value: "3B", info: "@ViewBag.baseFare"},
+                   { id: "3C", value: "3C", info: "@ViewBag.baseFare"},
+                   { id: "3D", value: "3D", info: "@ViewBag.baseFare"},
+                   { id: "4A", value: "4A", info: "@ViewBag.baseFare"},
+                   { id: "4B", value: "4B", info: "@ViewBag.baseFare"},
+                   { id: "4C", value: "4C", info: "@ViewBag.baseFare"},
+                   { id: "4D", value: "4D", info: "@ViewBag.baseFare"},
+                   { id: "5A", value: "5A", info: "@ViewBag.baseFare"},
+                   { id: "5B", value: "5B", info: "@ViewBag.baseFare"},
+                   { id: "5C", value: "5C", info: "@ViewBag.baseFare"},
+                   { id: "5D", value: "5D", info: "@ViewBag.baseFare"},
+               ]);
                 // set SVG data to the chart
                 chart.geoData(svgData);
+
+                // set the tooltips
+                tooltips = seatMapSeries.tooltip();
+
+                // set the tooltips titles and body texts
+                tooltips.titleFormat("{%id}");
+                tooltips.format("{%info}");
+
+                // set the tooltips colors
+                tooltips.background("green 0.8");
+                tooltips.separator("white");
+
 
                 // set container id for the chart
                 chart.container("container");
