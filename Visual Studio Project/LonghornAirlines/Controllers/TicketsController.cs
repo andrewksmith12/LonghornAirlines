@@ -7,16 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Business;
+using LonghornAirlines.Models.ViewModels;
+using LonghornAirlines.Models.Users;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LonghornAirlines.Controllers
 {
     public class TicketsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public TicketsController(AppDbContext context)
+        public TicketsController(AppDbContext context, IServiceProvider service)
         {
             _context = context;
+            _userManager = service.GetRequiredService<UserManager<AppUser>>();
         }
 
         // GET: Tickets
@@ -73,12 +79,38 @@ namespace LonghornAirlines.Controllers
                 return NotFound();
             }
 
-            var ticket = await _context.Tickets.FindAsync(id);
+            var ticket = await _context.Tickets.Include(t => t.Reservation).Include(t => t.Customer).FirstAsync(t => t.TicketID == id);
             if (ticket == null)
             {
                 return NotFound();
             }
-            return View(ticket);
+            Int32 customerID;
+            Int32 reservationID;
+            try
+            {
+                customerID = ticket.Customer.UserID;
+            }
+            catch {
+                customerID = -1;
+            }
+            try
+            {
+                reservationID = ticket.Reservation.ReservationID;
+            }
+            catch
+            {
+                reservationID = -1;
+            }
+            TicketCreationModel tcm = new TicketCreationModel
+            {
+                TicketID = ticket.TicketID,
+                CustomerID = customerID,
+                SeatID = ""
+            };
+            SelectList reservationCustomers;
+            reservationCustomers = await GetReservationCustomersAsync(reservationID);
+            ViewBag.ReservationCustomers = reservationCustomers;
+            return View(tcm);
         }
 
         // POST: Tickets/Edit/5
@@ -148,6 +180,27 @@ namespace LonghornAirlines.Controllers
         private bool TicketExists(int id)
         {
             return _context.Tickets.Any(e => e.TicketID == id);
+        }
+
+        public async Task<SelectList> GetReservationCustomersAsync(Int32 ReservationID)
+        {
+            Models.Business.Reservation reservation = _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).First(r => r.ReservationID == ReservationID);
+            HashSet<AppUser> reservationUsers = new HashSet<AppUser>();
+            Boolean hasUser = false;
+            foreach (Ticket t in reservation.Tickets)
+            {
+                if (t.Customer != null)
+                {
+                    reservationUsers.Add(t.Customer);
+                    hasUser = true;
+                }
+            }
+            if (!hasUser)
+            {
+                reservationUsers.Add(await _userManager.FindByNameAsync(User.Identity.Name));
+            }
+            return new SelectList(reservationUsers, "UserID", "FirstName");
+
         }
     }
 }

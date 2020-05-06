@@ -57,9 +57,6 @@ namespace LonghornAirlines.Views
         public async Task<ActionResult> Description(int id)
         {
             Models.Business.Reservation reservation = _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).First(r => r.ReservationID == id);
-            SelectList reservationCustomers;
-            reservationCustomers = await GetReservationCustomersAsync(reservation);
-            ViewBag.ReservationCustomers = reservationCustomers;
             return View(reservation);
         }
 
@@ -179,34 +176,6 @@ namespace LonghornAirlines.Views
                 _context.Tickets.Add(reservationTicket);
                 _context.Update(reservation);
             }
-        }
-
-        
-
-        public ActionResult SelectSeat(Int32 ticketID, Int32 SelectedCustomerID)
-        {
-            Ticket ticket = _context.Tickets.FirstOrDefault(t => t.TicketID == ticketID);
-            return View(ticket);
-        }
-
-        public async Task<SelectList> GetReservationCustomersAsync(Models.Business.Reservation reservation)
-        {
-            HashSet<AppUser> reservationUsers = new HashSet<AppUser>();
-            Boolean hasUser = false;
-            foreach (Ticket t in reservation.Tickets)
-            {
-                if (t.Customer != null)
-                {
-                    reservationUsers.Add(t.Customer);
-                    hasUser = true;
-                }
-            }
-            if (!hasUser)
-            {
-                reservationUsers.Add(await _userManager.FindByNameAsync(User.Identity.Name));
-            }
-            return new SelectList(reservationUsers, "UserID", "FirstName");
-
         }
 
         // GET: Reservations
