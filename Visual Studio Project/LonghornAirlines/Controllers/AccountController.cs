@@ -55,7 +55,7 @@ namespace LonghornAirlines.Controllers
                     State = model.State,
                     Street = model.Street,
                     City = model.City,
-                    //AdvantageNumber = Utilities.GenerateAccountNumber.GetFFNum(_db),
+                    AdvantageNumber = Convert.ToString(Utilities.GenerateAccountNumber.GetFFNum(_userManager)),
                     UserID = Convert.ToInt32(model.AdvantageNumber),
                     Mileage = 0
                 };

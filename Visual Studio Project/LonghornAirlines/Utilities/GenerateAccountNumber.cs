@@ -2,20 +2,23 @@
 using System;
 using System.Linq;
 using LonghornAirlines.Models.Users;
+using Microsoft.AspNetCore.Identity;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LonghornAirlines.Utilities
 {
     public static class GenerateAccountNumber
     {
-        public static Int32 GetFFNum(AppDbContext _context)
+        public static int GetFFNum(UserManager<AppUser> _userManager)
         {
             // TODO: Get Advantage account number generation working
 
-            Int32 intMaxCourseNumber; //the current maximum course number
+            //Int32 intMaxID; //the current maximum course number
             {
-                //AppUser.Aggregate
-
-                //intMaxCourseNumber = _context.AppUser.AdvantageNumber.Max() //this is the highest number in the database right now
+                IList<AppUser> customers = new List<AppUser>();
+                //customers = await _userManager.GetUsersInRoleAsync("Customer"); //this is the highest number in the database right now
             }
 
             //add one to the current max to find the next one

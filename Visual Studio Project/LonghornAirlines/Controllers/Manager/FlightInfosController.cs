@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Business;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace LonghornAirlines.Controllers
 {
@@ -96,13 +98,114 @@ namespace LonghornAirlines.Controllers
             {
                 return NotFound();
             }
+            FlightInfo dbFlightInfo = _context.FlightInfos.FirstOrDefault(m => m.FlightInfoID == flightInfo.FlightInfoID);
+            // Add Bools
+            Boolean sundayBooladd = false;
+            Boolean mondayBooladd = false;
+            Boolean tuesdayBooladd = false;
+            Boolean wednesdayBooladd = false;
+            Boolean thursdayBooladd = false;
+            Boolean fridayBooladd = false;
+            Boolean saturdayBooladd = false;
+            // RM Bools
+            Boolean sundayBoolrm = false;
+            Boolean mondayBoolrm = false;
+            Boolean tuesdayBoolrm = false;
+            Boolean wednesdayBoolrm = false;
+            Boolean thursdayBoolrm = false;
+            Boolean fridayBoolrm = false;
+            Boolean saturdayBoolrm = false;
+
+
+            // Set Booleans
+            if (dbFlightInfo.Sunday != flightInfo.Sunday)
+            {
+                if (flightInfo.Sunday == true)
+                {
+                    sundayBooladd = true;
+                }
+                else
+                {
+                    sundayBoolrm = true;
+                }
+            }
+            if (dbFlightInfo.Monday != flightInfo.Monday)
+            {
+                if (flightInfo.Monday == true)
+                {
+                    mondayBooladd = true;
+                }
+                else
+                {
+                    mondayBoolrm = true;
+                }
+            }
+            if (dbFlightInfo.Tuesday != flightInfo.Tuesday)
+            {
+                if (flightInfo.Tuesday == true)
+                {
+                    tuesdayBooladd = true;
+                }
+                else
+                {
+                    tuesdayBoolrm = true;
+                }
+            }
+            if (dbFlightInfo.Wednesday != flightInfo.Wednesday)
+            {
+                if (flightInfo.Wednesday == true)
+                {
+                    wednesdayBooladd = true;
+                }
+                else
+                {
+                    wednesdayBoolrm = true;
+                }
+            }
+            if (dbFlightInfo.Thursday != flightInfo.Thursday)
+            {
+                if (flightInfo.Thursday == true)
+                {
+                    thursdayBooladd = true;
+                }
+                else
+                {
+                    thursdayBoolrm = true;
+                }
+            }
+            if (dbFlightInfo.Friday != flightInfo.Friday)
+            {
+                if (flightInfo.Friday == true)
+                {
+                    fridayBooladd = true;
+                }
+                else
+                {
+                    fridayBoolrm = true;
+                }
+            }
+            if (dbFlightInfo.Saturday != flightInfo.Saturday)
+            {
+                if (flightInfo.Saturday == true)
+                {
+                    saturdayBooladd = true;
+                }
+                else
+                {
+                    saturdayBoolrm = true;
+                }
+            }
+
 
             if (ModelState.IsValid)
             {
                 try
                 {
+
                     _context.Update(flightInfo);
                     await _context.SaveChangesAsync();
+                    Utilities.AddFlight.addBools(_context, flightInfo, sundayBooladd, mondayBooladd, tuesdayBooladd, wednesdayBooladd, thursdayBooladd, fridayBooladd, saturdayBooladd);
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

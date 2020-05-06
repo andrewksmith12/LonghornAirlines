@@ -32,6 +32,9 @@ namespace LonghornAirlines.Models.Business
         [Display(Name = "Flight Information: ")]
         public FlightInfo FlightInfo { get; set; }
 
+        [Display(Name = "Canceled Status: ")]
+        public Boolean Canceled { get; set; }
+
         [Display(Name = "Pilot: ")]
         public AppUser Pilot { get; set; }
 
