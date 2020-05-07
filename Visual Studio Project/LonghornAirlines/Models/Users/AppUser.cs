@@ -19,6 +19,13 @@ namespace LonghornAirlines.Models.Users
         [Display(Name = "Last Name: ")]
         public String LastName { get; set; }
 
+        [Display(Name = "Full Name: ")]
+        public String FullName { get
+            {
+                string FullName = (FirstName + " " + LastName);
+                return FullName;
+            } }
+
         [Display(Name = "Birthday: ")]
         public DateTime Birthday { get; set; }
 

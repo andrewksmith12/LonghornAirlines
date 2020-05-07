@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Business;
+using LonghornAirlines.Models.Users;
+using Microsoft.AspNetCore.Identity;
 
 namespace LonghornAirlines.Controllers.Manager
 {
     public class FlightsController : Controller
     {
         private readonly AppDbContext _context;
+        private UserManager<AppUser> _userManager;
 
-        public FlightsController(AppDbContext context)
+        public FlightsController(AppDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Flights
@@ -68,6 +72,9 @@ namespace LonghornAirlines.Controllers.Manager
         // GET: Flights/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.Pilots = GetAllPilots();
+            ViewBag.CoPilots = GetAllCoPilots();
+            ViewBag.Attendants = GetAllAttendants();
             if (id == null)
             {
                 return NotFound();
@@ -113,6 +120,9 @@ namespace LonghornAirlines.Controllers.Manager
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Pilots = GetAllPilots();
+            ViewBag.CoPilots = GetAllCoPilots();
+            ViewBag.Attendants = GetAllAttendants();
             return View(flight);
         }
 
@@ -148,6 +158,58 @@ namespace LonghornAirlines.Controllers.Manager
         private bool FlightExists(int id)
         {
             return _context.Flights.Any(e => e.FlightID == id);
+        }
+        public SelectList GetAllRoutes()
+        {
+            List<Route> routes = _context.Routes.ToList();
+            SelectList AllRoutes = new SelectList(routes, "RouteID", "Route");
+            return AllRoutes;
+        }
+
+        public async Task<SelectList> GetAllPilotsAsync()
+        {
+            //find all the users in the role
+            var pilotsQuery = await _userManager.GetUsersInRoleAsync("Pilot");
+            //convert from task to list
+            List<AppUser> members = new List<AppUser>(pilotsQuery);
+            SelectList AllPilotsTask = new SelectList(members, "Id", "FullName");
+            return AllPilotsTask;
+        }
+        public SelectList GetAllPilots()
+        {
+            var list = GetAllPilotsAsync();
+            SelectList AllPilots = list.Result;
+            return AllPilots;
+        }
+        public async Task<SelectList> GetAllCoPilotsAsync()
+        {
+            //find all the users in the role
+            var copilotsQuery = await _userManager.GetUsersInRoleAsync("CoPilot");
+            //convert from task to list
+            List<AppUser> members = new List<AppUser>(copilotsQuery);
+            SelectList AllCoPilotsTask = new SelectList(members, "Id", "FullName");
+            return AllCoPilotsTask;
+        }
+        public SelectList GetAllCoPilots()
+        {
+            var list = GetAllCoPilotsAsync();
+            SelectList AllCoPilots = list.Result;
+            return AllCoPilots;
+        }
+        public async Task<SelectList> GetAllAttendantsAsync()
+        {
+            //find all the users in the role
+            var attendantsQuery = await _userManager.GetUsersInRoleAsync("Attendant");
+            //convert from task to list
+            List<AppUser> members = new List<AppUser>(attendantsQuery);
+            SelectList AllAttendantsTask = new SelectList(members, "Id", "FullName");
+            return AllAttendantsTask;
+        }
+        public SelectList GetAllAttendants()
+        {
+            var list = GetAllAttendantsAsync();
+            SelectList AllAttendants = list.Result;
+            return AllAttendants;
         }
     }
 }

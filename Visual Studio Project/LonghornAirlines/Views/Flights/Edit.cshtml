@@ -24,6 +24,18 @@
                 </label>
             </div>
             <div class="form-group">
+                <label class="control-label">Pilot</label>
+                @Html.DropDownList("SelectedPilot", (SelectList)ViewBag.Pilots, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">CoPilot</label>
+                @Html.DropDownList("SelectedCoPilot", (SelectList)@ViewBag.CoPilots, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Pilot</label>
+                @Html.DropDownList("SelectedAttendant", (SelectList)@ViewBag.Attendants, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
