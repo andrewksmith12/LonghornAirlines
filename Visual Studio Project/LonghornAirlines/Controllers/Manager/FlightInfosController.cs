@@ -51,6 +51,7 @@ namespace LonghornAirlines.Controllers
         // GET: FlightInfoes/Create
         public IActionResult Create()
         {
+            ViewBag.Cities = GetAllCities();
             return View();
         }
 
@@ -277,6 +278,12 @@ namespace LonghornAirlines.Controllers
             return _context.FlightInfos.Any(e => e.FlightInfoID == id);
         }
 
-        
+        public SelectList GetAllCities()
+        {
+            List<City> cityList = _context.Cities.ToList();
+
+            return new SelectList(cityList.OrderBy(c => c.CityID), "CityID", "CityName");
+        }
+
     }
 }
