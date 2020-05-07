@@ -55,6 +55,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            @Html.HiddenFor(modelItem => item.FlightInfoID)
             <td>
                 @Html.DisplayFor(modelItem => item.FlightNumber)
             </td>

@@ -51,7 +51,7 @@ namespace LonghornAirlines.Controllers
         // GET: FlightInfoes/Create
         public IActionResult Create()
         {
-            ViewBag.Cities = GetAllCities();
+            ViewBag.AllCities = GetAllCities();
             return View();
         }
 
@@ -60,15 +60,31 @@ namespace LonghornAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightNumber,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
+        public async Task<IActionResult> Create([Bind("FlightNumber,FlightTime,BaseFare")] FlightInfo flightInfo, int DepartCity, int ArriveCity)
         {
+            Route route = _context.Routes.Include(m => m.CityFrom).Include(m => m.CityTo).FirstOrDefault(m => m.CityFrom.CityID == DepartCity && m.CityTo.CityID == ArriveCity);
+            if (_context.FlightInfos.Where(f => f.FlightNumber == flightInfo.FlightNumber).Count() != 0)
+            {
+                ViewBag.AllCities = GetAllCities();
+                String error = "Flight Number Already Exists. Please select a different Flight Number.";
+                ViewBag.error = error;
+                return View("Create", flightInfo);
+            }
+            if (route == null)
+            {
+                ViewBag.AllCities = GetAllCities();
+                String error = "Route Not Found, Please Check your Departure & Arrival Cities";
+                ViewBag.Error = error;
+                return View("Create", flightInfo);
+            };
             if (ModelState.IsValid)
             {
-                _context.Add(flightInfo);
+               
+                flightInfo.Route = route;
+                _context.FlightInfos.Add(flightInfo);
                 await _context.SaveChangesAsync();
-                FlightInfo dbFlightInfo = _context.FlightInfos.FirstOrDefault(f => f.FlightNumber == flightInfo.FlightNumber);
-                Utilities.AddFlight.addBools(_context, dbFlightInfo, dbFlightInfo.Sunday, dbFlightInfo.Monday, dbFlightInfo.Tuesday, dbFlightInfo.Wednesday, dbFlightInfo.Thursday, dbFlightInfo.Friday, dbFlightInfo.Saturday);
-                return RedirectToAction(nameof(Index));
+                
+                return RedirectToAction("Edit", new { id = flightInfo.FlightInfoID });
             }
             return View(flightInfo);
         }
@@ -94,7 +110,7 @@ namespace LonghornAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FlightNumber,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("FlightInfoID,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
         {
             if (id != flightInfo.FlightInfoID)
             {
@@ -225,7 +241,7 @@ namespace LonghornAirlines.Controllers
                 {
 
                     _context.Update(dbFlightInfo);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                     Utilities.AddFlight.addBools(_context, flightInfo, sundayBooladd, mondayBooladd, tuesdayBooladd, wednesdayBooladd, thursdayBooladd, fridayBooladd, saturdayBooladd);
                     Utilities.RemoveFlight.removeBools(_context, flightInfo, sundayBoolrm, mondayBoolrm, tuesdayBoolrm, wednesdayBoolrm, thursdayBoolrm, fridayBoolrm, saturdayBoolrm);
 

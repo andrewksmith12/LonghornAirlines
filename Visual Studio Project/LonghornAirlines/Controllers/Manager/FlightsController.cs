@@ -184,7 +184,7 @@ namespace LonghornAirlines.Controllers.Manager
         public async Task<SelectList> GetAllCoPilotsAsync()
         {
             //find all the users in the role
-            var copilotsQuery = await _userManager.GetUsersInRoleAsync("CoPilot");
+            var copilotsQuery = await _userManager.GetUsersInRoleAsync("Co-Pilot");
             //convert from task to list
             List<AppUser> members = new List<AppUser>(copilotsQuery);
             SelectList AllCoPilotsTask = new SelectList(members, "Id", "FullName");
@@ -199,7 +199,7 @@ namespace LonghornAirlines.Controllers.Manager
         public async Task<SelectList> GetAllAttendantsAsync()
         {
             //find all the users in the role
-            var attendantsQuery = await _userManager.GetUsersInRoleAsync("Attendant");
+            var attendantsQuery = await _userManager.GetUsersInRoleAsync("Flight Attendant");
             //convert from task to list
             List<AppUser> members = new List<AppUser>(attendantsQuery);
             SelectList AllAttendantsTask = new SelectList(members, "Id", "FullName");
