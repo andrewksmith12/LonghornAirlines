@@ -26,7 +26,7 @@ namespace LonghornAirlines.Models.ViewModels
         ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime ArriveDate { get; set; }
 
-        [Display(Name = "First or Economy? ")]
-        public ClassType Class { get; set; }
+        [Display(Name = "Class Type:")]
+        public ClassType classType { get; set; }
     }
 }
