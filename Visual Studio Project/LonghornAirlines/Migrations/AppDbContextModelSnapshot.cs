@@ -79,6 +79,8 @@ namespace LonghornAirlines.Migrations
 
                     b.Property<decimal>("BaseFare");
 
+                    b.Property<int>("FlightNumber");
+
                     b.Property<string>("FlightTime");
 
                     b.Property<bool>("Friday");

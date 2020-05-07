@@ -41,7 +41,7 @@ namespace LonghornAirlines.Utilities
                         Flight tempFlight = new Flight
                         {
                             Date = flightDate,
-                            FlightInfo = db.FlightInfos.FirstOrDefault(f => f.FlightInfoID == flightInfo.FlightInfoID),
+                            FlightInfo = db.FlightInfos.FirstOrDefault(f => f.FlightNumber == flightInfo.FlightNumber),
                         };
                         AllFlights.Add(tempFlight);
                     }
@@ -52,7 +52,7 @@ namespace LonghornAirlines.Utilities
                         Flight tempFlight = new Flight
                         {
                             Date = flightDate,
-                            FlightInfo = db.FlightInfos.FirstOrDefault(f => f.FlightInfoID == flightInfo.FlightInfoID),
+                            FlightInfo = db.FlightInfos.FirstOrDefault(f => f.FlightNumber == flightInfo.FlightNumber),
                         };
                         flightDate = flightDate.AddDays(7);
                         AllFlights.Add(tempFlight);

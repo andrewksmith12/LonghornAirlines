@@ -8,8 +8,9 @@
 <h1>Details</h1>
 
 <div>
+    @Html.HiddenFor(model => model.FlightInfoID)
     <h4>
-        Flight Number @Html.DisplayFor(model => model.FlightInfoID)<br />
+        Flight Number @Html.DisplayFor(model => model.FlightNumber)<br />
         From: @Html.DisplayFor(model => model.Route.CityFrom.CityName) (@Html.DisplayFor(model => model.Route.CityFrom.CityCode))  To: @Html.DisplayFor(model => model.Route.CityTo.CityName) (@Html.DisplayFor(model => model.Route.CityTo.CityCode))
     </h4>
     <hr />
@@ -86,7 +87,7 @@
     @foreach (Flight f in Model.Flights.Where(f => f.Canceled == false))
     {
     <tr>
-        <td>@Html.DisplayFor(m => m.FlightInfoID)</td>
+        <td>@Html.DisplayFor(m => m.FlightNumber)</td>
         <td>@Html.DisplayFor(ModelItem => f.Date)</td>
         <td>@Html.DisplayFor(m => m.FlightTime)</td>
         <td>@Html.DisplayFor(ModelItem => f.BaseFare)</td>

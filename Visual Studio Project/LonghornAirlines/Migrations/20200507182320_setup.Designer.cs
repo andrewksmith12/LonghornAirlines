@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LonghornAirlines.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200507020436_setup")]
+    [Migration("20200507182320_setup")]
     partial class setup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,6 +80,8 @@ namespace LonghornAirlines.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("BaseFare");
+
+                    b.Property<int>("FlightNumber");
 
                     b.Property<string>("FlightTime");
 

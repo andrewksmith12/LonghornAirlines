@@ -60,12 +60,14 @@ namespace LonghornAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightInfoID,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
+        public async Task<IActionResult> Create([Bind("FlightNumber,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(flightInfo);
                 await _context.SaveChangesAsync();
+                FlightInfo dbFlightInfo = _context.FlightInfos.FirstOrDefault(f => f.FlightNumber == flightInfo.FlightNumber);
+                Utilities.AddFlight.addBools(_context, dbFlightInfo, dbFlightInfo.Sunday, dbFlightInfo.Monday, dbFlightInfo.Tuesday, dbFlightInfo.Wednesday, dbFlightInfo.Thursday, dbFlightInfo.Friday, dbFlightInfo.Saturday);
                 return RedirectToAction(nameof(Index));
             }
             return View(flightInfo);
@@ -92,7 +94,7 @@ namespace LonghornAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FlightInfoID,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("FlightNumber,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
         {
             if (id != flightInfo.FlightInfoID)
             {
