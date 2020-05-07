@@ -72,6 +72,9 @@ namespace LonghornAirlines.Controllers.Manager
         // GET: Flights/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.Pilots = GetAllPilots();
+            ViewBag.CoPilots = GetAllCoPilots();
+            ViewBag.Attendants = GetAllAttendants();
             if (id == null)
             {
                 return NotFound();
