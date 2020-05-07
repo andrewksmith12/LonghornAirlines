@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace LonghornAirlines.Controllers
 {
+    [Authorize(Roles = "Employee")]
     public class ReportController : Controller
     {
         private AppDbContext _db;
@@ -17,7 +20,7 @@ namespace LonghornAirlines.Controllers
         {
             _db = context;
         }
-
+        
         public IActionResult Index()
         {
             return View();

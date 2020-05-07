@@ -25,6 +25,7 @@ namespace LonghornAirlines.Controllers
         {
             _db = context;
         }
+
         public IActionResult Index(BookingSearchModel model)
         {
             if (User.IsInRole("Employee"))
@@ -34,6 +35,13 @@ namespace LonghornAirlines.Controllers
             ViewBag.AllCities = GetAllCities();
             return View(model);
         }
+
+        public IActionResult bookForCust(BookingSearchModel model)
+        {
+            ViewBag.AllCities = GetAllCities();
+            return View("Index",model);
+        }
+
 
         public SelectList GetAllCities()
         {

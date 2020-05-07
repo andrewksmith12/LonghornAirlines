@@ -30,7 +30,7 @@
                             @t.Customer.NormalizedUserName
                         }
                     </td>
-                    <td>@t.Flight.FlightInfo.FlightInfoID</td>
+                    <td>@t.Flight.FlightInfo.FlightNumber</td>
                     <td>@t.Flight.Date</td>
                     <td>@t.Flight.FlightInfo.FlightTime</td>
                     <td><a class="btn btn-outline-danger" asp-controller="ReservationController" asp-action="SeatSelection" asp-route-ticketID="@t.TicketID">Choose Seat</a></td>
