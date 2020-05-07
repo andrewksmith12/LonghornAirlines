@@ -72,8 +72,10 @@ namespace LonghornAirlines.Controllers
         }
 
         // GET: Tickets/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, Int32? UserID)
         {
+
+            SelectList reservationCustomers;
             if (id == null)
             {
                 return NotFound();
@@ -89,19 +91,32 @@ namespace LonghornAirlines.Controllers
             String SeatID;
             try
             {
-                customerID = ticket.Customer.UserID;
-            }
-            catch {
-                customerID = -1;
-            }
-            try
-            {
                 reservationID = ticket.Reservation.ReservationID;
             }
             catch
             {
                 reservationID = -1;
             }
+            if (UserID.HasValue)
+            {
+                customerID = UserID.Value;
+
+                reservationCustomers = await GetReservationCustomersAsync(reservationID, UserID);
+            }
+            else
+            {
+                try
+                {
+                    customerID = ticket.Customer.UserID;
+                }
+                catch
+                {
+                    customerID = -1;
+                }
+
+                reservationCustomers = await GetReservationCustomersAsync(reservationID, null);
+            }
+            
             try
             {
                 SeatID = ticket.Seat;
@@ -116,8 +131,6 @@ namespace LonghornAirlines.Controllers
                 CustomerID = customerID,
                 SeatID = SeatID
             };
-            SelectList reservationCustomers;
-            reservationCustomers = await GetReservationCustomersAsync(reservationID);
             ViewBag.ReservationCustomers = reservationCustomers;
 
             //Fist Class, Budget price
@@ -244,7 +257,7 @@ namespace LonghornAirlines.Controllers
             return _context.Tickets.Any(e => e.TicketID == id);
         }
 
-        public async Task<SelectList> GetReservationCustomersAsync(Int32 ReservationID)
+        public async Task<SelectList> GetReservationCustomersAsync(Int32 ReservationID, Int32? NewCustomerID)
         {
             Models.Business.Reservation reservation = _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).First(r => r.ReservationID == ReservationID);
             HashSet<AppUser> reservationUsers = new HashSet<AppUser>();
@@ -256,6 +269,10 @@ namespace LonghornAirlines.Controllers
                 }
             }
             reservationUsers.Add(await _userManager.FindByNameAsync(User.Identity.Name));
+            if (NewCustomerID.HasValue)
+            {
+                reservationUsers.Add(_context.Users.First(u => u.UserID == NewCustomerID.Value));
+            }
             return new SelectList(reservationUsers, "UserID", "FirstName");
         }
     }

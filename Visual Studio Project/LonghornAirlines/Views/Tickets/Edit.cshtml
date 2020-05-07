@@ -12,7 +12,9 @@
             <input type="hidden" asp-for="TicketID" />
             @Html.DropDownListFor(tcm => tcm.CustomerID, (SelectList)ViewBag.ReservationCustomers, new { @class = "form-control" })
             <!--TODO: Customer Selection-->
-            <a asp-action="TicketCustomerSearch" asp-controller="Search" asp-route-TicketID="@Model.TicketID">Find new customer</a>
+            <a asp-action="TicketCustomerSearch" asp-controller="Search" asp-route-TicketID="@Model.TicketID">Find existing customer</a>
+
+            <a asp-action="CustomerCreateAccount" asp-controller="Search" asp-route-TicketID="@Model.TicketID">Set up new customer</a>
 
         </div>
 
@@ -90,4 +92,3 @@
         });
     });
 </script>
-}
