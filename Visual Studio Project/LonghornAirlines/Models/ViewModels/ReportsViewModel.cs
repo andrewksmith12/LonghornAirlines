@@ -11,10 +11,10 @@ namespace LonghornAirlines.Models.ViewModels
     {
 
         [Display(Name = "Departure City: ")]
-        public Int32 DepartCityID { get; set; }
+        public Int32? DepartCityID { get; set; }
 
         [Display(Name = "Arrival City: ")]
-        public Int32 ArriveCityID { get; set; }
+        public Int32? ArriveCityID { get; set; }
 
         [Display(Name = "Departure Date: ")]
         [Range(typeof(DateTime), "04/15/2020", "06/20/2020",

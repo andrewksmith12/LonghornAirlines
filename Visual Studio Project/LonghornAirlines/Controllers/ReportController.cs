@@ -1,12 +1,11 @@
-﻿using System;
+﻿using LonghornAirlines.DAL;
+using LonghornAirlines.Models.Business;
+using LonghornAirlines.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using LonghornAirlines.Models.ViewModels;
-using LonghornAirlines.DAL;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using LonghornAirlines.Models.Business;
 
 namespace LonghornAirlines.Controllers
 {
@@ -33,16 +32,34 @@ namespace LonghornAirlines.Controllers
             return new SelectList(cityList.OrderBy(c => c.CityID), "CityID", "CityName");
         }
 
-        public IActionResult Index()
+        public IActionResult DisplayReport (ReportsViewModel rvm)
         {
-            return View();
-        }
+            ViewBag.CityToName = _db.Cities.FirstOrDefault(c => c.CityID == rvm.ArriveCityID).CityName;
+            ViewBag.CityFromName = _db.Cities.FirstOrDefault(c => c.CityID == rvm.DepartCityID).CityName;
+            var query = from t in _db.Tickets
+                        select t;
+            if (rvm.DepartCityID != null)
+            {
+                query = query.Where(t => t.Flight.FlightInfo.Route.CityFrom.CityID == rvm.DepartCityID);
+            }
+            if (rvm.ArriveCityID != null)
+            {
+                query = query.Where(t => t.Flight.FlightInfo.Route.CityTo.CityID == rvm.ArriveCityID);
+            }
 
-        //public IActionResult DisplayReport (ReportsViewModel rvm)
-       // {
-         //   var query = from r in _db.Tickets
-           //             select r;
-            //if(rvm.)
-        //}
+            if (rvm.DepartDate != null)
+            {
+                query = query.Where(t => t.Flight.Date > rvm.DepartDate);
+            }
+
+            if (rvm.ArriveDate != null)
+            {
+                query = query.Where(t => t.Flight.Date > rvm.ArriveDate);
+            }
+
+            List<Ticket> SelectedTickets = query.ToList();
+            return View("Index", SelectedTickets);
+
+        }
     }
 }
