@@ -24,6 +24,21 @@
                 </label>
             </div>
             <div class="form-group">
+                <label class="control-label">Pilot</label>
+                @Html.DropDownListFor(model => model.Pilot, (SelectList)ViewBag.Pilots, new { @class = "form-control" })
+                <span asp-validation-for="Pilot" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">CoPilot</label>
+                @Html.DropDownListFor(model => model.Pilot, (SelectList)ViewBag.CoPilots, new { @class = "form-control" })
+                <span asp-validation-for="CoPilot" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Pilot</label>
+                @Html.DropDownListFor(model => model.Attendant, (SelectList)ViewBag.Attendants, new { @class = "form-control" })
+                <span asp-validation-for="Attendant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
