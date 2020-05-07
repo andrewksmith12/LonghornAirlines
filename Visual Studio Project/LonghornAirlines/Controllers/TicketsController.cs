@@ -136,7 +136,7 @@ namespace LonghornAirlines.Controllers
             //Fist Class, Budget price
             ViewBag.firstClassFare = ticket.Flight.FlightInfo.FirstClassFare.ToString("C");
             ViewBag.baseFare = ticket.Flight.FlightInfo.BaseFare.ToString("C");
-
+            ViewBag.takenSeats = Utilities.GetTakenSeats.FromFlight(ticket.Flight.FlightID, _context);
             return View(tcm);
         }
 
