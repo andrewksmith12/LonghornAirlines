@@ -136,7 +136,8 @@ namespace LonghornAirlines.Controllers
             Ticket ticket = _context.Tickets.Include(t => t.Customer).Include(t => t.Reservation).First(t => t.TicketID == tcm.TicketID);
             ticket.Seat = tcm.SeatID;
             ticket.Customer = _context.Users.First(c => c.UserID == tcm.CustomerID);
-
+            Decimal fare = GetFare(tcm.TicketID, tcm.SeatID);
+            ticket.Fare = fare;
             try
             {
                 _context.Update(ticket);
@@ -154,6 +155,47 @@ namespace LonghornAirlines.Controllers
                 }
             }
             return RedirectToAction("Description", "Reservation", new { id = ticket.Reservation.ReservationID }); ;
+        }
+
+        private decimal GetFare(int ticketID, string seatID)
+        {
+            Ticket ticket = _context.Tickets.Include(t => t.Flight).Include(t => t.Customer).First(t => t.TicketID == ticketID);
+            String[] firstClassSeats = { "1A", "1B", "2A", "2B" };
+            String[] budgetSeats = { "3A", "3B", "3C", "3D",
+                                     "4A", "4B", "4C", "4D",
+                                     "5A", "5B", "5C", "5D"};
+            Decimal fare;
+            
+            if (firstClassSeats.Contains(seatID))
+            {
+                fare = ticket.Flight.FirstClassFare;
+            }
+            else
+            {
+                fare = ticket.Flight.BaseFare;
+                Int32 Age;
+                DateTime today = DateTime.Now.Date;
+                Decimal discount = 0;
+                //Age Discounts
+                try
+                {
+                    Int16 age = Convert.ToInt16(Math.Floor(today.Subtract(ticket.Customer.Birthday.Date).TotalDays / 365));
+                    if (age > 65)
+                    {
+                        discount = .1m;
+                    }
+                    else if (age < 12)
+                    {
+                        discount = .15m;
+                    }
+                }
+                catch
+                {
+                    discount = 0;
+                }
+                fare *= (1 - discount);
+            }
+            return fare;
         }
 
         // GET: Tickets/Delete/5

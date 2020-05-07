@@ -1,11 +1,11 @@
 ﻿@model LonghornAirlines.Models.Business.Reservation
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Confirm";
 }
 
 @section imageContent{
     <h1>Welcome to your Reservation</h1>
-    <h5>Confirm all information is correct and proceed to seat selection!</h5>
+    <h5>Confirm all information is correct and confirm your purchase!</h5>
 
     <table class="table">
         <tr>
@@ -15,7 +15,7 @@
             <th>Flight Date</th>
             <th>Flight Time</th>
             <th>Current Seat</th>
-            <th>Seat Selection</th>
+            <th>Fare</th>
         </tr>
         <tbody>
             @foreach (Ticket t in Model.Tickets)
@@ -23,31 +23,29 @@
                 <tr>
                     <td>@t.TicketID</td>
                     <td>
-                        @if (t.Customer == null)
-                        {
-                            <p>No customer selected for this ticket</p>
-                        }
-                        else
-                        {
-                            @t.Customer.FirstName
-                        }
+                        @t.Customer.FirstName
                     </td>
                     <td>@t.Flight.FlightInfo.FlightInfoID</td>
                     <td>@t.Flight.Date</td>
                     <td>@t.Flight.FlightInfo.FlightTime</td>
                     <td>@t.Seat</td>
-                    <td><a class="btn btn-outline-danger" asp-controller="Tickets" asp-action="Edit" asp-route-id="@t.TicketID" >Choose Seat</a></td>
+                    <td>@t.Fare</td>
                 </tr>
             }
         </tbody>
     </table>
-<a class="btn btn-info" onclick="submission()">Confirm Reservation</a>
+    <div class="jumbotron">
+        <h4>Reservation Subtotal: </h4> @Html.DisplayFor(r => r.ReservationSubtotal)
+        <h4>Sales Tax: </h4> @Html.DisplayFor(r => r.SalesTax)
+        <h2>Total: </h2> @Html.DisplayFor(r => r.ReservationTotal)
+    </div>
+    <a class="btn btn-info" onclick="submission()">Confirm Reservation</a>
 }
 
-@section Scripts{ 
-<script type="text/javascript">
+@section Scripts{
+    <script type="text/javascript">
 function submission() {
-    window.location.href = '@Url.Action("Confirm", "Reservation")/' + @Model.ReservationID;
+    window.location.href = '@Url.Action("Finalize", "Reservation")/' + @Model.ReservationID;
 }
-</script>
+    </script>
 }

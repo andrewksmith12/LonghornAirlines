@@ -25,6 +25,7 @@ namespace LonghornAirlines.Seeding
                 days[4] = flightInfo.Thursday;
                 days[5] = flightInfo.Friday;
                 days[6] = flightInfo.Saturday;
+                Decimal baseFare = flightInfo.BaseFare;
 
                 //For Loop - Goes over all days of the week and add flights to all dates available if true
                 for (int i = 0; i < 7; i++)
@@ -44,6 +45,7 @@ namespace LonghornAirlines.Seeding
                             {
                                 Date = flightDate,
                                 FlightInfo = db.FlightInfos.FirstOrDefault(f => f.FlightInfoID == flightInfo.FlightInfoID),
+                                BaseFare = baseFare
                             };
                             AllFlights.Add(tempFlight);
                         }
@@ -55,15 +57,13 @@ namespace LonghornAirlines.Seeding
                             {
                                 Date = flightDate,
                                 FlightInfo = db.FlightInfos.FirstOrDefault(f => f.FlightInfoID == flightInfo.FlightInfoID),
+                                BaseFare = baseFare
                             };
                             flightDate = flightDate.AddDays(7);
                             AllFlights.Add(tempFlight);
                         }
                     }
                 }
-
-                //Adds all flights to the database
-                //create a counter to help debug
                 int intFlightID = 1;
 
                 try

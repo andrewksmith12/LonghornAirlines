@@ -232,6 +232,21 @@ namespace LonghornAirlines.Views
             return View(reservation);
         }
 
+        public async Task<IActionResult> Confirm(int? id)
+        {
+            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).FirstAsync(r => r.ReservationID == id);
+
+            return View(reservation);
+        }
+
+        public async Task<IActionResult> Finalize(int? id)
+        {
+            Models.Business.Reservation reservation = await _context.Reservations.FirstAsync(r => r.ReservationID == id);
+            reservation.ReservationComplete = true;
+            _context.Update(reservation);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
 
