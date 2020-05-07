@@ -83,7 +83,7 @@
         <th>Attendant: </th>
         <th>Already Departed: </th>
     </tr>
-    @foreach (Flight f in Model.Flights)
+    @foreach (Flight f in Model.Flights.Where(f => f.Canceled == false))
     {
     <tr>
         <td>@Html.DisplayFor(m => m.FlightInfoID)</td>

@@ -11,7 +11,7 @@ using LonghornAirlines.Models;
 namespace LonghornAirlines.Controllers
 {
     //TODO: Uncomment this line once you have roles working correctly
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Manager")]
     public class RoleAdminController : Controller
     {
         private AppDbContext _db;
