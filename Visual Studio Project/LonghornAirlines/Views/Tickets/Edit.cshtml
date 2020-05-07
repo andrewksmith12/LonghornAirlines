@@ -7,22 +7,31 @@
 {
 
     <form asp-action="Edit" method="post">
-        <div class="jumbotron">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="TicketID" />
-            @Html.DropDownListFor(tcm => tcm.CustomerID, (SelectList)ViewBag.ReservationCustomers, new { @class = "form-control" })
-            <!--TODO: Customer Selection-->
-            <a asp-action="TicketCustomerSearch" asp-controller="Search" asp-route-TicketID="@Model.TicketID">Find existing customer</a>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-4">
+                <div id="container" style="height:700px"></div>
+                <p id="seatLabel">Selected Seat: @Model.SeatID</p>
+                <input type="hidden" id="SeatID" name="SeatID" />
+            </div>
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-header">
+                        @Html.DropDownListFor(tcm => tcm.CustomerID, (SelectList)ViewBag.ReservationCustomers, new { @class = "form-control" })
+                    </div>
+                    <div class="card-body">
+                        <input type="hidden" asp-for="TicketID" />
 
-            <a asp-action="CustomerCreateAccount" asp-controller="Search" asp-route-TicketID="@Model.TicketID">Set up new customer</a>
+                        <a asp-action="TicketCustomerSearch" asp-controller="Search" asp-route-TicketID="@Model.TicketID">Find existing customer</a>
+                        <br />
+                        <a asp-action="CustomerCreateAccount" asp-controller="Search" asp-route-TicketID="@Model.TicketID">Set up new customer</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="test" class="container">Taken Seats: </div>
-        <div id="container" style="width: 500px; height: 400px;">
-        </div>
-        <p id="seatLabel">Selected Seat: @Model.SeatID</p>
-        <input type="hidden" id="SeatID" name="SeatID" />
+
         <a href="#" class="submitForm">Save</a>
-        <object style="width: 0; height: 0;" data="~/static/drawing.svg" type="image/svg+xml" id="house"></object>
+        <object style="width: 0px; height: 0px;" data="~/static/drawing.svg" type="image/svg+xml" id="house"></object>
 
         <script>
             anychart.onDocumentLoad(function () {
