@@ -184,7 +184,7 @@ namespace LonghornAirlines.Views
             //get all the reservations from the database
             List<Models.Business.Reservation> reservations = new List<Models.Business.Reservation>();
 
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("Manager"))
             {
                 reservations = _context.Reservations.Include(r => r.Tickets)
                     .ThenInclude (r => r.Flight)
@@ -230,7 +230,7 @@ namespace LonghornAirlines.Views
                 return View("Error", new String[] { "Cannot find this reservation!" });
             }
 
-            if (User.IsInRole("Admin") == false && reservation.Customer.UserName != User.Identity.Name) //they are trying to see something that isn't theirs
+            if (User.IsInRole("Manager") == false && reservation.Customer.UserName != User.Identity.Name) //they are trying to see something that isn't theirs
             {
                 return View("Error", new String[] { "Unauthorized: You are attempting to view another customer's reservation!" });
             }
