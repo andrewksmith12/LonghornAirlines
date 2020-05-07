@@ -1,10 +1,12 @@
 ﻿@{
     ViewData["Title"] = "View";
 }
-
-<h1>Report Menu</h1>
-@* if (User.IsInRole("Admin"))*@
+@section ImageContent
+{
+    <h1>Report Menu</h1>
+    @* if (User.IsInRole("Admin"))*@
     @* { *@
-        <a asp-action="GenerateReport" asp-controller="Report" class="btn btn-success">Generate Report</a>
-        <a asp-action="FlightManifest" asp-controller="Report" class="btn btn-warning">Generate Flight Manifest</a>
-  @*  }*@
+    <a asp-action="GenerateReport" asp-controller="Report" class="btn btn-success">Generate Report</a>
+    <a asp-action="FlightManifest" asp-controller="Report" class="btn btn-warning">Generate Flight Manifest</a>
+    @*  }*@
+}

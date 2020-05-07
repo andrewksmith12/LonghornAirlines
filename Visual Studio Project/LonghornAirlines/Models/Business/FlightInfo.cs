@@ -50,5 +50,10 @@ namespace LonghornAirlines.Models.Business
         public Route Route { get; set; }
         [Display(Name = "Flight IDs: ")]
         public List<Flight> Flights { get; set; }
+
+        public FlightInfo()
+        {
+            Flights = new List<Flight>();
+        }
     }
 }
