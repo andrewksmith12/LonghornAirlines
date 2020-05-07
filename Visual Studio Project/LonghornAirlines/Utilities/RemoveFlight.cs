@@ -7,10 +7,6 @@ using LonghornAirlines;
 using LonghornAirlines.DAL;
 using System.Text;
 using System.Security;
-using Microsoft.EntityFrameworkCore;
-using LonghornAirlines.Models.ViewModels;
-using LonghornAirlines.Models.Users;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace LonghornAirlines.Utilities
 {
@@ -42,40 +38,16 @@ namespace LonghornAirlines.Utilities
                     if (weekDay >= startWeekDay)
                     {
                         //Adds the flight for the first week
-                        Flight tempFlight = db.Flights.Include(f => f.Tickets).ThenInclude(f => f.Reservation).ThenInclude(f => f.Customer).Include(f => f.Tickets).ThenInclude(f => f.Customer).FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
+                        Flight tempFlight = db.Flights.FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
                         {
                             if (tempFlight != null)
                             {
                                 tempFlight.Canceled = true;
                                 db.Update(tempFlight);
                                 db.SaveChanges();
-                                foreach (Ticket ticket in tempFlight.Tickets)
-                                {
-                                    Reservation ticketReservation = ticket.Reservation;
-                                    AppUser dbCustomer = db.Users.Find(ticketReservation.Customer.UserID);
-                                    if (ticketReservation.ReservationMethod == PaymentOptions.Miles)
-                                    {
-                                        if (Info.FIRST_CLASS_SEATS.Contains(ticket.Seat))
-                                        {
-                                            dbCustomer.Mileage += Info.MILES_PER_TICKET_FIRST_CLASS;
-                                        }
-                                        else
-                                        {
-                                            dbCustomer.Mileage += Info.MILES_PER_TICKET_ECONOMY;
-                                        }
-                                    }
-                                    if (ticket.UpgradeWithMilage == true)
-                                    {
-                                        dbCustomer.Mileage += Info.MILES_PER_TICKET_UPGRADE;
-                                    }
-                                    ticketReservation.Tickets.Remove(ticket);
-                                    db.Update(ticketReservation);
-                                    db.Update(dbCustomer);
-                                    db.SaveChanges();
-                                }
                             }
                         };
-                        
+
                     }
                     flightDate = flightDate.AddDays(7);
                     //Adds flights for all weeks after first week
