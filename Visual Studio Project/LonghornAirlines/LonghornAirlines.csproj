@@ -22,8 +22,4 @@
     <Folder Include="DAL\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\static\drawing.svg" />
-  </ItemGroup>
-
 </Project>

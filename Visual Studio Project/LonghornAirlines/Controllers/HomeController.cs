@@ -59,6 +59,7 @@ namespace LonghornAirlines.Controllers
             return View("ReservationConfirmation", dbReservation.Tickets.ToList());
         }
 
+        [HttpPost]
         public IActionResult CustomerSearch(CustomerSearchModel customerSearchModel)
         {
             var query = from c in _db.Users

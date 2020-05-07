@@ -86,6 +86,7 @@ namespace LonghornAirlines.Controllers
             }
             Int32 customerID;
             Int32 reservationID;
+            String SeatID;
             try
             {
                 customerID = ticket.Customer.UserID;
@@ -101,11 +102,19 @@ namespace LonghornAirlines.Controllers
             {
                 reservationID = -1;
             }
+            try
+            {
+                SeatID = ticket.Seat;
+            }
+            catch
+            {
+                SeatID = "";
+            }
             TicketCreationModel tcm = new TicketCreationModel
             {
                 TicketID = ticket.TicketID,
                 CustomerID = customerID,
-                SeatID = ""
+                SeatID = SeatID
             };
             SelectList reservationCustomers;
             reservationCustomers = await GetReservationCustomersAsync(reservationID);
@@ -124,7 +133,6 @@ namespace LonghornAirlines.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(TicketCreationModel tcm)
         {
-            Console.WriteLine("HERE\n\n\n\n\n\n\n");
             Ticket ticket = _context.Tickets.Include(t => t.Customer).Include(t => t.Reservation).First(t => t.TicketID == tcm.TicketID);
             ticket.Seat = tcm.SeatID;
             ticket.Customer = _context.Users.First(c => c.UserID == tcm.CustomerID);
@@ -166,6 +174,18 @@ namespace LonghornAirlines.Controllers
             return View(ticket);
         }
 
+        public async Task<ActionResult> AssignUser(Int32 TicketID, Int32 CustomerID)
+        {
+            Ticket t = _context.Tickets.First(tick => tick.TicketID == TicketID);
+            AppUser user = _context.Users.First(c => c.UserID == CustomerID);
+
+            t.Customer = user;
+            _context.Update(t);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Edit", new { id = TicketID });
+        }
+
         // POST: Tickets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -186,19 +206,14 @@ namespace LonghornAirlines.Controllers
         {
             Models.Business.Reservation reservation = _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).First(r => r.ReservationID == ReservationID);
             HashSet<AppUser> reservationUsers = new HashSet<AppUser>();
-            Boolean hasUser = false;
             foreach (Ticket t in reservation.Tickets)
             {
                 if (t.Customer != null)
                 {
                     reservationUsers.Add(t.Customer);
-                    hasUser = true;
                 }
             }
-            if (!hasUser)
-            {
-                reservationUsers.Add(await _userManager.FindByNameAsync(User.Identity.Name));
-            }
+            reservationUsers.Add(await _userManager.FindByNameAsync(User.Identity.Name));
             return new SelectList(reservationUsers, "UserID", "FirstName");
         }
     }
