@@ -31,13 +31,25 @@
                 // get the SVG content
                 var svgData = imageElement.contentDocument;
                 var takenSeats = @Json.Serialize(ViewBag.takenSeats);
-                function getColor(id) {
+                var userSeat = "@Model.SeatID";
+                function isTaken(id) {
+                    if (id == userSeat) {
+                        return false;
+                    }
                     for (i = 0; i < takenSeats.length; i++) {
                         if (takenSeats[i] == id) {
-                            return "gray";
+                            return true;
                         }
                     }
-                    return "green";
+                    return false;
+                }
+                function getColor(id) {
+                    if (isTaken(id)) {
+                        return "gray";
+                    }
+                    else {
+                        return "green"
+                    }
                 }
                 chart = anychart.seatMap();
                 seatMapSeries = chart.choropleth();
@@ -78,10 +90,25 @@
                 // add a listener
                 chart.listen('pointClick', function (e) {
                     var seat = e.iterator.get("id");
-                    document.getElementById("seatLabel").innerHTML = "Selected Seat:" + seat;
-                    document.getElementById("SeatID").value = seat;
+                    if (isTaken(seat) && seat != userSeat) {
+                        window.alert("Seat is not available");
+                        document.getElementById("seatLabel").innerHTML = "Selected Seat:" + Unavailable Seat;
+                    }
+                    else {
+                        document.getElementById("seatLabel").innerHTML = "Selected Seat:" + seat;
+                        document.getElementById("SeatID").value = seat;
+                    }
                 });
-
+                $(document).ready(function () {
+                    $("a.submitForm").click(function () {
+                        if (isTaken(document.getElementById("SeatID").value)) {
+                            window.alert("Seat is not available");
+                        }
+                        else {
+                            $("form").submit();
+                        }
+                    });
+                });
                 // set container id for the chart
                 chart.container("container");
                 // initiate chart drawing
@@ -89,14 +116,4 @@
             });
         </script>
     </form>
-}
-
-@section Scripts{ 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("a.submitForm").click(function () {
-            $("form").submit();
-        });
-    });
-</script>
 }
