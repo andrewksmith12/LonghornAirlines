@@ -10,6 +10,12 @@ namespace LonghornAirlines.Models.Business
     public enum TypeOfReservation 
     {OneWay = 0,
      RoundTrip=1}
+
+    public enum PaymentOptions
+    {
+        Cash = 0,
+        Miles = 1
+    }
     public class Reservation
     {
         private const Decimal TAX_RATE = 0.0775m;
@@ -21,7 +27,7 @@ namespace LonghornAirlines.Models.Business
         public TypeOfReservation ReservationType { get; set; }
 
         [Display(Name = "Payment Method")]
-        public string ReservationMethod { get; set;}
+        public PaymentOptions ReservationMethod { get; set;}
 
         //Navigational Properties
         [Display(Name = "Customer ID: ")]
@@ -34,6 +40,11 @@ namespace LonghornAirlines.Models.Business
         public Int32 NumPassengers { get; set; }
 
         List<Ticket> tickets = new List<Ticket>();
+
+        [Display(Name = "Reservation Subtotal")]
+        [DisplayFormat(DataFormatString = "{0:N2}")]
+        public Int32 MilesPaid { get; set; }
+
 
         [Display(Name = "Reservation Subtotal")]
         [DisplayFormat(DataFormatString = "{0:C}")]

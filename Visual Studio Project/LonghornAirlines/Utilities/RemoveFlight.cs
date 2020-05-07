@@ -7,6 +7,7 @@ using LonghornAirlines;
 using LonghornAirlines.DAL;
 using System.Text;
 using System.Security;
+using Microsoft.EntityFrameworkCore;
 
 namespace LonghornAirlines.Utilities
 {
@@ -38,13 +39,21 @@ namespace LonghornAirlines.Utilities
                     if (weekDay >= startWeekDay)
                     {
                         //Adds the flight for the first week
-                        Flight tempFlight = db.Flights.FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
+                        Flight tempFlight = db.Flights.Include(f => f.Tickets).ThenInclude(f => f.Reservation).ThenInclude(f => f.Customer).Include(f => f.Tickets).ThenInclude(f => f.Customer).FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
                         {
                             if (tempFlight != null)
                             {
                                 tempFlight.Canceled = true;
                                 db.Update(tempFlight);
                                 db.SaveChanges();
+                                foreach (Ticket ticket in tempFlight.Tickets)
+                                {
+                                    Reservation ticketReservation = ticket.Reservation;
+                                    if (ticketReservation.ReservationMethod == PaymentOptions.Miles)
+                                    {
+                                        ticketReservation.Customer.Mileage += 1000;
+                                    }
+                                }
                             }
                         };
                         

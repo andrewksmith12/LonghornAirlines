@@ -28,5 +28,8 @@ namespace LonghornAirlines.Models.Business
 
         [Display(Name = "Flight ID: ")]
         public Flight Flight { get; set; }
+
+        [Display(Name = "Use Milage for Upgrade to First Class")]
+        public Boolean UpgradeWithMilage { get; set; }
     }
 }
