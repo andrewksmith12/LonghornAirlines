@@ -189,6 +189,9 @@ namespace LonghornAirlines.Views
                 reservations = _context.Reservations.Include(r => r.Tickets)
                     .ThenInclude (r => r.Flight)
                     .ThenInclude (r => r.FlightInfo)
+                    .ThenInclude (r => r.Route)
+                    .ThenInclude (r => r.CityTo)
+                    .Where(r => r.ReservationComplete == true)
                     .ToList();
             }
 
@@ -197,6 +200,9 @@ namespace LonghornAirlines.Views
                 reservations = _context.Reservations.Where(r => r.Customer.UserName == User.Identity.Name).Include(r => r.Tickets)
                     .ThenInclude(r => r.Flight)
                     .ThenInclude(r => r.FlightInfo)
+                    .ThenInclude(r => r.Route)
+                    .ThenInclude(r => r.CityTo)
+                    .Where(r => r.ReservationComplete == true)
                     .ToList();
             }
 

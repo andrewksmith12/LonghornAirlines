@@ -1,17 +1,22 @@
 ﻿@model IEnumerable<LonghornAirlines.Models.Business.Reservation>
 
 @{
-    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewData["Title"] = "Reservations";
 }
 
-<h1>Index</h1>
+<h1>Reservations</h1>
 <h5>To Create a New Reservation, search for flights on the home page!</h5>
+<h6>To change seats, select "Details" on your flight.</h6>
 
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ReservationID)
+            </th>
+            <th>
+                Trip To:
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ReservationType)
@@ -33,13 +38,18 @@
                 @Html.DisplayFor(modelItem => item.ReservationID)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Tickets.First().Flight.FlightInfo.Route.CityTo.CityName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ReservationType)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ReservationMethod)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ReservationID">Edit</a> |
+                @Html.DisplayFor(modelItem => item.ReservationTotal)
+            </td>
+            <td>
                 <a asp-action="Details" asp-route-id="@item.ReservationID">Details</a>
             </td>
         </tr>

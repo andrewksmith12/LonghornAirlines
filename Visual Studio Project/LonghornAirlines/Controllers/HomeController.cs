@@ -25,6 +25,7 @@ namespace LonghornAirlines.Controllers
         {
             _db = context;
         }
+
         public IActionResult Index(BookingSearchModel model)
         {
             if (User.IsInRole("Employee"))
@@ -34,6 +35,13 @@ namespace LonghornAirlines.Controllers
             ViewBag.AllCities = GetAllCities();
             return View(model);
         }
+
+        public IActionResult bookForCust(BookingSearchModel model)
+        {
+            ViewBag.AllCities = GetAllCities();
+            return View("Index",model);
+        }
+
 
         public SelectList GetAllCities()
         {
@@ -48,7 +56,10 @@ namespace LonghornAirlines.Controllers
 
         public IActionResult ConfirmReservation(Int32 confirmationNumber)
         {
-            Reservation dbReservation = _db.Reservations.Include(r => r.Customer).Include(r => r.Tickets).ThenInclude(r => r.Customer).FirstOrDefault(r => r.ReservationID == confirmationNumber);
+            Reservation dbReservation = _db.Reservations.Include(r => r.Customer).Include(r => r.Tickets).ThenInclude(r => r.Customer)
+                .Include(r => r.Tickets).ThenInclude(r => r.Flight).ThenInclude(r => r.FlightInfo).ThenInclude(r => r.Route).ThenInclude(r => r.CityFrom)
+                .Include(r => r.Tickets).ThenInclude(r => r.Flight).ThenInclude(r => r.FlightInfo).ThenInclude(r => r.Route).ThenInclude(r => r.CityTo)
+                .FirstOrDefault(r => r.ReservationID == confirmationNumber);
 
             String EmailBody = "Thanks for your reservation. Your subtotal is: " + dbReservation.ReservationSubtotal+ "The tax fee is: " + dbReservation.SalesTax + "Your total is: " + dbReservation.ReservationTotal;
             Utilites.EmailMessaging.SendEmail(dbReservation.Customer.Email,"Reservation Confirmation", EmailBody);
@@ -56,7 +67,7 @@ namespace LonghornAirlines.Controllers
             foreach(Ticket dbticket in dbReservation.Tickets)
             {
                 String email = dbticket.Customer.Email;
-                String emailStuff = "Blah";
+                String emailStuff = "Your Flight on Longhorn Airlines has been Booked!\nYour reservation number is " + dbReservation.ReservationID + "\nand your ticket number is " + dbticket.TicketID + "\nWe look forward to seeing you on " + dbticket.Flight.Date.ToString() + "\n at " + dbticket.Flight.FlightInfo.FlightTime.ToString() + " for your flight from " + dbticket.Flight.FlightInfo.Route.CityFrom.CityName + " to " + dbticket.Flight.FlightInfo.Route.CityTo.CityName + ".";
                 Utilites.EmailMessaging.SendEmail(email, "Reservation Confirmation", emailStuff);
             }
 
