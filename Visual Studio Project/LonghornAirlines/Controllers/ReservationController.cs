@@ -56,7 +56,7 @@ namespace LonghornAirlines.Views
         // This is the default page everyone sees after a reservation is created
         public async Task<ActionResult> Description(int id)
         {
-            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).FirstAsync(r => r.ReservationID == id);
+            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).ThenInclude(f => f.Route).ThenInclude(f => f.CityTo).FirstAsync(r => r.ReservationID == id);
             return View(reservation);
         }
 

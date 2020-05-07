@@ -35,7 +35,8 @@ namespace LonghornAirlines.Controllers
         public SelectList GetAllCities()
         {
             List<City> cityList = _db.Cities.ToList();
-
+            City selectAll = new City() { CityID = 0, CityName = "All Cities" };
+            cityList.Add(selectAll);
             return new SelectList(cityList.OrderBy(c => c.CityID), "CityID", "CityName");
         }
 
@@ -48,6 +49,8 @@ namespace LonghornAirlines.Controllers
 
             var query = from t in _db.Tickets
                         select t;
+
+            query = query.Where(t => t.Reservation.ReservationComplete == true);
 
             if (rvm.DepartCityID != 0)
             {
@@ -70,12 +73,12 @@ namespace LonghornAirlines.Controllers
             }
 
 
-            if(rvm.FirstClass != false)
+            if(rvm.FirstClass == true && rvm.Economy == false)
             {
                 query = query.Where(t => t.Seat == "1A" || t.Seat == "1B" || t.Seat == "2A" || t.Seat == "2B");
             }
 
-            if(rvm.Economy != false)
+            if(rvm.Economy == true && rvm.FirstClass == false)
             {
                 query = query.Where(t => t.Seat == "3A" || t.Seat == "3B" || t.Seat == "3C" || t.Seat == "3D" || t.Seat == "4A" || t.Seat == "4B" || t.Seat == "4C" || t.Seat == "4D" || t.Seat == "5A" || t.Seat == "5B" || t.Seat == "5C" || t.Seat == "5D");
             }
@@ -85,7 +88,6 @@ namespace LonghornAirlines.Controllers
             ViewBag.PassengerCount = NumofPassengers;
             decimal totalRevenue = SelectedTickets.Sum(t => t.Fare);
             ViewBag.Revenue = totalRevenue;
-
             return View("DisplayReport", rvm);
 
         }
@@ -100,6 +102,7 @@ namespace LonghornAirlines.Controllers
         {
             var query = from f in _db.Flights
                         select f;
+
 
             if (mvm.DepartCityID != 0)
             {
@@ -121,14 +124,14 @@ namespace LonghornAirlines.Controllers
                 query = query.Where(f => f.Date <= mvm.ArriveDate);
             }
 
-            if (mvm.hasDeparted == true)
+            if (mvm.hasDeparted == true && mvm.hasNotDeparted == false)
             {
                 query = query.Where(f => f.hasDeparted == mvm.hasDeparted);
             }
 
-            if (mvm.hasNotDeparted == false)
+            if (mvm.hasNotDeparted == true && mvm.hasDeparted == false)
             {
-                query = query.Where(f => f.hasDeparted == mvm.hasNotDeparted);
+                query = query.Where(f => f.hasDeparted != mvm.hasNotDeparted);
             }
 
             return View("DisplayManifest");
