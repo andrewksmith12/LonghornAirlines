@@ -6,6 +6,10 @@
 }
 
 <h1>Reservations</h1>
+@if (User.IsInRole("Manager"))
+{
+    <h3>Manager View: All Reservations</h3>
+}
 <h5>To Create a New Reservation, search for flights on the home page!</h5>
 <h6>To change seats, select "Details" on your flight.</h6>
 

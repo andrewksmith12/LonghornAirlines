@@ -94,7 +94,7 @@ namespace LonghornAirlines.Controllers
 
 
         // GET: /Account/RegisterEmployee
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Manager")]
         public ActionResult RegisterEmployee()
         {
             return View();
@@ -102,7 +102,7 @@ namespace LonghornAirlines.Controllers
 
         // POST: /Account/RegisterEmployee
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Manager")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterEmployee(RegisterViewModel model)
         {
