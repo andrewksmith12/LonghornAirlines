@@ -28,6 +28,7 @@ namespace LonghornAirlines.Controllers
             query = query.Where(f => f.Date.Date == bookingSearchModel.DepartDate.Date);
             query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == bookingSearchModel.DepartCityID);
             query = query.Where(f => f.FlightInfo.Route.CityTo.CityID == bookingSearchModel.ArriveCityID);
+            query = query.Where(f => f.Canceled == false);
 
             //Passing Booking Search Model information to view bag so it goes to ReservationController
             //There's probably a better way to do this

@@ -239,6 +239,7 @@ namespace LonghornAirlines.Migrations
                 {
                     FlightInfoID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FlightNumber = table.Column<int>(nullable: false),
                     FlightTime = table.Column<string>(nullable: true),
                     BaseFare = table.Column<decimal>(nullable: false),
                     Monday = table.Column<bool>(nullable: false),

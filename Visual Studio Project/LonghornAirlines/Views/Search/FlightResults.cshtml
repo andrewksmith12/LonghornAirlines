@@ -4,14 +4,22 @@
 }
 @section imageContent
 {
-    @if (ViewBag.isRoundTrip)
+    @if (User.Identity.IsAuthenticated == false)
     {
-        <h1>Select your first leg flight</h1>
+        <h1>Sign in or create an account to create a reservation. </h1>
     }
     else
     {
-        <h1>Select your flight</h1>
+        @if (ViewBag.isRoundTrip)
+        {
+            <h1>Select your first leg flight</h1>
+        }
+        else
+        {
+            <h1>Select your flight</h1>
+        }
     }
+
 
     <h4>
         From @ViewBag.CityFromName To @ViewBag.CityToName
@@ -83,8 +91,7 @@
                         }
                         else
                         {
-                            <!--TODO: Add link to log in page-->
-                            <p>Log in</p>
+                            <a asp-action="Login" asp-controller="Account">Log in</a>
                         }
 
                     </td>
