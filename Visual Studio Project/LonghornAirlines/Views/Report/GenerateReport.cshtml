@@ -4,7 +4,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="GenerateReport">
+        <form asp-action="DisplayReport"method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Departing City</label>
@@ -18,22 +18,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="DepartDate" class="control-label"></label>
-                <input type="date" id="departID" min="2020-04-15" value="ViewBag.Today" max="2020-06-30" asp-for="DepartDate" class="form-control" />
+                <input type="date" id="DepartDate" min="2020-04-15" value="ViewBag.Today" max="2020-06-30" asp-for="DepartDate" class="form-control" />
                 <span asp-validation-for="DepartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ArriveDate" class="control-label"></label>
-                <input type="date" id="arriveID" min="2020-04-15" value="ViewBag.Today" max="2020-06-30" asp-for="ArriveDate" class="form-control" />
-                <span asp-validation-for="DepartDate" class="text-danger"></span>
+                <input type="date" id="ArriveDate" min="2020-04-15" value="ViewBag.Today" max="2020-06-30" asp-for="ArriveDate" class="form-control" />
+                <span asp-validation-for="ArriveDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="form-check-label"><input class="form-check-input" asp-for="Economy" />@Html.DisplayNameFor(model => model.Economy)    </label>
+                <label class="form-check-label"><input class="form-check-input"type="checkbox" asp-for="Economy" />@Html.DisplayNameFor(model => model.Economy)    </label>
             </div>
             <div class="form-group">
-                <label class="form-check-label"><input class="form-check-input" asp-for="FirstClass" />@Html.DisplayNameFor(model => model.FirstClass)    </label>
+                <label class="form-check-label"><input class="form-check-input"type="checkbox" asp-for="FirstClass" />@Html.DisplayNameFor(model => model.FirstClass)    </label>
             </div>
             <div class="form-group">
-                <a asp-action="DisplayReport">Create Report</a>
                 <input type="submit" value="Create Report" class="btn btn-primary" />
             </div>
         </form>
