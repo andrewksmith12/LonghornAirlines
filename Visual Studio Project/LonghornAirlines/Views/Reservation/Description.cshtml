@@ -13,6 +13,7 @@
             <th>Flight Number</th>
             <th>Flight Date</th>
             <th>Flight Time</th>
+            <th>Current Seat</th>
             <th>Seat Selection</th>
         </tr>
         <tbody>
@@ -27,12 +28,13 @@
                         }
                         else
                         {
-                            @t.Customer.NormalizedUserName
+                            @t.Customer.FirstName
                         }
                     </td>
                     <td>@t.Flight.FlightInfo.FlightInfoID</td>
                     <td>@t.Flight.Date</td>
                     <td>@t.Flight.FlightInfo.FlightTime</td>
+                    <td>@t.Seat</td>
                     <td><a class="btn btn-outline-danger" asp-controller="Tickets" asp-action="Edit" asp-route-id="@t.TicketID" >Choose Seat</a></td>
                 </tr>
             }
