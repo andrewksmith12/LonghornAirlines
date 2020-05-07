@@ -60,7 +60,7 @@ namespace LonghornAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightInfoID,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
+        public async Task<IActionResult> Create([Bind("FlightNumber,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace LonghornAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FlightInfoID,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("FlightNumber,FlightTime,BaseFare,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday")] FlightInfo flightInfo)
         {
             if (id != flightInfo.FlightInfoID)
             {
