@@ -228,18 +228,10 @@ namespace LonghornAirlines.Controllers
 
             }
 
-
-
-
-
-
-
-
             if (ModelState.IsValid)
             {
                 try
                 {
-
                     _context.Update(dbFlightInfo);
                     _context.SaveChanges();
                     Utilities.AddFlight.addBools(_context, flightInfo, sundayBooladd, mondayBooladd, tuesdayBooladd, wednesdayBooladd, thursdayBooladd, fridayBooladd, saturdayBooladd);
