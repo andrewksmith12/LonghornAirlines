@@ -7,6 +7,8 @@ using LonghornAirlines;
 using LonghornAirlines.DAL;
 using System.Text;
 using System.Security;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace LonghornAirlines.Utilities
 {
@@ -38,11 +40,20 @@ namespace LonghornAirlines.Utilities
                     if (weekDay >= startWeekDay)
                     {
                         //Adds the flight for the first week
-                        Flight tempFlight = db.Flights.FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
+                        Flight tempFlight = db.Flights.Include(m => m.Tickets).ThenInclude(m => m.Customer).FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
                         {
                             if (tempFlight != null)
                             {
                                 tempFlight.Canceled = true;
+                                foreach(Ticket t in tempFlight.Tickets)
+                                {
+                                    var email = t.Customer.Email;
+                                    String emailStuff = "We regret to inform you that your flight on" + tempFlight.Date.ToString() +" has been canceled.\nIf you paid with miles, they have been refunded.";
+                                    Utilites.EmailMessaging.SendEmail(email, "Flight Cancelled", emailStuff);
+                                }
+
+
+
                                 db.Update(tempFlight);
                                 db.SaveChanges();
                             }
