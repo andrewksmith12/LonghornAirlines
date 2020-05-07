@@ -12,11 +12,11 @@ namespace LonghornAirlines.Utilities
     {
         public static List<String> FromFlight(int FlightID, AppDbContext _context)
         {
-            Flight flight = _context.Flights.Include(f=> f.Tickets).First(f => f.FlightID == FlightID);
+            Flight flight = _context.Flights.Include(f=> f.Tickets).ThenInclude(t => t.Reservation).First(f => f.FlightID == FlightID);
             List<String> seats = new List<string>();
             foreach (Ticket t in flight.Tickets)
             {
-                if (t.Seat != "" || t.Seat != null)
+                if ((t.Seat != "" || t.Seat != null) && t.Reservation.ReservationComplete)
                 {
                     seats.Add(t.Seat);
                 }
