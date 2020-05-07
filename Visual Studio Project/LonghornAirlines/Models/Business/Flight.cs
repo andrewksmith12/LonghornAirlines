@@ -54,5 +54,19 @@ namespace LonghornAirlines.Models.Business
                 Tickets = new List<Ticket>();
             }
         }
+
+        public List<String> GetTakenSeats()
+        {
+            List<String> seats = new List<string>();
+            foreach(Ticket t in Tickets)
+            {
+                if(t.Seat != "")
+                {
+                    seats.Add(t.Seat);
+                }
+            }
+
+            return seats;
+        }
     }
 }
