@@ -231,7 +231,6 @@ C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirline
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\RoleAdmin\Create.cshtml.g.cs
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\RoleAdmin\Edit.cshtml.g.cs
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\RoleAdmin\Index.cshtml.g.cs
-C:\Users\danal\OneDrive\MIS333K\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csprojAssemblyReference.cache
 C:\Users\danal\OneDrive\MIS333K\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\FlightInfos\Create.cshtml.g.cs
 C:\Users\danal\OneDrive\MIS333K\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\FlightInfos\Delete.cshtml.g.cs
 C:\Users\danal\OneDrive\MIS333K\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\FlightInfos\Details.cshtml.g.cs
