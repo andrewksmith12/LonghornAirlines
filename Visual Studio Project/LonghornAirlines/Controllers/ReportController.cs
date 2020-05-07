@@ -90,16 +90,47 @@ namespace LonghornAirlines.Controllers
 
         }
 
-        public IActionResult GenerateFlightManifest(ReportsViewModel rvm)
+        public IActionResult GenerateFlightManifest()
+        {
+            ViewBag.AllCities = GetAllCities();
+            return View("FlightManifest");
+        }
+
+        public IActionResult DisplayManifest(ManifestViewModel mvm)
         {
             var query = from f in _db.Flights
                         select f;
 
-            return View("FlightManifest");
-        }
+            if (mvm.DepartCityID != 0)
+            {
+                query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == mvm.DepartCityID);
+            }
 
-        public IActionResult DisplayManifest()
-        {
+            if (mvm.ArriveCityID != 0)
+            {
+                query = query.Where(f => f.FlightInfo.Route.CityTo.CityID == mvm.ArriveCityID);
+            }
+
+            if (mvm.DepartDate != null)
+            {
+                query = query.Where(f => f.Date >= mvm.DepartDate);
+            }
+
+            if (mvm.ArriveDate != null)
+            {
+                query = query.Where(f => f.Date <= mvm.ArriveDate);
+            }
+
+            if (mvm.hasDeparted == true)
+            {
+                query = query.Where(f => f.hasDeparted == mvm.hasDeparted);
+            }
+
+            if (mvm.hasNotDeparted == false)
+            {
+                query = query.Where(f => f.hasDeparted == mvm.hasNotDeparted);
+            }
+
             return View("DisplayManifest");
         }
     }
