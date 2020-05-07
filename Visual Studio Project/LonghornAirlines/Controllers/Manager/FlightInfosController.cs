@@ -66,6 +66,8 @@ namespace LonghornAirlines.Controllers
             {
                 _context.Add(flightInfo);
                 await _context.SaveChangesAsync();
+                FlightInfo dbFlightInfo = _context.FlightInfos.FirstOrDefault(f => f.FlightNumber == flightInfo.FlightNumber);
+                Utilities.AddFlight.addBools(_context, dbFlightInfo, dbFlightInfo.Sunday, dbFlightInfo.Monday, dbFlightInfo.Tuesday, dbFlightInfo.Wednesday, dbFlightInfo.Thursday, dbFlightInfo.Friday, dbFlightInfo.Saturday);
                 return RedirectToAction(nameof(Index));
             }
             return View(flightInfo);

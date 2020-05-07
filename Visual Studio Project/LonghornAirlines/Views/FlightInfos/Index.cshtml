@@ -14,7 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FlightInfoID)
+                @Html.DisplayNameFor(model => model.FlightNumber)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Route.CityFrom)
@@ -56,7 +56,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FlightInfoID)
+                @Html.DisplayFor(modelItem => item.FlightNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Route.CityFrom.CityName)
