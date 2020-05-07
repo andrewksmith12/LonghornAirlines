@@ -44,10 +44,17 @@ namespace LonghornAirlines.Controllers
 
         public IActionResult ConfirmReservation(Int32 confirmationNumber)
         {
-            Reservation dbReservation = _db.Reservations.Include(r => r.Customer).Include(r => r.Tickets).FirstOrDefault(r => r.ReservationID == confirmationNumber);
+            Reservation dbReservation = _db.Reservations.Include(r => r.Customer).Include(r => r.Tickets).ThenInclude(r => r.Customer).FirstOrDefault(r => r.ReservationID == confirmationNumber);
 
             String EmailBody = "Thanks for your reservation. Your subtotal is: " + dbReservation.ReservationSubtotal+ "The tax fee is: " + dbReservation.SalesTax + "Your total is: " + dbReservation.ReservationTotal;
             Utilites.EmailMessaging.SendEmail(dbReservation.Customer.Email,"Reservation Confirmation", EmailBody);
+
+            foreach(Ticket dbticket in dbReservation.Tickets)
+            {
+                String email = dbticket.Customer.Email;
+                String emailStuff = "Blah";
+                Utilites.EmailMessaging.SendEmail(email, "Reservation Confirmation", emailStuff);
+            }
 
             return View("ReservationConfirmation", dbReservation.Tickets.ToList());
         }

@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<LonghornAirlines.Models.Business.FlightInfo>
 
 @{
-    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewData["Title"] = "Manage Flights";
 }
 
-<h1>Index</h1>
+<h1>Manage Flights</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New Flight Number</a>
 </p>
 <table class="table">
     <thead>

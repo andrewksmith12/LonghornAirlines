@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LonghornAirlines.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200506194515_setup")]
+    [Migration("20200507020436_setup")]
     partial class setup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,11 +114,13 @@ namespace LonghornAirlines.Migrations
 
                     b.Property<string>("CustomerId");
 
+                    b.Property<int>("MilesPaid");
+
                     b.Property<int>("NumPassengers");
 
                     b.Property<bool>("ReservationComplete");
 
-                    b.Property<string>("ReservationMethod");
+                    b.Property<int>("ReservationMethod");
 
                     b.Property<int>("ReservationType");
 
@@ -167,6 +169,8 @@ namespace LonghornAirlines.Migrations
                     b.Property<int?>("ReservationID");
 
                     b.Property<string>("Seat");
+
+                    b.Property<bool>("UpgradeWithMilage");
 
                     b.HasKey("TicketID");
 

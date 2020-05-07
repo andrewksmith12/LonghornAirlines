@@ -216,6 +216,7 @@ namespace LonghornAirlines.Views
                 .Include( r => r.Tickets)
                 .ThenInclude( r => r.Flight)
                 .ThenInclude(r => r.FlightInfo)
+                .Include(r => r.Customer)
                 .FirstOrDefaultAsync(m => m.ReservationID == id);
 
             if (reservation == null) //reservation not found

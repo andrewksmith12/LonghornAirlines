@@ -188,10 +188,11 @@ namespace LonghornAirlines.Migrations
                     ReservationID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ReservationType = table.Column<int>(nullable: false),
-                    ReservationMethod = table.Column<string>(nullable: true),
+                    ReservationMethod = table.Column<int>(nullable: false),
                     CustomerId = table.Column<string>(nullable: true),
                     ReservationComplete = table.Column<bool>(nullable: false),
-                    NumPassengers = table.Column<int>(nullable: false)
+                    NumPassengers = table.Column<int>(nullable: false),
+                    MilesPaid = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -314,7 +315,8 @@ namespace LonghornAirlines.Migrations
                     Seat = table.Column<string>(nullable: true),
                     CustomerId = table.Column<string>(nullable: true),
                     ReservationID = table.Column<int>(nullable: true),
-                    FlightID = table.Column<int>(nullable: true)
+                    FlightID = table.Column<int>(nullable: true),
+                    UpgradeWithMilage = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

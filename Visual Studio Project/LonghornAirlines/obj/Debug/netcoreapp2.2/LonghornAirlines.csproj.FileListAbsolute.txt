@@ -217,7 +217,6 @@ C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirline
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.pdb
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.genruntimeconfig.cache
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csproj.CopyComplete
-C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\LonghornAirlines.csprojAssemblyReference.cache
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Tickets\Create.cshtml.g.cs
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Tickets\Delete.cshtml.g.cs
 C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Tickets\Details.cshtml.g.cs
@@ -259,3 +258,4 @@ C:\Users\danal\OneDrive\MIS333K\GitHub\333kteam\Visual Studio Project\LonghornAi
 C:\Users\danal\OneDrive\MIS333K\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Reservation\Description.cshtml.g.cs
 C:\Users\danal\OneDrive\MIS333K\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Reservation\Index.cshtml.g.cs
 C:\Users\danal\OneDrive\MIS333K\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Reservation\ReturnLookup.cshtml.g.cs
+C:\Users\aksmith\Documents\GitHub\333kteam\Visual Studio Project\LonghornAirlines\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout2.cshtml.g.cs

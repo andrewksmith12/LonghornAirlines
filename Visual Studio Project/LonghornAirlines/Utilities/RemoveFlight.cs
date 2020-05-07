@@ -8,6 +8,9 @@ using LonghornAirlines.DAL;
 using System.Text;
 using System.Security;
 using Microsoft.EntityFrameworkCore;
+using LonghornAirlines.Models.ViewModels;
+using LonghornAirlines.Models.Users;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace LonghornAirlines.Utilities
 {
@@ -49,10 +52,26 @@ namespace LonghornAirlines.Utilities
                                 foreach (Ticket ticket in tempFlight.Tickets)
                                 {
                                     Reservation ticketReservation = ticket.Reservation;
+                                    AppUser dbCustomer = db.Users.Find(ticketReservation.Customer.UserID);
                                     if (ticketReservation.ReservationMethod == PaymentOptions.Miles)
                                     {
-                                        ticketReservation.Customer.Mileage += 1000;
+                                        if (Info.FIRST_CLASS_SEATS.Contains(ticket.Seat))
+                                        {
+                                            dbCustomer.Mileage += Info.MILES_PER_TICKET_FIRST_CLASS;
+                                        }
+                                        else
+                                        {
+                                            dbCustomer.Mileage += Info.MILES_PER_TICKET_ECONOMY;
+                                        }
                                     }
+                                    if (ticket.UpgradeWithMilage == true)
+                                    {
+                                        dbCustomer.Mileage += Info.MILES_PER_TICKET_UPGRADE;
+                                    }
+                                    ticketReservation.Tickets.Remove(ticket);
+                                    db.Update(ticketReservation);
+                                    db.Update(dbCustomer);
+                                    db.SaveChanges();
                                 }
                             }
                         };
