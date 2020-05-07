@@ -11,21 +11,42 @@
     <h4>Flight</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Date)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Date)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.hasDeparted)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.hasDeparted)
         </dd>
+        <dt class="col-sm-2"></dt>
     </dl>
 </div>
 
+<table class="table">
+    <tr>
+        <th>Ticket No</th>
+        <th>Ticket Holder</th>
+        <th>Flight Number</th>
+        <th>Seat Selection</th>
+    </tr>
+    <tbody>
+        @foreach (Ticket t in Model.Tickets)
+        {
+            <tr>
+                <td>@t.TicketID</td>
+                <td>@t.Customer.NormalizedUserName</td>
+                <td>@t.Flight.FlightInfo.FlightInfoID</td>
+                <td>@t.Flight.Date</td>
+                <td>@t.Flight.FlightInfo.FlightTime</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 
 <div>

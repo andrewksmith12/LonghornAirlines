@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Business;
+using LonghornAirlines.Models.Users;
 using LonghornAirlines.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,58 @@ namespace LonghornAirlines.Controllers
                 .Include(f => f.FlightInfo.Route.CityFrom)
                 .Include(f => f.FlightInfo.Route.CityTo)
                 .ToList());
+        }
+
+        [HttpGet]
+        public IActionResult TicketCustomerSearch(Int32 TicketID)
+        {
+            Ticket t = _db.Tickets.Find(TicketID);
+            CustomerSearchModel csm = new CustomerSearchModel
+            {
+                ExistingCustomer = true,
+                TicketID = t.TicketID
+            };
+            return View(csm);
+        }
+
+        [HttpGet]
+        public IActionResult CustomerCreateAccount(Int32 TicketID)
+        {
+            CustomerCreationModel ccm = new CustomerCreationModel();
+            ccm.TicketID = TicketID;
+
+            return View("Customer_CustomerCreation", ccm);
+        }
+
+        [HttpPost]
+        public IActionResult CustomerCreateAccount(CustomerCreationModel ccm)
+        {
+            return RedirectToAction("Register", "Account", new { TicketID = ccm.TicketID });
+        }
+
+        [HttpPost]
+        public IActionResult TicketCustomerSearch(CustomerSearchModel customerSearchModel)
+        {
+            var query = from c in _db.Users
+                        select c;
+            if (customerSearchModel.LastName != null && customerSearchModel.LastName != "")
+            {
+                query = query.Where(c => c.LastName.Contains(customerSearchModel.LastName));
+            }
+            if (customerSearchModel.AdvantageNumber != null)
+            {
+                query = query.Where(c => c.AdvantageNumber == (customerSearchModel.AdvantageNumber));
+            }
+            List<AppUser> SelectedUsers = query.ToList();
+            try
+            {
+                ViewBag.TicketID = customerSearchModel.TicketID;
+            }
+            catch
+            {
+                ViewBag.TicketID = -1;
+            }
+            return View("TicketUsersList", SelectedUsers);
         }
     }
 }

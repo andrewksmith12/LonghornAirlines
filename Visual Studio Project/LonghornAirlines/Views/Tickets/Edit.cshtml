@@ -12,12 +12,15 @@
             <input type="hidden" asp-for="TicketID" />
             @Html.DropDownListFor(tcm => tcm.CustomerID, (SelectList)ViewBag.ReservationCustomers, new { @class = "form-control" })
             <!--TODO: Customer Selection-->
-            <a>Find new customer</a>
+            <a asp-action="TicketCustomerSearch" asp-controller="Search" asp-route-TicketID="@Model.TicketID">Find existing customer</a>
+
+            <a asp-action="CustomerCreateAccount" asp-controller="Search" asp-route-TicketID="@Model.TicketID">Set up new customer</a>
 
         </div>
 
         <div id="container" style="width: 500px; height: 400px;">
         </div>
+        <p id="seatLabel">Selected Seat: @Model.SeatID</p>
         <input type="hidden" id="SeatID" name="SeatID" />
         <a href="#" class="submitForm">Save</a>
         <object style="width: 0; height: 0;" data="~/static/drawing.svg" type="image/svg+xml" id="house"></object>
@@ -69,15 +72,15 @@
                 // add a listener
                 chart.listen('pointClick', function(e){
                     document.getElementById("SeatID").value = e.iterator.get("id");
+                    document.getElementById("seatLabel").innerHTML = "Selected Seat:" + e.iterator.get("id");
                 });
+
                 // set container id for the chart
                 chart.container("container");
                 // initiate chart drawing
                 chart.draw();
             });
         </script>
-
-
     </form>
 }
 
@@ -86,7 +89,6 @@
     $(document).ready(function () {
         $("a.submitForm").click(function () {
             $("form").submit();
+        });
     });
-});
 </script>
-}

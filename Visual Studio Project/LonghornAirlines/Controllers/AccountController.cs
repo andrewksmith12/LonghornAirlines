@@ -38,7 +38,7 @@ namespace LonghornAirlines.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, Int32? TicketID)
         {
             if (ModelState.IsValid)
             {
@@ -66,8 +66,19 @@ namespace LonghornAirlines.Controllers
                     //TODO: Add user to desired role. This example adds the user to the customer role
                     await _userManager.AddToRoleAsync(user, "Customer");
 
-                    Microsoft.AspNetCore.Identity.SignInResult result2 = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, lockoutOnFailure: false);
-                    return RedirectToAction("Index", "Home");
+                    if (TicketID.HasValue)
+                    {
+                        return RedirectToAction("Edit", "Tickets", new
+                        {
+                            id = TicketID.Value,
+                            CustomerID = user.UserID
+                        });
+                    }
+                    else
+                    {
+                        Microsoft.AspNetCore.Identity.SignInResult result2 = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, lockoutOnFailure: false);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {

@@ -1,0 +1,21 @@
+﻿@model LonghornAirlines.Models.ViewModels.CustomerSearchModel
+@{
+    ViewData["Title"] = "Customer Lookup";
+}
+
+@section imageContent{
+    <form action="TicketCustomerSearch" method="post">
+        @Html.HiddenFor(csm => csm.TicketID);
+        @Html.HiddenFor(csm => csm.ExistingCustomer, true)
+        @Html.HiddenFor(csm => csm.NewCustomer, false)
+        <div class="form-group">
+            @Html.LabelFor(csm => csm.LastName)
+            @Html.TextBoxFor(csm => csm.LastName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(csm => csm.AdvantageNumber)
+            @Html.TextBoxFor(csm => csm.AdvantageNumber)
+        </div>
+        <input class="btn btn-info" type="submit" value="Search">
+    </form>
+}

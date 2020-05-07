@@ -27,6 +27,10 @@ namespace LonghornAirlines.Controllers
         }
         public IActionResult Index(BookingSearchModel model)
         {
+            if (User.IsInRole("Employee"))
+            {
+                return View("../EmployeeViews/EmployeeIndex");
+            }
             ViewBag.AllCities = GetAllCities();
             return View(model);
         }
@@ -59,6 +63,7 @@ namespace LonghornAirlines.Controllers
             return View("ReservationConfirmation", dbReservation.Tickets.ToList());
         }
 
+        [HttpPost]
         public IActionResult CustomerSearch(CustomerSearchModel customerSearchModel)
         {
             var query = from c in _db.Users

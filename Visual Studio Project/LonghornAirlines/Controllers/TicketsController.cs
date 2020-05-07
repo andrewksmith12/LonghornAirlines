@@ -72,8 +72,10 @@ namespace LonghornAirlines.Controllers
         }
 
         // GET: Tickets/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, Int32? UserID)
         {
+
+            SelectList reservationCustomers;
             if (id == null)
             {
                 return NotFound();
@@ -86,13 +88,7 @@ namespace LonghornAirlines.Controllers
             }
             Int32 customerID;
             Int32 reservationID;
-            try
-            {
-                customerID = ticket.Customer.UserID;
-            }
-            catch {
-                customerID = -1;
-            }
+            String SeatID;
             try
             {
                 reservationID = ticket.Reservation.ReservationID;
@@ -101,14 +97,40 @@ namespace LonghornAirlines.Controllers
             {
                 reservationID = -1;
             }
+            if (UserID.HasValue)
+            {
+                customerID = UserID.Value;
+
+                reservationCustomers = await GetReservationCustomersAsync(reservationID, UserID);
+            }
+            else
+            {
+                try
+                {
+                    customerID = ticket.Customer.UserID;
+                }
+                catch
+                {
+                    customerID = -1;
+                }
+
+                reservationCustomers = await GetReservationCustomersAsync(reservationID, null);
+            }
+            
+            try
+            {
+                SeatID = ticket.Seat;
+            }
+            catch
+            {
+                SeatID = "";
+            }
             TicketCreationModel tcm = new TicketCreationModel
             {
                 TicketID = ticket.TicketID,
                 CustomerID = customerID,
-                SeatID = ""
+                SeatID = SeatID
             };
-            SelectList reservationCustomers;
-            reservationCustomers = await GetReservationCustomersAsync(reservationID);
             ViewBag.ReservationCustomers = reservationCustomers;
 
             //Fist Class, Budget price
@@ -124,11 +146,11 @@ namespace LonghornAirlines.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(TicketCreationModel tcm)
         {
-            Console.WriteLine("HERE\n\n\n\n\n\n\n");
             Ticket ticket = _context.Tickets.Include(t => t.Customer).Include(t => t.Reservation).First(t => t.TicketID == tcm.TicketID);
             ticket.Seat = tcm.SeatID;
             ticket.Customer = _context.Users.First(c => c.UserID == tcm.CustomerID);
-
+            Decimal fare = GetFare(tcm.TicketID, tcm.SeatID);
+            ticket.Fare = fare;
             try
             {
                 _context.Update(ticket);
@@ -146,6 +168,47 @@ namespace LonghornAirlines.Controllers
                 }
             }
             return RedirectToAction("Description", "Reservation", new { id = ticket.Reservation.ReservationID }); ;
+        }
+
+        private decimal GetFare(int ticketID, string seatID)
+        {
+            Ticket ticket = _context.Tickets.Include(t => t.Flight).Include(t => t.Customer).First(t => t.TicketID == ticketID);
+            String[] firstClassSeats = { "1A", "1B", "2A", "2B" };
+            String[] budgetSeats = { "3A", "3B", "3C", "3D",
+                                     "4A", "4B", "4C", "4D",
+                                     "5A", "5B", "5C", "5D"};
+            Decimal fare;
+            
+            if (firstClassSeats.Contains(seatID))
+            {
+                fare = ticket.Flight.FirstClassFare;
+            }
+            else
+            {
+                fare = ticket.Flight.BaseFare;
+                Int32 Age;
+                DateTime today = DateTime.Now.Date;
+                Decimal discount = 0;
+                //Age Discounts
+                try
+                {
+                    Int16 age = Convert.ToInt16(Math.Floor(today.Subtract(ticket.Customer.Birthday.Date).TotalDays / 365));
+                    if (age > 65)
+                    {
+                        discount = .1m;
+                    }
+                    else if (age < 12)
+                    {
+                        discount = .15m;
+                    }
+                }
+                catch
+                {
+                    discount = 0;
+                }
+                fare *= (1 - discount);
+            }
+            return fare;
         }
 
         // GET: Tickets/Delete/5
@@ -166,6 +229,18 @@ namespace LonghornAirlines.Controllers
             return View(ticket);
         }
 
+        public async Task<ActionResult> AssignUser(Int32 TicketID, Int32 CustomerID)
+        {
+            Ticket t = _context.Tickets.First(tick => tick.TicketID == TicketID);
+            AppUser user = _context.Users.First(c => c.UserID == CustomerID);
+
+            t.Customer = user;
+            _context.Update(t);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Edit", new { id = TicketID });
+        }
+
         // POST: Tickets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -182,22 +257,21 @@ namespace LonghornAirlines.Controllers
             return _context.Tickets.Any(e => e.TicketID == id);
         }
 
-        public async Task<SelectList> GetReservationCustomersAsync(Int32 ReservationID)
+        public async Task<SelectList> GetReservationCustomersAsync(Int32 ReservationID, Int32? NewCustomerID)
         {
             Models.Business.Reservation reservation = _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).First(r => r.ReservationID == ReservationID);
             HashSet<AppUser> reservationUsers = new HashSet<AppUser>();
-            Boolean hasUser = false;
             foreach (Ticket t in reservation.Tickets)
             {
                 if (t.Customer != null)
                 {
                     reservationUsers.Add(t.Customer);
-                    hasUser = true;
                 }
             }
-            if (!hasUser)
+            reservationUsers.Add(await _userManager.FindByNameAsync(User.Identity.Name));
+            if (NewCustomerID.HasValue)
             {
-                reservationUsers.Add(await _userManager.FindByNameAsync(User.Identity.Name));
+                reservationUsers.Add(_context.Users.First(u => u.UserID == NewCustomerID.Value));
             }
             return new SelectList(reservationUsers, "UserID", "FirstName");
         }
