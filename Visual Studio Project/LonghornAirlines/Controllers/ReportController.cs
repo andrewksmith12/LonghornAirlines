@@ -87,8 +87,11 @@ namespace LonghornAirlines.Controllers
 
         }
 
-        public IActionResult GenerateFlightManifest()
+        public IActionResult GenerateFlightManifest(ReportsViewModel rvm)
         {
+            var query = from f in _db.Flights
+                        select f;
+
             return View("FlightManifest");
         }
 
