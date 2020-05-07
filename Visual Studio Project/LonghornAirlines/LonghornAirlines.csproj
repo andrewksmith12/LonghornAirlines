@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="DAL\" />
-    <Folder Include="Views\Report\" />
   </ItemGroup>
 
   <ItemGroup>
