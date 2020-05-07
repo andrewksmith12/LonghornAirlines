@@ -27,6 +27,10 @@ namespace LonghornAirlines.Controllers
         }
         public IActionResult Index(BookingSearchModel model)
         {
+            if (User.IsInRole("Employee"))
+            {
+                return View("../EmployeeViews/EmployeeIndex");
+            }
             ViewBag.AllCities = GetAllCities();
             return View(model);
         }
