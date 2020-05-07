@@ -18,11 +18,15 @@ namespace LonghornAirlines.Controllers
             _db = context;
         }
 
-        public IActionResult Index(ReportsViewModel rvm)
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult GenerateReport()
         {
             ViewBag.AllCities = GetAllCities();
-           // ViewBag.AllClasses = GetAllClasses();
-            return View(rvm);
+            return View();
         }
 
         public SelectList GetAllCities()
@@ -34,8 +38,11 @@ namespace LonghornAirlines.Controllers
 
         public IActionResult DisplayReport (ReportsViewModel rvm)
         {
-            ViewBag.CityToName = _db.Cities.FirstOrDefault(c => c.CityID == rvm.ArriveCityID).CityName;
-            ViewBag.CityFromName = _db.Cities.FirstOrDefault(c => c.CityID == rvm.DepartCityID).CityName;
+            //ViewBag.CityToName = _db.Cities.FirstOrDefault(c => c.CityID == rvm.ArriveCityID).CityName;
+            //ViewBag.CityFromName = _db.Cities.FirstOrDefault(c => c.CityID == rvm.DepartCityID).CityName;
+            //ViewBag.DepartDate = _db.Flights.FirstOrDefault(f => f.Date == rvm.DepartDate);
+            //ViewBag.ArriveDate = _db.Flights.FirstOrDefault(f => f.Date == rvm.ArriveDate);
+
             var query = from t in _db.Tickets
                         select t;
 
@@ -56,8 +63,9 @@ namespace LonghornAirlines.Controllers
 
             if (rvm.ArriveDate != null)
             {
-                query = query.Where(t => t.Flight.Date >= rvm.ArriveDate);
+                query = query.Where(t => t.Flight.Date <= rvm.ArriveDate);
             }
+
 
             if(rvm.FirstClass != false)
             {
@@ -71,10 +79,22 @@ namespace LonghornAirlines.Controllers
 
             List<Ticket> SelectedTickets = query.ToList();
             int NumofPassengers = SelectedTickets.Count;
+            ViewBag.PassengerCount = NumofPassengers;
             decimal totalRevenue = SelectedTickets.Sum(t => t.Fare);
+            ViewBag.Revenue = totalRevenue;
 
-            return View ();
+            return View("DisplayReport", rvm);
 
+        }
+
+        public IActionResult GenerateFlightManifest()
+        {
+            return View("FlightManifest");
+        }
+
+        public IActionResult DisplayManifest()
+        {
+            return View("DisplayManifest");
         }
     }
 }

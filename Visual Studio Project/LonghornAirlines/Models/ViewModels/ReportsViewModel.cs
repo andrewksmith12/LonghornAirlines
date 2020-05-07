@@ -18,12 +18,12 @@ namespace LonghornAirlines.Models.ViewModels
         [Display(Name = "Departure Date: ")]
         [Range(typeof(DateTime), "04/15/2020", "06/20/2020",
         ErrorMessage = "Value for {0} must be between {1} and {2}")]
-        public DateTime DepartDate { get; set; }
+        public DateTime? DepartDate { get; set; }
 
         [Display(Name = "Return Date: ")]
         [Range(typeof(DateTime), "04/15/2020", "06/20/2020",
         ErrorMessage = "Value for {0} must be between {1} and {2}")]
-        public DateTime ArriveDate { get; set; }
+        public DateTime? ArriveDate { get; set; }
 
         [Display(Name = "Economy")]
         public Boolean Economy { get; set; }
