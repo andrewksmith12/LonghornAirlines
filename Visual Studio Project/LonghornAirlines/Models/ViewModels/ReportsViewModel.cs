@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace LonghornAirlines.Models.ViewModels
 {
-    public enum ClassType { First, Economy}
     public class ReportsViewModel
     {
 
@@ -26,7 +25,10 @@ namespace LonghornAirlines.Models.ViewModels
         ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public DateTime ArriveDate { get; set; }
 
-        [Display(Name = "Class Type:")]
-        public ClassType classType { get; set; }
+        [Display(Name = "Economy")]
+        public Boolean Economy { get; set; }
+
+        [Display(Name = "First Class")]
+        public Boolean FirstClass {get; set;}
     }
 }

@@ -26,9 +26,11 @@
                 <input type="date" id="arriveID" min="2020-04-15" value="ViewBag.Today" max="2020-06-30" asp-for="ArriveDate" class="form-control" />
                 <span asp-validation-for="DepartDate" class="text-danger"></span>
             </div>
-            @* ADD FIRST CLASS/ECONOMY*@
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label class="form-check-label"><input class="form-check-input" asp-for="Economy" />@Html.DisplayNameFor(model => model.Economy)    </label>
+            </div>
+            <div class="form-group">
+                <label class="form-check-label"><input class="form-check-input" asp-for="FirstClass" />@Html.DisplayNameFor(model => model.FirstClass)    </label>
             </div>
         </form>
     </div>
@@ -36,5 +38,6 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
+    <input type="submit" value="Create" class="btn btn-primary" />
 </div>
 
