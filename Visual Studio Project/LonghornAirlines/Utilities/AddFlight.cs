@@ -59,34 +59,15 @@ namespace LonghornAirlines.Utilities
                     }
                 }
 
-                //Adds all flights to the database
-                //create a counter to help debug
-                int intFlightID = 1;
 
-                try
+                foreach (Flight seedFlight in AllFlights)
                 {
-                    foreach (Flight seedFlight in AllFlights)
                     {
-                        //find the flight in the database
-                        Flight dbFlight = db.Flights.FirstOrDefault(f => f.FlightID == intFlightID);
-
-                        if (dbFlight == null) //the flight isn't in the database
-                        {
-                            //add the genre
-                            db.Flights.Add(seedFlight);
-                            System.Diagnostics.Debug.Write("Flight" + dbFlight + " was created");
-                            db.SaveChanges();
-                        }
-                        intFlightID++;
+                        //add the genre
+                        db.Flights.Add(seedFlight);
+                        System.Diagnostics.Debug.Write("Flight" + seedFlight + " was created");
+                        db.SaveChanges();
                     }
-                }
-                catch (Exception ex)
-                {
-                    StringBuilder msg = new StringBuilder();
-                    msg.Append("There was an error adding the ");
-                    msg.Append(intFlightID);
-                    msg.Append(" flight.");
-                    throw new Exception(msg.ToString(), ex);
                 }
             }
         }

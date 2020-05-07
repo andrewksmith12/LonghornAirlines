@@ -115,6 +115,8 @@ namespace LonghornAirlines.Controllers
             Boolean thursdayBoolrm = false;
             Boolean fridayBoolrm = false;
             Boolean saturdayBoolrm = false;
+            // Update Fields
+            
 
             // Set Booleans
             if (dbFlightInfo.Sunday != flightInfo.Sunday)
@@ -127,6 +129,7 @@ namespace LonghornAirlines.Controllers
                 {
                     sundayBoolrm = true;
                 }
+                dbFlightInfo.Sunday = flightInfo.Sunday;
             }
             if (dbFlightInfo.Monday != flightInfo.Monday)
             {
@@ -138,6 +141,8 @@ namespace LonghornAirlines.Controllers
                 {
                     mondayBoolrm = true;
                 }
+                dbFlightInfo.Monday = flightInfo.Monday;
+
             }
             if (dbFlightInfo.Tuesday != flightInfo.Tuesday)
             {
@@ -149,6 +154,8 @@ namespace LonghornAirlines.Controllers
                 {
                     tuesdayBoolrm = true;
                 }
+                dbFlightInfo.Tuesday = flightInfo.Tuesday;
+
             }
             if (dbFlightInfo.Wednesday != flightInfo.Wednesday)
             {
@@ -160,6 +167,8 @@ namespace LonghornAirlines.Controllers
                 {
                     wednesdayBoolrm = true;
                 }
+                dbFlightInfo.Wednesday = flightInfo.Wednesday;
+
             }
             if (dbFlightInfo.Thursday != flightInfo.Thursday)
             {
@@ -171,6 +180,8 @@ namespace LonghornAirlines.Controllers
                 {
                     thursdayBoolrm = true;
                 }
+                dbFlightInfo.Thursday = flightInfo.Thursday;
+
             }
             if (dbFlightInfo.Friday != flightInfo.Friday)
             {
@@ -182,6 +193,8 @@ namespace LonghornAirlines.Controllers
                 {
                     fridayBoolrm = true;
                 }
+                dbFlightInfo.Friday = flightInfo.Friday;
+
             }
             if (dbFlightInfo.Saturday != flightInfo.Saturday)
             {
@@ -193,11 +206,13 @@ namespace LonghornAirlines.Controllers
                 {
                     saturdayBoolrm = true;
                 }
+                dbFlightInfo.Saturday = flightInfo.Saturday;
+
             }
 
 
 
-            
+
 
 
 
@@ -207,7 +222,7 @@ namespace LonghornAirlines.Controllers
                 try
                 {
 
-                    _context.Update(flightInfo);
+                    _context.Update(dbFlightInfo);
                     await _context.SaveChangesAsync();
                     Utilities.AddFlight.addBools(_context, flightInfo, sundayBooladd, mondayBooladd, tuesdayBooladd, wednesdayBooladd, thursdayBooladd, fridayBooladd, saturdayBooladd);
                     Utilities.RemoveFlight.removeBools(_context, flightInfo, sundayBoolrm, mondayBoolrm, tuesdayBoolrm, wednesdayBoolrm, thursdayBoolrm, fridayBoolrm, saturdayBoolrm);

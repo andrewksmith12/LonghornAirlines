@@ -38,21 +38,30 @@ namespace LonghornAirlines.Utilities
                     if (weekDay >= startWeekDay)
                     {
                         //Adds the flight for the first week
-                        Flight tempFlight = db.Flights.FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date == flightDate);
+                        Flight tempFlight = db.Flights.FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
                         {
-                            tempFlight.Canceled = true;
+                            if (tempFlight != null)
+                            {
+                                tempFlight.Canceled = true;
+                                db.Update(tempFlight);
+                                db.SaveChanges();
+                            }
                         };
-                        db.Update(tempFlight);
+                        
                     }
                     flightDate = flightDate.AddDays(7);
                     //Adds flights for all weeks after first week
                     while (flightDate <= endDate)
                     {
-                        Flight tempFlight = db.Flights.FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date == flightDate);
+                        Flight tempFlight = db.Flights.FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
                         {
-                            tempFlight.Canceled = true;
+                            if (tempFlight != null)
+                            {
+                                tempFlight.Canceled = true;
+                                db.Update(tempFlight);
+                                db.SaveChanges();
+                            }
                         };
-                        db.Update(tempFlight);
                         flightDate = flightDate.AddDays(7);
                     }
                 }
