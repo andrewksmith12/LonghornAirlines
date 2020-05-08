@@ -50,7 +50,7 @@ namespace LonghornAirlines.Models.Business
                                      "5A", "5B", "5C", "5D"};
                 Decimal ticketFare;
 
-                if (firstClassSeats.Contains(this.Seat))
+                if (firstClassSeats.Contains(this.Seat) && !this.UpgradeWithMilage)
                 {
                     ticketFare = this.Flight.FirstClassFare;
                 }

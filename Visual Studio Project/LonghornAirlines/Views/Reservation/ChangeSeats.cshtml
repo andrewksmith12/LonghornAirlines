@@ -43,13 +43,5 @@
             }
         </tbody>
     </table>
-    <a class="btn btn-info" onclick="submission()">Return</a>
-}
-
-@section Scripts{
-    <script type="text/javascript">
-function submission() {
-    window.location.href = '@Url.Action("Index", "Reservation");
-}
-    </script>
+    <a class="btn btn-info" asp-action="Index" asp-controller="Reservation">Return</a>
 }

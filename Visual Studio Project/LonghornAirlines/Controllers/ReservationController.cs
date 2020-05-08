@@ -369,7 +369,7 @@ namespace LonghornAirlines.Views
 
         public IActionResult ChangeSeats(Int32 id)
         {
-            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).ThenInclude(f => f.Route).ThenInclude(f => f.CityTo).FirstAsync(r => r.ReservationID == id);
+            Models.Business.Reservation reservation = _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).ThenInclude(f => f.Route).ThenInclude(f => f.CityTo).First(r => r.ReservationID == id);
 
             return View(reservation);
         }
