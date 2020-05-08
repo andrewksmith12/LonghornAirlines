@@ -25,6 +25,81 @@ namespace LonghornAirlines.Controllers
             _userManager = service.GetRequiredService<UserManager<AppUser>>();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ChangeSeat(Int32 id)
+        {
+            var ticket = await _context.Tickets.Include(t => t.Reservation).Include(t => t.Customer).Include(t => t.Flight).ThenInclude(flight => flight.FlightInfo).FirstAsync(t => t.TicketID == id);
+            if (ticket == null)
+            {
+                return NotFound();
+            }
+            Int32 customerID;
+            Int32 reservationID;
+            String SeatID;
+            try
+            {
+                reservationID = ticket.Reservation.ReservationID;
+            }
+            catch
+            {
+                reservationID = -1;
+            }
+            try
+            {
+                customerID = ticket.Customer.UserID;
+            }
+            catch
+            {
+                customerID = -1;
+            }
+            try
+            {
+                SeatID = ticket.Seat;
+            }
+            catch
+            {
+                SeatID = "";
+            }
+            TicketSeatChangeModel tcm = new TicketSeatChangeModel
+            {
+                TicketID = ticket.TicketID,
+                CustomerID = customerID,
+                SeatID = SeatID,
+                UpgradeWithMiles = false
+            };
+
+            //Fist Class, Budget price
+            ViewBag.firstClassFare = ticket.Flight.FlightInfo.FirstClassFare.ToString("C");
+            ViewBag.baseFare = ticket.Flight.FlightInfo.BaseFare.ToString("C");
+            ViewBag.takenSeats = Utilities.GetTakenSeats.FromFlight(ticket.Flight.FlightID, _context);
+            return View(tcm);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeSeats(TicketSeatChangeModel tscm)
+        {
+            Ticket ticket = _context.Tickets.Include(t => t.Reservation).First(t => t.TicketID == tscm.TicketID);
+            if(tscm.UpgradeWithMiles && isFirstClass(tscm.SeatID))
+            {
+                AppUser customer = _context.Users.First(u => u.UserID == tscm.CustomerID);
+                customer.Mileage -= 500;
+                ticket.UpgradeWithMilage = true;
+                _context.Update(customer);
+            }
+
+            ticket.Seat = tscm.SeatID;
+            _context.Update(ticket);
+            _context.SaveChanges();
+
+            return RedirectToAction("ChangeSeats", "Reservation", new { id = ticket.Reservation.ReservationID});
+        }
+
+        private bool isFirstClass(String Seat)
+        {
+            String[] firstClassSeats = { "1A", "1B", "2A", "2B" };
+            return firstClassSeats.Contains(Seat);
+        }
+
         // GET: Tickets
         public async Task<IActionResult> Index()
         {

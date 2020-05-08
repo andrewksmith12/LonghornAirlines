@@ -35,9 +35,9 @@
                 Order Total
             </th>
             <th>
-                Edit Reservation
+                Modify Reservation
             </th>
-            <th>Change Seats<th>
+            <th>Change Reservation<th>
             <th></th>
         </tr>
     </thead>
@@ -85,7 +85,7 @@
             <td>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a asp-action="Description" asp-route-id="@item.ReservationID">Details</a>
+                        <a asp-action="ChangeSeats" asp-route-id="@item.ReservationID">Change Seats</a>
                     </li>
                     @if (User.IsInRole("Manager"))
                     {

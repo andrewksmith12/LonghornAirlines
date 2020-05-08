@@ -21,8 +21,20 @@ namespace LonghornAirlines.Controllers
         }
         public IActionResult FlightResults(BookingSearchModel bookingSearchModel)
         {
-            ViewBag.CityToName = _db.Cities.FirstOrDefault(c => c.CityID == bookingSearchModel.ArriveCityID).CityName;
-            ViewBag.CityFromName = _db.Cities.FirstOrDefault(c => c.CityID == bookingSearchModel.DepartCityID).CityName;
+            String cityToName = _db.Cities.FirstOrDefault(c => c.CityID == bookingSearchModel.ArriveCityID).CityName; ;
+            String cityFromName = _db.Cities.FirstOrDefault(c => c.CityID == bookingSearchModel.DepartCityID).CityName; ;
+            ViewBag.CityToName = cityToName;
+            ViewBag.CityFromName = cityFromName;
+            if (cityToName == cityFromName)
+            {
+                String message = "Cities cannot be the same";
+                return RedirectToAction("Index", "Home", new { errorMessage = message });
+            }
+            if(bookingSearchModel.DepartDate.Date < DateTime.Now.Date || bookingSearchModel.ArriveDate.Date < DateTime.Now.Date)
+            {
+                String message = "You cannot get flights in the past";
+                return RedirectToAction("Index", "Home", new { errorMessage = message });
+            }
             var query = from f in _db.Flights
                         select f;
 

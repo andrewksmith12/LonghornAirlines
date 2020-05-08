@@ -26,8 +26,12 @@ namespace LonghornAirlines.Controllers
             _db = context;
         }
 
-        public IActionResult Index(BookingSearchModel model)
+        public IActionResult Index(BookingSearchModel model, String errorMessage)
         {
+            if(errorMessage != null && errorMessage != "")
+            {
+                ViewBag.ErrorMessage = errorMessage;
+            }
             if (User.IsInRole("Employee"))
             {
                 return View("../EmployeeViews/EmployeeIndex");

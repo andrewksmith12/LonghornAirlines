@@ -113,5 +113,14 @@ namespace LonghornAirlines.Models.Business
                 return mileageFare;
             }
         }
+
+        public bool isFirstClass
+        {
+            get
+            {
+                String[] firstClassSeats = { "1A", "1B", "2A", "2B" };
+                return firstClassSeats.Contains(this.Seat);
+            }
+        }
     }
 }
