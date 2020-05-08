@@ -4,8 +4,8 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
-<h3>Are you sure you want to delete this Flight?</h3>
+<h1>Disable</h1>
+<h3>Are you sure you want to disable this Flight?</h3>
 <div>
     <h4>Flight Instance (FlightID): @Html.DisplayFor(model => model.FlightID)</h4>
     <hr />
@@ -26,7 +26,7 @@
 
         <form asp-action="Delete">
             <input type="hidden" asp-for="FlightID" />
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <input type="submit" value="Disable" class="btn btn-danger" /> |
             <a asp-action="Details" asp-controller="FlightInfos" asp-route-id=@Model.FlightInfo.FlightInfoID>Back to List</a>
         </form>
 </div>

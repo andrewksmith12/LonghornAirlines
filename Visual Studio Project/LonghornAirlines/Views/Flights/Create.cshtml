@@ -1,20 +1,18 @@
 ﻿@model LonghornAirlines.Models.Business.Flight
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Single Flight";
 }
+@section imageContent{ 
+    <h1>Create Single Flight Instance</h1>
 
-<h1>Create</h1>
-
-<h4>Flight</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                <input class="form-check-input" asp-for="FlightID" /> @Html.DisplayNameFor(model => model.FlightID)
-                </label>
+            <div class="form-group">
+                <label class="control-label">Flight Number: </label>
+                <input name="flightNumber" type="number" class="form-control" />
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -33,3 +31,4 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+}

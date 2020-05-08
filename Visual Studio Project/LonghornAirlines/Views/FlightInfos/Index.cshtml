@@ -56,53 +56,59 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            @Html.HiddenFor(modelItem => item.FlightInfoID)
-            <td>
-                @Html.DisplayFor(modelItem => item.FlightNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Route.CityFrom.CityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Route.CityTo.CityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FlightTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BaseFare)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Monday)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tuesday)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Wednesday)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Thursday)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Friday)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Saturday)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sunday)
-            </td>
-            <td>
-                @if (User.IsInRole("Manager"))
-                {
-                    <a asp-action="Edit" asp-route-id="@item.FlightInfoID">Edit</a> 
-                }
-                <a asp-action="Details" asp-route-id="@item.FlightInfoID">Details</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                @Html.HiddenFor(modelItem => item.FlightInfoID)
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Route.CityFrom.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Route.CityTo.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BaseFare)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tuesday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wednesday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Thursday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Friday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Saturday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sunday)
+                </td>
+                <td>
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.FlightInfoID">Edit</a>
+                    }
+                    <a asp-action="Details" asp-route-id="@item.FlightInfoID">Details</a>
+                </td>
+            </tr>
+
+        }
+        @if (User.IsInRole("Manager"))
+        {
+            <a asp-action="Create" asp-controller="Flights">Create Single Flight Instance</a>
+        }
     </tbody>
 </table>

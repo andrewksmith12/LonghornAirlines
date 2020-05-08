@@ -95,7 +95,8 @@
         <td>@Html.DisplayFor(ModelItem => f.CoPilot.FullName)</td>
         <td>@Html.DisplayFor(ModelItem => f.Attendant.FullName)</td>
         <td>@Html.DisplayFor(ModelItem => f.hasDeparted)</td>
-        <td><a asp-action="Details" asp-controller="Flights" type="submit" asp-route-id=@f.FlightID>Details</a> | <a asp-action="CheckIn" asp-controller="Flights" asp-route-id=@f.FlightID>Check In</a> | @if (User.IsInRole("Manager")) {<a asp-action="Edit" asp-controller="Flights" type="submit" asp-route-id=@f.FlightID>Edit</a>}  </td>
+        <td><a asp-action="Details" asp-controller="Flights" type="submit" asp-route-id=@f.FlightID>Details</a> | <a asp-action="CheckIn" asp-controller="Flights" asp-route-id=@f.FlightID>Check In</a> | @if (User.IsInRole("Manager")) {<a asp-action="Edit" asp-controller="Flights" type="submit" asp-route-id=@f.FlightID>Edit</a> if (f.hasDeparted == false) { <a asp-action="Delete" asp-controller="Flight" asp-rout-id=@f.FlightID>Disable</a>}
+        }  </td>
     </tr>
     }
 

@@ -49,27 +49,45 @@ namespace LonghornAirlines.Controllers.Manager
 
             return View(flight);
         }
-
+        [Authorize(Roles ="Manager")]
         // GET: Flights/Create
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Manager")]
         // POST: Flights/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightID,Date,hasDeparted")] Flight flight)
+        public async Task<IActionResult> Create([Bind("FlightID,Date,hasDeparted")] Flight flight, int flightNumber)
         {
-            if (ModelState.IsValid)
+            var flightInfo = _context.FlightInfos.FirstOrDefault(f => f.FlightNumber == flightNumber);
+            if (flightInfo == null)
             {
-                _context.Add(flight);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewBag.Error = "Invalid Flight Number, please submit a valid flight number.";
+                return View();
             }
-            return View(flight);
+            else
+            {
+                Flight tempFlight = new Flight
+                {
+                    Date = flight.Date,
+                    FlightInfo = flightInfo,
+                    BaseFare = flightInfo.BaseFare
+
+                };
+                if (ModelState.IsValid)
+                {
+                    _context.Add(tempFlight);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index","FlightInfos");
+                }
+                return View(flight);
+            }
+
         }
 
         // GET: Flights/Edit/5
@@ -139,7 +157,13 @@ namespace LonghornAirlines.Controllers.Manager
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            
             Flight dbFlight = _context.Flights.Include(m => m.Tickets).ThenInclude(m => m.Customer).FirstOrDefault(m => m.FlightID == id);
+            if (dbFlight.hasDeparted)
+            {
+                ViewBag.Error = "You can't delete a flight that's passed. ";
+                return RedirectToAction("Details", "FlightInfos", new { id = dbFlight.FlightInfo.FlightInfoID });
+            }
             dbFlight.Canceled = true;
             foreach (Ticket t in dbFlight.Tickets)
             {
