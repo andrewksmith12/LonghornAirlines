@@ -6,6 +6,7 @@ using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Business;
 using LonghornAirlines.Models.Users;
 using LonghornAirlines.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -62,20 +63,8 @@ namespace LonghornAirlines.Controllers
             return View(csm);
         }
 
-        [HttpGet]
-        public IActionResult CustomerCreateAccount(Int32 TicketID)
-        {
-            CustomerCreationModel ccm = new CustomerCreationModel();
-            ccm.TicketID = TicketID;
 
-            return View("Customer_CustomerCreation", ccm);
-        }
-
-        [HttpPost]
-        public IActionResult CustomerCreateAccount(CustomerCreationModel ccm)
-        {
-            return RedirectToAction("Register", "Account", new { TicketID = ccm.TicketID });
-        }
+        
 
         [HttpPost]
         public IActionResult TicketCustomerSearch(CustomerSearchModel customerSearchModel)

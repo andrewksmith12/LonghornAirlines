@@ -15,7 +15,7 @@
 
         <h2>Welcome to Longhorn Airlines!</h2>
 
-        @using (Html.BeginForm("CustomerCreateAccount", "Search", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("CustomerCreateAccount", "Tickets", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.AntiForgeryToken()
             <h4>Please create a new account.</h4>
@@ -91,7 +91,7 @@
             @Html.HiddenFor(ccm => ccm.TicketID)
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-primary" value="Register" />
+                    <input type="submit" class="btn btn-primary" value="Create Customer" />
                 </div>
             </div>
         }
