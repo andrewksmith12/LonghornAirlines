@@ -49,7 +49,7 @@
 @section Scripts{ 
 <script type="text/javascript">
 function submission() {
-    window.location.href = '@Url.Action("Confirm", "Reservation")/' + @Model.ReservationID;
+    window.location.href = '@Url.Action("ChoosePaymentMethod", "Reservation")/' + @Model.ReservationID;
 }
 </script>
 }

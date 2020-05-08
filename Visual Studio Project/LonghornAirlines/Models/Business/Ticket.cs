@@ -37,73 +37,81 @@ namespace LonghornAirlines.Models.Business
 
         [Display(Name = "Checked In?")]
         public Boolean CheckedIn { get; set; }
-
-        public Decimal GetDiscountedFare()
+        
+        [Display(Name = "Discounted Fare(if applicable): ")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public Decimal GetDiscountedFare
         {
-            String[] firstClassSeats = { "1A", "1B", "2A", "2B" };
-            String[] budgetSeats = { "3A", "3B", "3C", "3D",
+            get
+            {
+                String[] firstClassSeats = { "1A", "1B", "2A", "2B" };
+                String[] budgetSeats = { "3A", "3B", "3C", "3D",
                                      "4A", "4B", "4C", "4D",
                                      "5A", "5B", "5C", "5D"};
-            Decimal ticketFare;
+                Decimal ticketFare;
 
-            if (firstClassSeats.Contains(this.Seat))
-            {
-                ticketFare = this.Flight.FirstClassFare;
-            }
-            else if (budgetSeats.Contains(this.Seat))
-            {
-                ticketFare = this.Flight.BaseFare;
-                DateTime today = DateTime.Now.Date;
-                Decimal discount = 0;
-                //Age Discounts
-                try
+                if (firstClassSeats.Contains(this.Seat))
                 {
-                    Int16 age = Convert.ToInt16(Math.Floor(today.Subtract(this.Customer.Birthday.Date).TotalDays / 365));
-                    if (age > 65)
-                    {
-                        discount = SENIOR_DISCOUNT;
-                    }
-                    else if (age < 12)
-                    {
-                        discount = CHILD_DISCOUNT;
-                    }
+                    ticketFare = this.Flight.FirstClassFare;
                 }
-                catch
+                else if (budgetSeats.Contains(this.Seat))
                 {
-                    discount = 0;
+                    ticketFare = this.Flight.BaseFare;
+                    DateTime today = DateTime.Now.Date;
+                    Decimal discount = 0;
+                    //Age Discounts
+                    try
+                    {
+                        Int16 age = Convert.ToInt16(Math.Floor(today.Subtract(this.Customer.Birthday.Date).TotalDays / 365));
+                        if (age > 65)
+                        {
+                            discount = SENIOR_DISCOUNT;
+                        }
+                        else if (age < 12)
+                        {
+                            discount = CHILD_DISCOUNT;
+                        }
+                    }
+                    catch
+                    {
+                        discount = 0;
+                    }
+                    ticketFare *= (1 - discount);
                 }
-                ticketFare *= (1 - discount);
+                else
+                {
+                    return -10000;
+                }
+                return ticketFare;
             }
-            else
-            {
-                return -10000;
-            }
-            return ticketFare;
         }
 
-        //If no seat selected return -10000
-        public Int32 GetMileageFare()
+        [Display(Name = "Mileage: ")]
+        public Int32 GetMileageFare
         {
-            String[] firstClassSeats = { "1A", "1B", "2A", "2B" };
-            String[] budgetSeats = { "3A", "3B", "3C", "3D",
+            get
+            {
+                String[] firstClassSeats = { "1A", "1B", "2A", "2B" };
+                String[] budgetSeats = { "3A", "3B", "3C", "3D",
                                      "4A", "4B", "4C", "4D",
                                      "5A", "5B", "5C", "5D"};
-            Int32 mileageFare;
+                Int32 mileageFare;
 
-            if (firstClassSeats.Contains(this.Seat))
-            {
-                mileageFare = 2000;
-            }
-            else if (budgetSeats.Contains(this.Seat))
-            {
-                mileageFare = 1000;
-            }
-            else
-            {
-                return -10000;
-            }
+                if (firstClassSeats.Contains(this.Seat))
+                {
+                    mileageFare = 2000;
+                }
+                else if (budgetSeats.Contains(this.Seat))
+                {
+                    mileageFare = 1000;
+                }
+                else
+                {
+                    return -10000;
+                }
 
-            return mileageFare;
+                return mileageFare;
+            }
         }
     }
 }
