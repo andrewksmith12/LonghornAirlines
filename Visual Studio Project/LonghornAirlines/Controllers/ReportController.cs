@@ -35,6 +35,8 @@ namespace LonghornAirlines.Controllers
         public SelectList SelectListCities()
         {
             List<City> cityList = _db.Cities.ToList();
+            City allCity = new City { CityID = 0, CityName = "All Cities" };
+            cityList.Add(allCity);
             SelectList Cities = new SelectList(cityList.OrderBy(m => m.CityID), "CityID", "CityName");
             return Cities;
         }
@@ -104,39 +106,24 @@ namespace LonghornAirlines.Controllers
         }
 
 
-        public IActionResult ManifestSearchResults(ManifestViewModel mvm)
+        public IActionResult ManifestSearchResults(ManifestViewModel mvm, int DepartCityID, int ArriveCityID, int FlightNumber)
         {
             var query = from f in _db.Flights
                         select f;
 
             if (mvm.DepartCityID != 0)
             {
-                query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == mvm.DepartCityID);
+                query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == DepartCityID);
             }
 
             if (mvm.ArriveCityID != 0)
             {
-                query = query.Where(f => f.FlightInfo.Route.CityTo.CityID == mvm.ArriveCityID);
+                query = query.Where(f => f.FlightInfo.Route.CityTo.CityID == ArriveCityID);
             }
 
-            if (mvm.DepartDate != null)
+            if (mvm.FlightNumber != null)
             {
-                query = query.Where(f => f.Date >= mvm.DepartDate);
-            }
-
-            if (mvm.ArriveDate != null)
-            {
-                query = query.Where(f => f.Date <= mvm.ArriveDate);
-            }
-
-            if (mvm.hasDeparted == true && mvm.hasNotDeparted == false)
-            {
-                query = query.Where(f => f.hasDeparted == mvm.hasDeparted);
-            }
-
-            if (mvm.hasNotDeparted == true && mvm.hasDeparted == false)
-            {
-                query = query.Where(f => f.hasDeparted != mvm.hasNotDeparted);
+                query = query.Where(f => f.FlightInfo.FlightNumber == mvm.FlightNumber);
             }
 
             List<Flight> SelectedFlights = query.ToList();

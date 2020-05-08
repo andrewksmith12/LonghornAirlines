@@ -1,7 +1,8 @@
 ﻿@model LonghornAirlines.Models.ViewModels.ManifestViewModel
 @section ImageContent{
-    <h1>Create Manifest</h1>
+    <h1>Search for Flight Manifest</h1>
     <hr />
+    <h3>Enter the Criteria of the Flight Manifest You're trying to Locate. </h3>
     <div class="row">
         <div class="col-md-4">
             <form asp-action="ManifestSearchResults" method="post">
@@ -17,20 +18,8 @@
                     <span asp-validation-for="ArriveCityID" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="DepartDate" class="control-label"></label>
-                    <input type="date" id="DepartDate" min="2020-04-15" value="ViewBag.Today" max="2020-06-30" asp-for="DepartDate" class="form-control" />
-                    <span asp-validation-for="DepartDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ArriveDate" class="control-label"></label>
-                    <input type="date" id="ArriveDate" min="2020-04-15" value="ViewBag.Today" max="2020-06-30" asp-for="ArriveDate" class="form-control" />
-                    <span asp-validation-for="ArriveDate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <span style="display:inline-block; width:20px;"></span><label class="form-check-label"><input class="form-check-input" type="checkbox" asp-for="hasDeparted" />@Html.DisplayNameFor(model => model.hasDeparted)    </label>
-                </div>
-                <div class="form-group">
-                    <span style="display:inline-block; width:20px;"></span><label class="form-check-label"><input class="form-check-input" type="checkbox" asp-for="hasNotDeparted" />@Html.DisplayNameFor(model => model.hasNotDeparted)    </label>
+                    Flight Number: <input name="FlightNumber" class="form-control" />
+                    <span asp-validation-for="FlightNumber" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Create Flight Manifest" class="btn btn-primary" />
