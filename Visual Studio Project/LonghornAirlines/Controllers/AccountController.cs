@@ -284,5 +284,13 @@ namespace LonghornAirlines.Controllers
             });
             return View(PersonList);
         }
+        [Authorize]
+        [HttpGet]
+        public IActionResult EditUser(int id)
+        {
+            AppUser user = _db.Users.Find(id);
+            return View(user);
+        }
+
     }
 }
