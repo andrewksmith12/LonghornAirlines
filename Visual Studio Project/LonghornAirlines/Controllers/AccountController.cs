@@ -265,7 +265,7 @@ namespace LonghornAirlines.Controllers
         {
             return View();
         }
-
+        [Authorize(Roles = "Manager,Agent")]
         public IActionResult UserList()
         {
             var PersonList = _db.Users.ToList().Select(p => new EditViewModel1()
