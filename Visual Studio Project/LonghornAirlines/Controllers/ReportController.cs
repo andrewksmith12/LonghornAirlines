@@ -31,6 +31,12 @@ namespace LonghornAirlines.Controllers
             ViewBag.AllCities = GetAllCities();
             return View();
         }
+        public SelectList SelectListCities()
+        {
+            List<City> cityList = _db.Cities.ToList();
+            SelectList Cities = new SelectList(cityList.OrderBy(m => m.CityID), "CityID", "CityName");
+            return Cities;
+        }
 
         public MultiSelectList GetAllCities()
         {
@@ -90,11 +96,12 @@ namespace LonghornAirlines.Controllers
 
         }
 
-        public IActionResult GenerateFlightManifest()
+        public IActionResult FlightManifest()
         {
-            ViewBag.AllCities = GetAllCities();
-            return View("FlightManifest");
+            ViewBag.AllCities = SelectListCities();
+            return View();
         }
+
 
         public IActionResult ManifestSearchResults(ManifestViewModel mvm)
         {

@@ -13,22 +13,34 @@
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    Total Seats Sold
-                </th>
-                <th>
-                    Total Revenue
-                </th>
+                @if (Model.TotalSeatsSold == true)
+                {
+                    <th>
+                        Total Seats Sold
+                    </th>
+                }
+                @if (Model.TotalRevenue == true)
+                {
+                    <th>
+                        Total Revenue
+                    </th>
+                }
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>
-                    @ViewBag.PassengerCount
-                </td>
-                <td>
-                    @ViewBag.Revenue
-                </td>
+                @if (Model.TotalSeatsSold == true)
+                {
+                    <td>
+                        @ViewBag.PassengerCount
+                    </td>
+                }
+                @if (Model.TotalRevenue == true)
+                {
+                    <td>
+                        @ViewBag.Revenue
+                    </td>
+                }
             </tr>
         </tbody>
     </table>

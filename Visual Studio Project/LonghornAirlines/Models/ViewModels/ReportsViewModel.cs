@@ -31,10 +31,11 @@ namespace LonghornAirlines.Models.ViewModels
         [Display(Name = "First Class")]
         public Boolean FirstClass {get; set;}
 
-        [Display(Name = "Total Number of Seats Sold:")]
+        [Display(Name = "Total Number of Seats Sold ")]
         public Boolean TotalSeatsSold { get; set; }
 
-        [Display(Name = "Total Revenue: ")]
+        [Display(Name = "Total Revenue ")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public Boolean TotalRevenue { get; set; }
 
 
