@@ -1,4 +1,4 @@
-﻿@model LonghornAirlines.Models.ViewModels.ReportsViewModel
+﻿@model IEnumerable<LonghornAirlines.Models.Business.Flight>
 @{
     ViewData["Title"] = "View";
 }
@@ -14,22 +14,26 @@
         <thead>
             <tr>
                 <th>
-                    Flight Number
+                    @Html.DisplayNameFor(model => model.Date)
                 </th>
                 <th>
-                    
+                    @Html.DisplayNameFor(model => model.hasDeparted)
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    
-                </td>
-                <td>
-                    @ViewBag.Revenue
-                </td>
-            </tr>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                <a asp-action="DisplayManifest" asp-route-id="@item.FlightID">Manifest</a>
+        </tr>
+}
         </tbody>
     </table>
 }
