@@ -291,5 +291,48 @@ namespace LonghornAirlines.Controllers
             }
             return new SelectList(reservationUsers, "UserID", "FirstName");
         }
+
+
+        [HttpGet]
+        public IActionResult CustomerCreateAccount(Int32 TicketID)
+        {
+            CustomerCreationModel ccm = new CustomerCreationModel();
+            ccm.TicketID = TicketID;
+
+            return View("Customer_CustomerCreation", ccm);
+        }
+
+        public async Task<IActionResult> CustomerCreateAccount(CustomerCreationModel ccm)
+        {
+            AppUser user = new AppUser
+            {
+                //TODO: Add the rest of the custom user fields here
+                UserName = ccm.Email,
+                Email = ccm.Email,
+                FirstName = ccm.FirstName,
+                LastName = ccm.LastName,
+                Birthday = ccm.Birthday,
+                PhoneNumber = ccm.PhoneNumber,
+                ZIP = ccm.ZIP,
+                State = ccm.State,
+                Street = ccm.Street,
+                City = ccm.City,
+                AdvantageNumber = Utilities.GenerateAccountNumber.GetFFNum(_context),
+                UserID = Convert.ToInt32(ccm.AdvantageNumber),
+                Mileage = 0
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(user, ccm.Password);
+            if (result.Succeeded)
+            {
+                //TODO: Add user to desired role. This example adds the user to the customer role
+                await _userManager.AddToRoleAsync(user, "Customer");
+
+                return await AssignUser(ccm.TicketID, user.UserID);
+            }
+
+            return View("Error", new { message = "Customer Creation Failed" });
+
+        }
     }
 }
