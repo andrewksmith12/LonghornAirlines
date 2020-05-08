@@ -110,6 +110,7 @@ namespace LonghornAirlines.Controllers
         {
             var query = from f in _db.Flights
                         select f;
+            query = query.Include(f => f.FlightInfo);
 
             if (mvm.DepartCityID != 0)
             {
@@ -127,7 +128,7 @@ namespace LonghornAirlines.Controllers
             }
 
             List<Flight> SelectedFlights = query.ToList();
-            return View("ManifestSearchResults", SelectedFlights.OrderByDescending(f => f.FlightID));
+            return View("ManifestSearchResults", SelectedFlights.OrderBy(f => f.Date));
         }
 
         public async Task<IActionResult> DisplayManifest(int? id, Boolean? checkedIn)
@@ -148,6 +149,11 @@ namespace LonghornAirlines.Controllers
                 .Include(f => f.Attendant)
                 .FirstOrDefaultAsync(f => f.FlightID == id);
             
+            if (flight.hasDeparted == true)
+            {
+                ViewBag.checkedIn = true;
+            }
+
             if (flight == null)
             {
                 return NotFound();
