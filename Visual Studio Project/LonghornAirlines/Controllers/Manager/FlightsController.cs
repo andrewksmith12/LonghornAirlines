@@ -9,9 +9,11 @@ using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Business;
 using LonghornAirlines.Models.Users;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LonghornAirlines.Controllers.Manager
 {
+    [Authorize(Roles = "Manager")]
     public class FlightsController : Controller
     {
         private readonly AppDbContext _context;
@@ -29,6 +31,7 @@ namespace LonghornAirlines.Controllers.Manager
             return View(await _context.Flights.ToListAsync());
         }
 
+        [Authorize(Roles = "Employees")]
         // GET: Flights/Details/5
         public async Task<IActionResult> Details(int? id)
         {

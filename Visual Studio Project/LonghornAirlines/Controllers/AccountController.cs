@@ -10,7 +10,7 @@ using LonghornAirlines.Models.Users;
 
 namespace LonghornAirlines.Controllers
 {
-    [Authorize]
+ 
     public class AccountController : Controller
     {
         private SignInManager<AppUser> _signInManager;
@@ -186,6 +186,7 @@ namespace LonghornAirlines.Controllers
         }
 
         //GET: Account/Index
+        [Authorize]
         public ActionResult Index()
         {
             IndexViewModel ivm = new IndexViewModel();
@@ -208,6 +209,7 @@ namespace LonghornAirlines.Controllers
 
         //Logic for change password
         // GET: /Account/ChangePassword
+        [Authorize]
         public ActionResult ChangePassword()
         {
             return View();
@@ -215,6 +217,7 @@ namespace LonghornAirlines.Controllers
 
         //
         // POST: /Account/ChangePassword
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
