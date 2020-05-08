@@ -5,6 +5,7 @@
 }
 
 <h1>CheckIn</h1>
+<h4 class="alert-danger">@ViewBag.Error</h4>
 
 <table class="table">
     <thead>
@@ -17,13 +18,60 @@
     <tbody>
         <tr>
             <td>
-                @Html.DisplayFor(model => model.Pilot.FullName) <button class="btn btn-primary">Check In</button>
+                @if (Model.Pilot != null)
+                {
+                    @if (Model.PilotCheckIn == false)
+                    {
+                        @Html.DisplayFor(model => model.Pilot.FullName) <button class="btn btn-primary" asp-action="CheckInSpecial" asp-route-id=@Model.FlightID asp-route-person="Pilot">Check In</button>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.Pilot.FullName) <button class="btn btn-success">Checked In</button>
+                    }
+                }
+                else
+                {
+                    <p class="text-danger">Pilot Unassigned!</p>
+                }
+
             </td>
             <td>
-                @Html.DisplayFor(model => model.CoPilot.FullName)<button class="btn btn-primary">Check In</button>
+                @if (Model.CoPilot != null)
+                {
+                    @if (Model.CoPilotCheckIn == false)
+                    {
+                        @Html.DisplayFor(model => model.CoPilot.FullName)<button class="btn btn-primary" asp-action="CheckInSpecial" asp-route-id=@Model.FlightID asp-route-person="Co-Pilot">Check In</button>
+
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.CoPilot.FullName)<button class="btn btn-succes">Checked In</button>
+
+                    }
+                }
+                else
+                {
+                    <p class="text-danger">Co-Pilot Unassigned!</p>
+                }
             </td>
             <td>
-                @Html.DisplayFor(model => model.Attendant.FullName) <button class="btn btn-primary">Check In</button>
+                @if (Model.Attendant != null)
+                {
+                    @if (Model.AttendantCheckIn == false)
+                    {
+                        @Html.DisplayFor(model => model.Attendant.FullName) <button class="btn btn-primary" asp-action="CheckInSpecial" asp-route-id=@Model.FlightID asp-route-person="Attendant">Check In</button>
+
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.Attendant.FullName) <button class="btn btn-success">Checked In</button>
+
+                    }
+                }
+                else
+                {
+                    <p class="text-danger">Attendant Unassigned!</p>
+                }
             </td>
         </tr>
     </tbody>
@@ -76,4 +124,4 @@
 }    
     </tbody>
 </table>
-<button class="btn btn-primary" type="submit" asp-action="FinalizeCheckin">Finalize Checkin- Get Manifest</button>
+<a class="btn btn-primary" type="submit" asp-action="FinalizeCheckin" asp-route-id=@Model.FlightID>Finalize Checkin- Get Manifest</a>

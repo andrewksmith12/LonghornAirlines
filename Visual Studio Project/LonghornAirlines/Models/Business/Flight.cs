@@ -46,6 +46,14 @@ namespace LonghornAirlines.Models.Business
 
         [Display(Name = "Ticket IDs: ")]
         public List<Ticket> Tickets { get; set; }
+        [Display(Name = "Pilot Ready?")]
+        public Boolean PilotCheckIn { get; set; }
+
+        [Display(Name = "Co-Pilot Ready?")]
+        public Boolean CoPilotCheckIn { get; set; }
+
+        [Display(Name = "Attendant Ready?")]
+        public Boolean AttendantCheckIn { get; set; }
 
         public Flight()
         {

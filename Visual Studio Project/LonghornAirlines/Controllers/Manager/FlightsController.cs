@@ -234,5 +234,80 @@ namespace LonghornAirlines.Controllers.Manager
             _context.SaveChanges();
             return RedirectToAction("CheckIn", new { id = dbTicket.Flight.FlightID });
         }
+
+        public IActionResult CheckInSpecial(int id, string person)
+        {
+            Flight dbFlight = _context.Flights.FirstOrDefault(f => f.FlightID == id);
+            if(person == "Pilot")
+            {
+                dbFlight.PilotCheckIn = true;
+            }
+            if (person == "Co-Pilot")
+            {
+                dbFlight.CoPilotCheckIn = true;
+            }
+            if (person == "Attendant")
+            {
+                dbFlight.AttendantCheckIn = true;
+            }
+            _context.Flights.Update(dbFlight);
+            _context.SaveChanges();
+            return RedirectToAction("CheckIn", new { id = dbFlight.FlightID });
+        }
+
+        public IActionResult FinalizeCheckin(int id)
+        {
+            Flight dbFlight = _context.Flights.Include(f => f.Tickets).ThenInclude(f => f.Customer).Include(f => f.Pilot).Include(f => f.CoPilot).Include(f => f.Attendant).FirstOrDefault(f => f.FlightID == id);
+            if (dbFlight.Pilot != null)
+            {
+                if (dbFlight.CoPilot != null)
+                {
+                    if (dbFlight.Attendant != null)
+                    {
+                        if (dbFlight.PilotCheckIn == true)
+                        {
+                            if(dbFlight.CoPilotCheckIn == true)
+                            {
+                                if(dbFlight.AttendantCheckIn == true)
+                                {
+                                    return View("Index");
+                                }
+                                else
+                                {
+                                    ViewBag.Error = "Attendant must be Checked-In to Takeoff!";
+                                    return (View("CheckIn", new { id = dbFlight.FlightID }));
+                                }
+                            }
+                            else
+                            {
+                                ViewBag.Error = "CoPilot must be Checked-In to Takeoff!";
+                                return (View("CheckIn", new { id = dbFlight.FlightID }));
+                            }
+                        }
+                        else
+                        {
+                            ViewBag.Error = "Pilot must be Checked-In to Takeoff!";
+                            return (View("CheckIn", new { id = dbFlight.FlightID }));
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Flight must have a Attendant Assigned in Order to Takeoff!";
+                        return (View("CheckIn", new { id = dbFlight.FlightID }));
+                    }
+                }
+                else
+                {
+                    ViewBag.Error = "Flight must have a Co-Pilot Assigned in Order to Takeoff!";
+                    return (View("CheckIn", new { id = dbFlight.FlightID }));
+                }
+            }
+            else
+            {
+                ViewBag.Error = "Flight must have a Pilot Assigned in Order to Takeoff!";
+                return (View("CheckIn", new { id = dbFlight.FlightID }));
+            }
+        }
+
     }
 }
