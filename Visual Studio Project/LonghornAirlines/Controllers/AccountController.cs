@@ -266,7 +266,7 @@ namespace LonghornAirlines.Controllers
             return View();
         }
 
-        public IActionResult CustomerList()
+        public IActionResult UserList()
         {
             var PersonList = _db.Users.ToList().Select(p => new RegisterViewModel()
             {
