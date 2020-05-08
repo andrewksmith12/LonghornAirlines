@@ -22,4 +22,10 @@
     <Folder Include="DAL\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\static\UT_Flight_Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

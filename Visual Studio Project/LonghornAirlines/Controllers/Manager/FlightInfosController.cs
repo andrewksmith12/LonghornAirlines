@@ -234,7 +234,8 @@ namespace LonghornAirlines.Controllers
                 {
                     _context.Update(dbFlightInfo);
                     _context.SaveChanges();
-                    Utilities.AddFlight.addBools(_context, flightInfo, sundayBooladd, mondayBooladd, tuesdayBooladd, wednesdayBooladd, thursdayBooladd, fridayBooladd, saturdayBooladd);
+                    FlightInfo flightInfoforAdd = _context.FlightInfos.Include(f => f.Flights).FirstOrDefault(f => f.FlightInfoID == flightInfo.FlightInfoID);
+                    Utilities.AddFlight.addBools(_context, flightInfoforAdd, sundayBooladd, mondayBooladd, tuesdayBooladd, wednesdayBooladd, thursdayBooladd, fridayBooladd, saturdayBooladd);
                     Utilities.RemoveFlight.removeBools(_context, flightInfo, sundayBoolrm, mondayBoolrm, tuesdayBoolrm, wednesdayBoolrm, thursdayBoolrm, fridayBoolrm, saturdayBoolrm);
 
                 }
