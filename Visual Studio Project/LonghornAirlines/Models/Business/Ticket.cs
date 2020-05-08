@@ -16,12 +16,12 @@ namespace LonghornAirlines.Models.Business
         public Int32 TicketID { get; set; }
 
         [Display(Name = "Fare: ")]
-        [DisplayFormat (DataFormatString = "{0:C}")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public Decimal Fare { get; set; }
-               
+
         [Display(Name = "Seat Number: ")]
         public String Seat { get; set; }
-        
+
         //Navigation Properties
         [Display(Name = "Customer ID: ")]
         public AppUser Customer { get; set; }
@@ -50,7 +50,7 @@ namespace LonghornAirlines.Models.Business
             {
                 ticketFare = this.Flight.FirstClassFare;
             }
-            else
+            else if (budgetSeats.Contains(this.Seat))
             {
                 ticketFare = this.Flight.BaseFare;
                 DateTime today = DateTime.Now.Date;
@@ -74,7 +74,36 @@ namespace LonghornAirlines.Models.Business
                 }
                 ticketFare *= (1 - discount);
             }
+            else
+            {
+                return -10000;
+            }
             return ticketFare;
+        }
+
+        //If no seat selected return -10000
+        public Int32 GetMileageFare()
+        {
+            String[] firstClassSeats = { "1A", "1B", "2A", "2B" };
+            String[] budgetSeats = { "3A", "3B", "3C", "3D",
+                                     "4A", "4B", "4C", "4D",
+                                     "5A", "5B", "5C", "5D"};
+            Int32 mileageFare;
+
+            if (firstClassSeats.Contains(this.Seat))
+            {
+                mileageFare = 2000;
+            }
+            else if (budgetSeats.Contains(this.Seat))
+            {
+                mileageFare = 1000;
+            }
+            else
+            {
+                return -10000;
+            }
+
+            return mileageFare;
         }
     }
 }
