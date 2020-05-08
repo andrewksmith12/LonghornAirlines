@@ -1,6 +1,6 @@
 ﻿@model LonghornAirlines.Models.ViewModels.ManifestViewModel
 @section ImageContent{
-    <h1>Generate Report</h1>
+    <h1>Create Manifest</h1>
     <hr />
     <div class="row">
         <div class="col-md-4">
@@ -8,12 +8,12 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label class="control-label">Departing City</label>
-                    @Html.DropDownListFor(model => model.DepartCityID, (SelectList)ViewBag.AllCities, new { @class = "form-control" })
+                    @Html.DropDownList("DepartCityID", (SelectList)ViewBag.AllCities, new { @class = "form-control" })
                     <span asp-validation-for="DepartCityID" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Arriving City</label>
-                    @Html.DropDownListFor(model => model.ArriveCityID, (SelectList)ViewBag.AllCities, new { @class = "form-control" })
+                    @Html.DropDownList("ArriveCityID", (SelectList)ViewBag.AllCities, new { @class = "form-control" })
                     <span asp-validation-for="ArriveCityID" class="text-danger"></span>
                 </div>
                 <div class="form-group">

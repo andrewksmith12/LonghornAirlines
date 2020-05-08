@@ -155,6 +155,20 @@ namespace LonghornAirlines.Controllers.Manager
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public IActionResult CheckIn(int id)
+        {
+            var Flight = _context.Flights.Include(f => f.Tickets).ThenInclude(f => f.Customer).Include(f => f.Pilot).Include(f => f.CoPilot).Include(f => f.Attendant).FirstOrDefault(f => f.FlightID == id);
+            return View("CheckIn", Flight);
+        }
+
+        [HttpPost]
+        public IActionResult Checkin()
+        {
+            return View("Manifest");
+        }
+
+
         private bool FlightExists(int id)
         {
             return _context.Flights.Any(e => e.FlightID == id);
@@ -210,6 +224,15 @@ namespace LonghornAirlines.Controllers.Manager
             var list = GetAllAttendantsAsync();
             SelectList AllAttendants = list.Result;
             return AllAttendants;
+        }
+
+        public IActionResult CheckInTicket(int id)
+        {
+            Ticket dbTicket =_context.Tickets.Include(f => f.Flight).FirstOrDefault(f => f.TicketID == id);
+            dbTicket.CheckedIn = true;
+            _context.Tickets.Update(dbTicket);
+            _context.SaveChanges();
+            return RedirectToAction("CheckIn", new { id = dbTicket.Flight.FlightID });
         }
     }
 }

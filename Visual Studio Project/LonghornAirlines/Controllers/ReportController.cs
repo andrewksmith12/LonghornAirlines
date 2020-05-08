@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
-
+using System.Threading.Tasks;
 
 namespace LonghornAirlines.Controllers
 {
@@ -31,16 +31,20 @@ namespace LonghornAirlines.Controllers
             ViewBag.AllCities = GetAllCities();
             return View();
         }
-
-        public SelectList GetAllCities()
+        public SelectList SelectListCities()
         {
             List<City> cityList = _db.Cities.ToList();
-            City selectAll = new City() { CityID = 0, CityName = "All Cities" };
-            cityList.Add(selectAll);
-            return new SelectList(cityList.OrderBy(c => c.CityID), "CityID", "CityName");
+            SelectList Cities = new SelectList(cityList.OrderBy(m => m.CityID), "CityID", "CityName");
+            return Cities;
         }
 
-        public IActionResult DisplayReport (ReportsViewModel rvm)
+        public MultiSelectList GetAllCities()
+        {
+            List<City> cityList = _db.Cities.ToList();
+            return new MultiSelectList(cityList.OrderBy(c => c.CityID), "CityID", "CityName");
+        }
+
+        public IActionResult DisplayReport (ReportsViewModel rvm, int[] DepartCityID, int[] ArriveCityID)
         {
             //ViewBag.CityToName = _db.Cities.FirstOrDefault(c => c.CityID == rvm.ArriveCityID).CityName;
             //ViewBag.CityFromName = _db.Cities.FirstOrDefault(c => c.CityID == rvm.DepartCityID).CityName;
@@ -52,14 +56,14 @@ namespace LonghornAirlines.Controllers
 
             query = query.Where(t => t.Reservation.ReservationComplete == true);
 
-            if (rvm.DepartCityID != 0)
+            if (rvm.DepartCityID != null)
             {
-                query = query.Where(t => t.Flight.FlightInfo.Route.CityFrom.CityID == rvm.DepartCityID);
+                query = query.Where(t => DepartCityID.Contains(t.Flight.FlightInfo.Route.CityFrom.CityID));
             }
 
-            if (rvm.ArriveCityID != 0)
+            if (rvm.ArriveCityID != null)
             {
-                query = query.Where(t => t.Flight.FlightInfo.Route.CityTo.CityID == rvm.ArriveCityID);
+                query = query.Where(t => ArriveCityID.Contains(t.Flight.FlightInfo.Route.CityTo.CityID));
             }
 
             if (rvm.DepartDate != null)
@@ -87,22 +91,22 @@ namespace LonghornAirlines.Controllers
             int NumofPassengers = SelectedTickets.Count;
             ViewBag.PassengerCount = NumofPassengers;
             decimal totalRevenue = SelectedTickets.Sum(t => t.Fare);
-            ViewBag.Revenue = totalRevenue;
+            ViewBag.Revenue = "$" + totalRevenue;
             return View("DisplayReport", rvm);
 
         }
 
-        public IActionResult GenerateFlightManifest()
+        public IActionResult FlightManifest()
         {
-            ViewBag.AllCities = GetAllCities();
-            return View("FlightManifest");
+            ViewBag.AllCities = SelectListCities();
+            return View();
         }
 
-        public IActionResult DisplayManifest(ManifestViewModel mvm)
+
+        public IActionResult ManifestSearchResults(ManifestViewModel mvm)
         {
             var query = from f in _db.Flights
                         select f;
-
 
             if (mvm.DepartCityID != 0)
             {
@@ -135,7 +139,23 @@ namespace LonghornAirlines.Controllers
             }
 
             List<Flight> SelectedFlights = query.ToList();
-            return View("DisplayManifest");
+            return View("ManifestSearchResults", SelectedFlights.OrderByDescending(f => f.FlightID));
+        }
+        public async Task<IActionResult> DisplayManifest(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var flight = await _db.Flights
+                .FirstOrDefaultAsync(f => f.FlightID == id);
+            if (flight == null)
+            {
+                return NotFound();
+            }
+
+            return View(flight);
         }
     }
 }
