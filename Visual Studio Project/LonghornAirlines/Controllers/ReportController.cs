@@ -90,10 +90,10 @@ namespace LonghornAirlines.Controllers
 
         }
 
-        public IActionResult GenerateFlightManifest()
+        public IActionResult FlightManifest()
         {
             ViewBag.AllCities = GetAllCities();
-            return View("FlightManifest");
+            return View();
         }
 
         public IActionResult ManifestSearchResults(ManifestViewModel mvm)
