@@ -1,4 +1,46 @@
-﻿
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model LonghornAirlines.Models.ViewModels.ManifestViewModel
+@section ImageContent{
+    <h1>Generate Report</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="DisplayReport" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">Departing City</label>
+                    @Html.DropDownListFor(model => model.DepartCityID, (SelectList)ViewBag.AllCities, new { @class = "form-control" })
+                    <span asp-validation-for="DepartCityID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Arriving City</label>
+                    @Html.DropDownListFor(model => model.ArriveCityID, (SelectList)ViewBag.AllCities, new { @class = "form-control" })
+                    <span asp-validation-for="ArriveCityID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DepartDate" class="control-label"></label>
+                    <input type="date" id="DepartDate" min="2020-04-15" value="ViewBag.Today" max="2020-06-30" asp-for="DepartDate" class="form-control" />
+                    <span asp-validation-for="DepartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ArriveDate" class="control-label"></label>
+                    <input type="date" id="ArriveDate" min="2020-04-15" value="ViewBag.Today" max="2020-06-30" asp-for="ArriveDate" class="form-control" />
+                    <span asp-validation-for="ArriveDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <span style="display:inline-block; width:20px;"></span><label class="form-check-label"><input class="form-check-input" type="checkbox" asp-for="hasDeparted" />@Html.DisplayNameFor(model => model.hasDeparted)    </label>
+                </div>
+                <div class="form-group">
+                    <span style="display:inline-block; width:20px;"></span><label class="form-check-label"><input class="form-check-input" type="checkbox" asp-for="hasNotDeparted" />@Html.DisplayNameFor(model => model.hasNotDeparted)    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create Report" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to Reports Menu</a>
+    </div>
+
+}
+
