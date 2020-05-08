@@ -1,35 +1,73 @@
-﻿@model LonghornAirlines.Models.ViewModels.ManifestViewModel
+﻿@model LonghornAirlines.Models.Business.Flight
 @{
     ViewData["Title"] = "View";
 }
 @section imageContent
 {
-    <h1>Report</h1>
+    <h1>Manifest</h1>
 
-    <h4>
-        @*From @ViewBag.CityFromName To @ViewBag.CityToName*@
-        @*From @ViewBag.DepartDate To @ViewBag.ArriveDate*@
-    </h4>
+    <div>
+        <h4>Flight</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.hasDeparted)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.hasDeparted)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Pilot)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Pilot)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CoPilot)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CoPilot)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Attendant)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Attendant)
+            </dd>
+            <dt class="col-sm-2"></dt>
+        </dl>
+    </div>
+
     <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Total Seats Sold
-                </th>
-                <th>
-                    Total Revenue
-                </th>
-            </tr>
-        </thead>
+        <tr>
+            <th>Ticket No</th>
+            <th>Ticket Holder</th>
+            <th>Flight Number</th>
+            <th>Seat Selection</th>
+        </tr>
         <tbody>
-            <tr>
-                <td>
-                    @ViewBag.PassengerCount
-                </td>
-                <td>
-                    @ViewBag.Revenue
-                </td>
-            </tr>
+            @foreach (Ticket t in Model.Tickets)
+            {
+                <tr>
+                    <td>@t.TicketID</td>
+                    <td>@t.Customer.NormalizedUserName</td>
+                    <td>@t.Flight.FlightInfo.FlightNumber</td>
+                    <td>@t.Flight.Date</td>
+                    <td>@t.Flight.FlightInfo.FlightTime</td>
+                </tr>
+            }
         </tbody>
     </table>
+
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.FlightID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
 }

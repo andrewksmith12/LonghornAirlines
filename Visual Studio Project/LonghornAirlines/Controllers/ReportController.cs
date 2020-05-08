@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
-
+using System.Threading.Tasks;
 
 namespace LonghornAirlines.Controllers
 {
@@ -96,11 +96,10 @@ namespace LonghornAirlines.Controllers
             return View("FlightManifest");
         }
 
-        public IActionResult DisplayManifest(ManifestViewModel mvm)
+        public IActionResult ManifestSearchResults(ManifestViewModel mvm)
         {
             var query = from f in _db.Flights
                         select f;
-
 
             if (mvm.DepartCityID != 0)
             {
@@ -133,7 +132,23 @@ namespace LonghornAirlines.Controllers
             }
 
             List<Flight> SelectedFlights = query.ToList();
-            return View("DisplayManifest");
+            return View("ManifestSearchResults", SelectedFlights.OrderByDescending(f => f.FlightID));
+        }
+        public async Task<IActionResult> DisplayManifest(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var flight = await _db.Flights
+                .FirstOrDefaultAsync(f => f.FlightID == id);
+            if (flight == null)
+            {
+                return NotFound();
+            }
+
+            return View(flight);
         }
     }
 }
