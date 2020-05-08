@@ -316,7 +316,7 @@ namespace LonghornAirlines.Controllers
 
                 _db.SaveChanges();
 
-                return RedirectToAction("Index"); // or whatever
+                return RedirectToAction("Index");
 
         }
     }
