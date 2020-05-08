@@ -11,11 +11,11 @@ namespace LonghornAirlines.Utilities
         public static void SendEmail(String toEmailAddress, String emailSubject, String emailBody)
         {
             //Create an email client to send the emails
-            var client = new SmtpClient("smtp.gmail.com", 587)
+            var client = new SmtpClient("smtp.zoho.com", 465)
             {
                 UseDefaultCredentials = false,
                 //This is the SENDING email address and password
-                Credentials = new NetworkCredential("longhornairlines333k@gmail.com", "alacrity_scarcely_acrid"),
+                Credentials = new NetworkCredential("longhornairlines@andrewksmith.net", "camporee-peak-drogue-buff"),
                 EnableSsl = true
             };
             //Add anything that you need to the body of the message
@@ -24,7 +24,7 @@ namespace LonghornAirlines.Utilities
 
 
             //Create an email address object for the sender address
-            MailAddress senderEmail = new MailAddress("longhornairlines333k@gmail.com", "Longhorn Airlines");
+            MailAddress senderEmail = new MailAddress("longhornairlines@andrewksmith.net", "Longhorn Airlines");
             MailMessage mm = new MailMessage();
             mm.Subject = "Team 6 - " + emailSubject;
             mm.Sender = senderEmail;
