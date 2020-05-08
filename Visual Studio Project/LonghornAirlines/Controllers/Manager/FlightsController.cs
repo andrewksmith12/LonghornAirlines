@@ -158,7 +158,7 @@ namespace LonghornAirlines.Controllers.Manager
                 }
                 var email = t.Customer.Email;
                 String emailStuff = "We regret to inform you that your flight on" + dbFlight.Date.ToString() + " has been canceled.\nIf you paid with miles, they have been refunded.";
-                Utilites.EmailMessaging.SendEmail(email, "Flight Cancelled", emailStuff);
+                Utilities.EmailMessaging.SendEmail(email, "Flight Cancelled", emailStuff);
                 _context.Update(dbFlight);
             }
             _context.SaveChanges();
