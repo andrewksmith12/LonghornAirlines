@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
+using System;
 
 namespace LonghornAirlines.Controllers
 {
@@ -141,15 +142,19 @@ namespace LonghornAirlines.Controllers
             List<Flight> SelectedFlights = query.ToList();
             return View("ManifestSearchResults", SelectedFlights.OrderByDescending(f => f.FlightID));
         }
-        public async Task<IActionResult> DisplayManifest(int? id)
+        public async Task<IActionResult> DisplayManifest(int? id, Boolean? checkedIn)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var flight = await _db.Flights
+            var flight = await _db.Flights.Include(f => f.Tickets).ThenInclude(f => f.Customer)
+                .Include(f => f.FlightInfo)
+                .Include(f => f.Pilot)
+                .Include(f => f.CoPilot)
+                .Include(f => f.Attendant)
                 .FirstOrDefaultAsync(f => f.FlightID == id);
+            
             if (flight == null)
             {
                 return NotFound();

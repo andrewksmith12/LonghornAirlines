@@ -8,7 +8,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Flight</h4>
+    <h4>FlightInfo Number: @Model.FlightInfo.FlightNumber Flight Instance (FlightID): @Model.FlightID</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -27,19 +27,19 @@
             @Html.DisplayNameFor(model => model.Pilot)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Pilot)
+            @Html.DisplayFor(model => model.Pilot.FullName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CoPilot)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CoPilot)
+            @Html.DisplayFor(model => model.CoPilot.FullName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Attendant)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Attendant)
+            @Html.DisplayFor(model => model.Attendant.FullName)
         </dd>
         <dt class="col-sm-2"></dt>
     </dl>
@@ -50,18 +50,21 @@
         <th>Ticket No</th>
         <th>Ticket Holder</th>
         <th>Flight Number</th>
+        <th>Flight Date</th>
+        <th>Flight Time</th>
         <th>Seat Selection</th>
     </tr>
     <tbody>
         @foreach (Ticket t in Model.Tickets)
         {
-            <tr>
-                <td>@t.TicketID</td>
-                <td>@t.Customer.NormalizedUserName</td>
-                <td>@t.Flight.FlightInfo.FlightNumber</td>
-                <td>@t.Flight.Date</td>
-                <td>@t.Flight.FlightInfo.FlightTime</td>
-            </tr>
+        <tr>
+            <td>@t.TicketID</td>
+            <td>@t.Customer.NormalizedUserName</td>
+            <td>@t.Flight.FlightInfo.FlightNumber</td>
+            <td>@t.Flight.Date</td>
+            <td>@t.Flight.FlightInfo.FlightTime</td>
+            <td>@t.Seat</td>
+        </tr>
         }
     </tbody>
 </table>

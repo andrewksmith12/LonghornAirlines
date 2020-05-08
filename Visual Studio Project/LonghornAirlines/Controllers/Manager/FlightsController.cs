@@ -37,7 +37,7 @@ namespace LonghornAirlines.Controllers.Manager
                 return NotFound();
             }
 
-            var flight = await _context.Flights
+            var flight = await _context.Flights.Include(m => m.FlightInfo).Include(m => m.Pilot).Include(m => m.CoPilot).Include(m => m.Attendant).Include(m => m.Tickets).ThenInclude(m => m.Customer)
                 .FirstOrDefaultAsync(m => m.FlightID == id);
             if (flight == null)
             {
@@ -93,37 +93,23 @@ namespace LonghornAirlines.Controllers.Manager
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FlightID,Date,hasDeparted")] Flight flight)
+        public async Task<IActionResult> Edit(int id, [Bind("FlightID,Date,hasDeparted")] Flight flight, Boolean hasDeparted, int SelectedPilot, int SelectedCoPilot, int SelectedAttendant)
         {
             if (id != flight.FlightID)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(flight);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FlightExists(flight.FlightID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewBag.Pilots = GetAllPilots();
-            ViewBag.CoPilots = GetAllCoPilots();
-            ViewBag.Attendants = GetAllAttendants();
-            return View(flight);
+            Flight dbFlight = _context.Flights.Find(flight.FlightID);
+            dbFlight.hasDeparted = hasDeparted;
+            dbFlight.Pilot = _context.Users.FirstOrDefault(f => f.UserID == SelectedPilot);
+            dbFlight.CoPilot = _context.Users.FirstOrDefault(f => f.UserID == SelectedCoPilot);
+            dbFlight.Attendant = _context.Users.FirstOrDefault(f => f.UserID == SelectedAttendant);
+
+            _context.Flights.Update(dbFlight);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", new { id = dbFlight.FlightID });
         }
 
         // GET: Flights/Delete/5
@@ -186,7 +172,7 @@ namespace LonghornAirlines.Controllers.Manager
             var pilotsQuery = await _userManager.GetUsersInRoleAsync("Pilot");
             //convert from task to list
             List<AppUser> members = new List<AppUser>(pilotsQuery);
-            SelectList AllPilotsTask = new SelectList(members, "Id", "FullName");
+            SelectList AllPilotsTask = new SelectList(members, "UserID", "FullName");
             return AllPilotsTask;
         }
         public SelectList GetAllPilots()
@@ -201,7 +187,7 @@ namespace LonghornAirlines.Controllers.Manager
             var copilotsQuery = await _userManager.GetUsersInRoleAsync("Co-Pilot");
             //convert from task to list
             List<AppUser> members = new List<AppUser>(copilotsQuery);
-            SelectList AllCoPilotsTask = new SelectList(members, "Id", "FullName");
+            SelectList AllCoPilotsTask = new SelectList(members, "UserID", "FullName");
             return AllCoPilotsTask;
         }
         public SelectList GetAllCoPilots()
@@ -216,7 +202,7 @@ namespace LonghornAirlines.Controllers.Manager
             var attendantsQuery = await _userManager.GetUsersInRoleAsync("Flight Attendant");
             //convert from task to list
             List<AppUser> members = new List<AppUser>(attendantsQuery);
-            SelectList AllAttendantsTask = new SelectList(members, "Id", "FullName");
+            SelectList AllAttendantsTask = new SelectList(members, "UserID", "FullName");
             return AllAttendantsTask;
         }
         public SelectList GetAllAttendants()
@@ -270,7 +256,7 @@ namespace LonghornAirlines.Controllers.Manager
                             {
                                 if(dbFlight.AttendantCheckIn == true)
                                 {
-                                    return View("Index");
+                                    return RedirectToAction("DisplayManifest","Report", new { id = dbFlight.FlightID });
                                 }
                                 else
                                 {

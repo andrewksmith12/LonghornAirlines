@@ -41,7 +41,7 @@ namespace LonghornAirlines.Models.Users
         public DateTime Birthday { get; set; }
 
         [Display(Name = "Advantage Number: ")]
-        public String AdvantageNumber { get; set; }
+        public Int32 AdvantageNumber { get; set; }
 
         [Required]
         [Display(Name = "Street: ")]
