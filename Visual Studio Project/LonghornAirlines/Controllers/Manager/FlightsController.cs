@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LonghornAirlines.Controllers.Manager
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize(Roles = "Employee")]
     public class FlightsController : Controller
     {
         private readonly AppDbContext _context;
@@ -31,7 +31,7 @@ namespace LonghornAirlines.Controllers.Manager
             return View(await _context.Flights.ToListAsync());
         }
 
-        [Authorize(Roles = "Employees")]
+        [Authorize(Roles = "Employee")]
         // GET: Flights/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -286,42 +286,45 @@ namespace LonghornAirlines.Controllers.Manager
                             {
                                 if(dbFlight.AttendantCheckIn == true)
                                 {
+                                    dbFlight.hasDeparted = true;
+                                    _context.Flights.Update(dbFlight);
+                                    _context.SaveChanges();
                                     return RedirectToAction("DisplayManifest","Report", new { id = dbFlight.FlightID });
                                 }
                                 else
                                 {
                                     ViewBag.Error = "Attendant must be Checked-In to Takeoff!";
-                                    return (View("CheckIn", new { id = dbFlight.FlightID }));
+                                    return (View("CheckIn", dbFlight));
                                 }
                             }
                             else
                             {
                                 ViewBag.Error = "CoPilot must be Checked-In to Takeoff!";
-                                return (View("CheckIn", new { id = dbFlight.FlightID }));
+                                return (View("CheckIn", dbFlight));
                             }
                         }
                         else
                         {
                             ViewBag.Error = "Pilot must be Checked-In to Takeoff!";
-                            return (View("CheckIn", new { id = dbFlight.FlightID }));
+                            return (View("CheckIn", dbFlight));
                         }
                     }
                     else
                     {
                         ViewBag.Error = "Flight must have a Attendant Assigned in Order to Takeoff!";
-                        return (View("CheckIn", new { id = dbFlight.FlightID }));
+                        return (View("CheckIn", dbFlight));
                     }
                 }
                 else
                 {
                     ViewBag.Error = "Flight must have a Co-Pilot Assigned in Order to Takeoff!";
-                    return (View("CheckIn", new { id = dbFlight.FlightID }));
+                    return (View("CheckIn", dbFlight));
                 }
             }
             else
             {
                 ViewBag.Error = "Flight must have a Pilot Assigned in Order to Takeoff!";
-                return (View("CheckIn", new { id = dbFlight.FlightID }));
+                return (View("CheckIn", dbFlight));
             }
         }
 

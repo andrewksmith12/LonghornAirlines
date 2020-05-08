@@ -22,17 +22,9 @@
                 {
                     @if (Model.PilotCheckIn == false)
                     {
-                        @Html.DisplayFor(model => model.Pilot
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   ) <button class="btn btn-primary" asp-action="CheckInSpecial" asp-route-id=@Model.FlightID asp-route-person="Pilot">Check In</button>
+                        @Html.DisplayFor(model => model.Pilot.FullName
+                                      
+                    ) <a class="btn btn-primary" asp-action="CheckInSpecial" asp-route-id=@Model.FlightID asp-route-person="Pilot">Check In</a>
                     }
                     else
                     {
@@ -50,12 +42,12 @@
                 {
                     @if (Model.CoPilotCheckIn == false)
                     {
-                        @Html.DisplayFor(model => model.CoPilot.FullName)<button class="btn btn-primary" asp-action="CheckInSpecial" asp-route-id=@Model.FlightID asp-route-person="Co-Pilot">Check In</button>
+                        @Html.DisplayFor(model => model.CoPilot.FullName)<a class="btn btn-primary" asp-action="CheckInSpecial" asp-route-id=@Model.FlightID asp-route-person="Co-Pilot">Check In</a>
 
                     }
                     else
                     {
-                        @Html.DisplayFor(model => model.CoPilot.FullName)<button class="btn btn-succes">Checked In</button>
+                        @Html.DisplayFor(model => model.CoPilot.FullName)<button class="btn btn-success">Checked In</button>
 
                     }
                 }
@@ -69,7 +61,7 @@
                 {
                     @if (Model.AttendantCheckIn == false)
                     {
-                        @Html.DisplayFor(model => model.Attendant.FullName) <button class="btn btn-primary" asp-action="CheckInSpecial" asp-route-id=@Model.FlightID asp-route-person="Attendant">Check In</button>
+                        @Html.DisplayFor(model => model.Attendant.FullName) <a class="btn btn-primary" asp-action="CheckInSpecial" asp-route-id=@Model.FlightID asp-route-person="Attendant">Check In</a>
 
                     }
                     else
@@ -134,4 +126,4 @@
 }    
     </tbody>
 </table>
-<a class="btn btn-primary" type="submit" asp-action="FinalizeCheckin" asp-route-id=@Model.FlightID>Finalize Checkin- Get Manifest</a>
+<a class="btn btn-primary" type="submit" asp-action="FinalizeCheckin" asp-route-id=@Model.FlightID>Mark as Departed- Get Manifest</a>

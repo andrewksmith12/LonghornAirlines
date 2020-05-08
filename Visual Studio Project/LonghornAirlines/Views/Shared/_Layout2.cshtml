@@ -33,10 +33,10 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item mr-md-3">
-                    Booking
+                    <a asp-action="Index" asp-controller="Home">Booking</a>
                 </li>
                 <li class="nav-item mr-md-3">
-                    Reservations
+                    <a asp-action="Index" asp-controller="Reservation">Reservations</a>
                 </li>
                 @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
                 {
@@ -75,7 +75,7 @@
 
 
     <!-- Page Content -->
-    <section class="py-5">
+    <section class="py-5" id="scrollTo">
         <div class="container">
             @RenderSection("pageContent", required: false)
             @RenderBody()
