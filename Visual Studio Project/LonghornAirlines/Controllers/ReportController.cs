@@ -129,8 +129,14 @@ namespace LonghornAirlines.Controllers
             List<Flight> SelectedFlights = query.ToList();
             return View("ManifestSearchResults", SelectedFlights.OrderByDescending(f => f.FlightID));
         }
+
         public async Task<IActionResult> DisplayManifest(int? id, Boolean? checkedIn)
         {
+            if (checkedIn == true)
+            {
+                ViewBag.checkedIn = true;
+            }
+
             if (id == null)
             {
                 return NotFound();
