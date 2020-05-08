@@ -51,7 +51,7 @@ namespace LonghornAirlines.Migrations
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
                     ZIP = table.Column<string>(maxLength: 5, nullable: true),
-                    MI = table.Column<string>(nullable: true),
+                    MI = table.Column<string>(maxLength: 1, nullable: true),
                     isActive = table.Column<bool>(nullable: false),
                     SSN = table.Column<string>(nullable: true)
                 },

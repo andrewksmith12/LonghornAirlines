@@ -82,6 +82,7 @@ namespace LonghornAirlines.Seeding
                         }
                         intFlightID++;
                     }
+                    Utilities.DepartBeforeEight.Depart(db);
                 }
                 catch (Exception ex)
                 {

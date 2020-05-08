@@ -220,7 +220,8 @@ namespace LonghornAirlines.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("MI");
+                    b.Property<string>("MI")
+                        .HasMaxLength(1);
 
                     b.Property<decimal>("Mileage");
 

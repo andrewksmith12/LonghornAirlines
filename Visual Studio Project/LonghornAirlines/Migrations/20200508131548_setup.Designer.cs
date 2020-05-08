@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LonghornAirlines.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200508085403_setup")]
+    [Migration("20200508131548_setup")]
     partial class setup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -222,7 +222,8 @@ namespace LonghornAirlines.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("MI");
+                    b.Property<string>("MI")
+                        .HasMaxLength(1);
 
                     b.Property<decimal>("Mileage");
 
