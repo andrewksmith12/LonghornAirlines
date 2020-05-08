@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<LonghornAirlines.Models.Business.Flight>
 
 @{
-    ViewData["Title"] = "GateAgent";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewData["Title"] = "Gate Agent View";
 }
 
-<h1>GateAgent</h1>
+<h1>Gate Agent View</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -65,9 +65,11 @@
                 @Html.DisplayFor(modelItem => item.Attendant.FullName)
             </td>
             <td>
-                <a asp-action="Edit" asp-controller="Flights" asp-route-id="@item.FlightID">Edit</a> |
                 <a asp-action="Details" asp-controller="Flights" asp-route-id="@item.FlightID">Details</a> |
-                <a asp-action="CheckIn" asp-controller="Flights" asp-route-id="@item.FlightID">Check In</a>
+                <a asp-action="CheckIn" asp-controller="Flights" asp-route-id="@item.FlightID">Check In</a> |
+                @if (User.IsInRole("Manager"))
+                {<a asp-action="Edit" asp-controller="Flights" asp-route-id="@item.FlightID">Edit</a>}
+
             </td>
         </tr>
 }

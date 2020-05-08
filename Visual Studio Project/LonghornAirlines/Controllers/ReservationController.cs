@@ -367,7 +367,7 @@ namespace LonghornAirlines.Views
             return reservation;
         }
 
-        public IActionResult ChangeSeats(Int32 id)
+        public async Task<IActionResult> ChangeSeats(Int32 id)
         {
             Models.Business.Reservation reservation = _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).ThenInclude(f => f.Route).ThenInclude(f => f.CityTo).First(r => r.ReservationID == id);
 
