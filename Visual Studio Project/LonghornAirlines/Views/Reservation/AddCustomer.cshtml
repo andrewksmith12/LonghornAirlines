@@ -2,23 +2,29 @@
 @{
     ViewData["Title"] = "AddCustomer";
 }
-
-<a asp-action="ManagerSearchCustomer" asp-controller="Reservation" 
-   asp-route-FlightID="@ViewBag.FlightID"
-   asp-route-isRoundTrip="@ViewBag.isRoundTrip"
-   asp-route-NumPassengers="@ViewBag.NumPassengers"
-   asp-route-cityToID="@ViewBag.cityToID"
-   asp-route-cityFromID="@ViewBag.cityFromID"
-   asp-route-returnDate="@ViewBag.returnDate">
-    Find existing customer
-</a>
-<br />
-<a asp-action="ManagerCreateCustomer" asp-controller="Reservation"
-   asp-route-FlightID="@ViewBag.FlightID"
-   asp-route-isRoundTrip="@ViewBag.isRoundTrip"
-   asp-route-NumPassengers="@ViewBag.NumPassengers"
-   asp-route-cityToID="@ViewBag.cityToID"
-   asp-route-cityFromID="@ViewBag.cityFromID"
-   asp-route-returnDate="@ViewBag.returnDate">
-    Set up new customer
-</a>
+@section imageContent{
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a class="btn btn-info" asp-action="ManagerSearchCustomer" asp-controller="Reservation"
+               asp-route-FlightID="@ViewBag.FlightID"
+               asp-route-isRoundTrip="@ViewBag.isRoundTrip"
+               asp-route-NumPassengers="@ViewBag.NumPassengers"
+               asp-route-cityToID="@ViewBag.cityToID"
+               asp-route-cityFromID="@ViewBag.cityFromID"
+               asp-route-returnDate="@ViewBag.returnDate">
+                Find existing customer
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a class="btn btn-success" asp-action="ManagerCreateCustomer" asp-controller="Reservation"
+               asp-route-FlightID="@ViewBag.FlightID"
+               asp-route-isRoundTrip="@ViewBag.isRoundTrip"
+               asp-route-NumPassengers="@ViewBag.NumPassengers"
+               asp-route-cityToID="@ViewBag.cityToID"
+               asp-route-cityFromID="@ViewBag.cityFromID"
+               asp-route-returnDate="@ViewBag.returnDate">
+                Set up new customer
+            </a>
+        </li>
+    </ul>
+}

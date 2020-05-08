@@ -146,7 +146,7 @@ namespace LonghornAirlines.Views
                 cityFromID = cityFromID,
                 returnDate = returnDate
             };
-            return View("ManagerCreateCustomer", mcc);
+            return View("ManagerCustomerCreation", mcc);
         }
 
         [HttpPost]
