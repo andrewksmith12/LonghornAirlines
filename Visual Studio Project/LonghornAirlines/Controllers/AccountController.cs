@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Users;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace LonghornAirlines.Controllers
 {
@@ -286,11 +286,38 @@ namespace LonghornAirlines.Controllers
         }
         [Authorize]
         [HttpGet]
-        public IActionResult EditUser(int id)
+        public IActionResult EditUser(string id)
         {
             AppUser user = _db.Users.Find(id);
             return View(user);
         }
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditUser(AppUser userprofile, String firstname, String lastname, String mi, DateTime birthday, String advantagenumber, string street, string city, string state, string zip, string email, string phonenumber)
+        {
+            string username = User.Identity.Name;
+                // Get the userprofile
+            AppUser user = _db.Users.FirstOrDefault(u => u.UserName.Equals(username));
 
+                // Update fields
+            user.FirstName = userprofile.FirstName;
+            user.LastName = userprofile.LastName;
+            user.MI = userprofile.MI;
+            user.Birthday = userprofile.Birthday;
+            user.AdvantageNumber = userprofile.AdvantageNumber;
+            user.Street = userprofile.Street;
+            user.City = userprofile.City;
+            user.State = userprofile.State;
+            user.ZIP = userprofile.ZIP;
+            user.Email = userprofile.Email;
+            user.PhoneNumber = userprofile.PhoneNumber;
+
+                _db.Entry(user).State = EntityState.Modified;
+
+                _db.SaveChanges();
+
+                return RedirectToAction("Index"); // or whatever
+
+        }
     }
 }
