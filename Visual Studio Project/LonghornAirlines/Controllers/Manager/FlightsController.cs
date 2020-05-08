@@ -93,7 +93,7 @@ namespace LonghornAirlines.Controllers.Manager
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FlightID,Date,hasDeparted")] Flight flight, int SelectedPilot, int SelectedCoPilot, int SelectedAttendant)
+        public async Task<IActionResult> Edit(int id, [Bind("FlightID,Date,hasDeparted")] Flight flight, Boolean hasDeparted, int SelectedPilot, int SelectedCoPilot, int SelectedAttendant)
         {
             if (id != flight.FlightID)
             {
@@ -101,6 +101,7 @@ namespace LonghornAirlines.Controllers.Manager
             }
 
             Flight dbFlight = _context.Flights.Find(flight.FlightID);
+            dbFlight.hasDeparted = hasDeparted;
             dbFlight.Pilot = _context.Users.FirstOrDefault(f => f.UserID == SelectedPilot);
             dbFlight.CoPilot = _context.Users.FirstOrDefault(f => f.UserID == SelectedCoPilot);
             dbFlight.Attendant = _context.Users.FirstOrDefault(f => f.UserID == SelectedAttendant);
