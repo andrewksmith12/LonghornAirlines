@@ -79,15 +79,21 @@ namespace LonghornAirlines.Controllers
         public IActionResult ChangeSeats(TicketSeatChangeModel tscm)
         {
             Ticket ticket = _context.Tickets.Include(t => t.Reservation).First(t => t.TicketID == tscm.TicketID);
-            if(tscm.UpgradeWithMiles && isFirstClass(tscm.SeatID))
+
+            ticket.Seat = tscm.SeatID;
+            if (tscm.UpgradeWithMiles && isFirstClass(tscm.SeatID))
             {
                 AppUser customer = _context.Users.First(u => u.UserID == tscm.CustomerID);
                 customer.Mileage -= 500;
                 ticket.UpgradeWithMilage = true;
                 _context.Update(customer);
             }
+            else
+            {
+                Decimal fare = GetFare(ticket.TicketID, tscm.SeatID);
+                ticket.Fare = fare;
+            }
 
-            ticket.Seat = tscm.SeatID;
             _context.Update(ticket);
             _context.SaveChanges();
 
@@ -277,7 +283,6 @@ namespace LonghornAirlines.Controllers
             else
             {
                 fare = ticket.Flight.BaseFare;
-                Int32 Age;
                 DateTime today = DateTime.Now.Date;
                 Decimal discount = 0;
                 //Age Discounts

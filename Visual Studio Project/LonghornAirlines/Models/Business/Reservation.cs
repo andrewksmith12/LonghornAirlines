@@ -52,7 +52,7 @@ namespace LonghornAirlines.Models.Business
         {
             get
             {
-                return Tickets.Sum(c => c.GetDiscountedFare); 
+                return Tickets.Sum(c => c.Fare); 
             }
   
         }
