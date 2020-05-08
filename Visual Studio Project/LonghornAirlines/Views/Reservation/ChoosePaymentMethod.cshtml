@@ -1,0 +1,44 @@
+﻿@model Models.Business.Reservation
+@{
+    ViewData["Title"] = "ChoosePaymentMethod";
+}
+
+@section imageContent{ 
+    <h1>Select your payment method</h1>
+    <div class="row">
+        <div class="col-6-sm">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Cash</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">Reservation Subtotal: @Html.DisplayFor(r => r.ReservationSubtotal)</li>
+                        <li class="list-group-item">Sales Tax: @Html.DisplayFor(r => r.SalesTax)</li>
+                        <li class="list-group-item">Reservation Total: @Html.DisplayFor(r => r.ReservationTotal)</li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <a asp-action="Confirm" asp-controller="Reservation" asp-route-id="@Model.ReservationID" asp-route-PaymentMethod="Cash" class="btn btn-light btn-lg">Confirm</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6-sm">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Miles</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">Total Miles: @Html.DisplayFor(r => r.ReservationMileageCost)</li>
+                        <li class="list-group-item">Your Miles: @Html.DisplayFor(r => r.Customer.Mileage)</li>
+                        <li class="list-group-item">Remaining Miles after Reservation: @ViewBag.RemainingMiles</li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <a asp-action="Confirm" asp-controller="Reservation" asp-route-id="@Model.ReservationID" asp-route-PaymentMethod="Mileage" class="btn btn-light btn-lg">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

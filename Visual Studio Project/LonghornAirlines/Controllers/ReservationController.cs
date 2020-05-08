@@ -242,12 +242,34 @@ namespace LonghornAirlines.Views
             return RedirectToAction("Description", new { id = ReservationID });
         }
 
-
-        //Shows Reservation Confirmation Page
-        public async Task<IActionResult> Confirm(int? id)
+        public async Task<IActionResult> ChoosePaymentMethod(int? id)
         {
             Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).FirstAsync(r => r.ReservationID == id);
 
+            ViewBag.RemainingMiles = reservation.Customer.Mileage - reservation.ReservationMileageCost;
+            return View(reservation);
+        }
+
+        //Shows Reservation Confirmation Page
+        public async Task<IActionResult> Confirm(int? id, String PaymentMethod)
+        {
+            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).FirstAsync(r => r.ReservationID == id);
+
+            if (PaymentMethod == "Cash")
+            {
+                reservation.ReservationMethod = PaymentOptions.Cash; 
+            }
+            else if(PaymentMethod == "Mileage")
+            {
+                reservation.ReservationMethod = PaymentOptions.Miles;
+            }
+            else
+            {
+                reservation.ReservationMethod = PaymentOptions.Cash;
+            }
+            _context.Update(reservation);
+            await _context.SaveChangesAsync();
+            ViewBag.RemainingMiles = reservation.Customer.Mileage - reservation.ReservationMileageCost;
             return View(reservation);
         }
 
@@ -261,7 +283,22 @@ namespace LonghornAirlines.Views
             dbReservation.ReservationComplete = true;
             _context.Update(dbReservation);
             await _context.SaveChangesAsync();
-            String EmailBody = "Thanks for your reservation. Your subtotal is: " + dbReservation.ReservationSubtotal + "The tax fee is: " + dbReservation.SalesTax + "Your total is: " + dbReservation.ReservationTotal;
+            String EmailBody;
+            if(dbReservation.ReservationMethod == PaymentOptions.Cash)
+            {
+                EmailBody = "Thanks for your reservation. Your subtotal is: " + dbReservation.ReservationSubtotal + "The tax fee is: " + dbReservation.SalesTax + "Your total is: " + dbReservation.ReservationTotal;
+            }
+            else
+            {
+                Int32 remainingMiles;
+                AppUser user = _context.Users.First(u => u.UserID == dbReservation.Customer.UserID);
+                remainingMiles = Convert.ToInt32(user.Mileage) - dbReservation.ReservationMileageCost;
+                user.Mileage = remainingMiles;
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+                EmailBody = "Thanks for your reservation. Your subtotal is: " + dbReservation.ReservationMileageCost + "You have: " + remainingMiles + " miles left.";
+
+            }
             try
             {
                 Utilities.EmailMessaging.SendEmail(dbReservation.Customer.Email, "Reservation Confirmation", EmailBody);

@@ -15,29 +15,55 @@
             <th>Flight Date</th>
             <th>Flight Time</th>
             <th>Current Seat</th>
+            <!--0=cash  1=miles-->
+            @if (Model.ReservationMethod == 0)
+            {
+                <th>Fare ($)</th>
+            }
+            else
+            {
+                <th>Mileage</th>
+            }
             <th>Fare</th>
         </tr>
         <tbody>
             @foreach (Ticket t in Model.Tickets)
             {
-                <tr>
-                    <td>@t.TicketID</td>
-                    <td>
-                        @t.Customer.FirstName
-                    </td>
-                    <td>@t.Flight.FlightInfo.FlightInfoID</td>
-                    <td>@t.Flight.Date</td>
-                    <td>@t.Flight.FlightInfo.FlightTime</td>
-                    <td>@t.Seat</td>
-                    <td>@t.Fare</td>
-                </tr>
+            <tr>
+                <td>@t.TicketID</td>
+                <td>
+                    @t.Customer.FirstName
+                </td>
+                <td>@t.Flight.FlightInfo.FlightInfoID</td>
+                <td>@t.Flight.Date</td>
+                <td>@t.Flight.FlightInfo.FlightTime</td>
+                <td>@t.Seat</td>
+                @if (Model.ReservationMethod == 0)
+                {
+                    <th>@t.GetDiscountedFare</th>
+                }
+                else
+                {
+                    <th>@t.GetMileageFare</th>
+                }
+            </tr>
             }
         </tbody>
     </table>
     <div class="jumbotron">
-        <h4>Reservation Subtotal: </h4> @Html.DisplayFor(r => r.ReservationSubtotal)
-        <h4>Sales Tax: </h4> @Html.DisplayFor(r => r.SalesTax)
-        <h2>Total: </h2> @Html.DisplayFor(r => r.ReservationTotal)
+        @if (Model.ReservationMethod == 0)
+        {
+
+            <h4>Reservation Subtotal: </h4> @Html.DisplayFor(r => r.ReservationSubtotal)
+            <h4>Sales Tax: </h4> @Html.DisplayFor(r => r.SalesTax)
+            <h2>Total: </h2> @Html.DisplayFor(r => r.ReservationTotal)
+        }
+        else
+        {
+            <h4>Reservation Mileage Cost: </h4> @Html.DisplayFor(r => r.ReservationMileageCost)
+            <h4>Your Miles: </h4> @Html.DisplayFor(r => r.Customer.Mileage)
+            <h2>Remaining Miles: </h2> @ViewBag.RemainingMiles;
+        }
     </div>
     <a class="btn btn-info" onclick="submission()">Confirm Reservation</a>
 }

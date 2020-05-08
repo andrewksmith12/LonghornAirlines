@@ -41,7 +41,7 @@ namespace LonghornAirlines.Models.Business
 
         List<Ticket> tickets = new List<Ticket>();
 
-        [Display(Name = "Reservation Subtotal")]
+        [Display(Name = "MilesPaid")]
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public Int32 MilesPaid { get; set; }
 
@@ -76,7 +76,7 @@ namespace LonghornAirlines.Models.Business
         {
             get
             {
-                return Tickets.Sum(c => c.GetMileageFare());
+                return Tickets.Sum(c => c.GetMileageFare);
             }
         }
     }
