@@ -1,7 +1,8 @@
 ﻿@model LonghornAirlines.Models.Business.Reservation
 @{
-    ViewData["Title"] = "Reservation Details";
+    ViewData["Title"] = "Change Ticket Price";
 }
+
 
 @section imageContent{
     <h1>Welcome to your Reservation</h1>
@@ -38,18 +39,29 @@
                     <td>@t.Flight.Date.ToShortDateString()</td>
                     <td>@t.Flight.FlightInfo.FlightTime</td>
                     <td>@t.Seat</td>
-                    <td><a class="btn btn-outline-danger" asp-controller="Tickets" asp-action="Edit" asp-route-id="@t.TicketID" >Choose Seat</a></td>
+                    <td>
+                        <a type="button"
+                           class="btn"
+                           href="#article-editor"
+                           data-toggle="modal">Change Fare
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
-<a class="btn btn-info" onclick="submission()">Confirm Reservation</a>
-}
-
-@section Scripts{ 
-<script type="text/javascript">
-function submission() {
-    window.location.href = '@Url.Action("Confirm", "Reservation")/' + @Model.ReservationID;
-}
-</script>
+    <div class="modal fade" id="article-editor" ">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">&times;</a>
+            <h3>Title of the form</h3>
+        </div>
+        <div class="modal-body">
+            <p>Body of the form</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary">Save Changes</a>
+        </div>
+    </div>
+<a href="#/" class="btn btn-info">Return to List</a>
 }

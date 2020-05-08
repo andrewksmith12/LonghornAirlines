@@ -332,6 +332,13 @@ namespace LonghornAirlines.Views
             return View(rem);
         }
 
+        public async Task<ActionResult> ChangeTicketPrices(Int32 ReservationID)
+        {
+            Models.Business.Reservation r = await _context.Reservations.Include(res => res.Tickets).FirstAsync(res => res.ReservationID == rem.ReservationID);
+
+            return View(r);
+        }
+
         public async Task<ActionResult> ChangeDate(ReservationEditModel rem)
         {
             Models.Business.Reservation r = await _context.Reservations.Include(res => res.Tickets).FirstAsync(res => res.ReservationID == rem.ReservationID);

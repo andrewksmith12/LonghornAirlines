@@ -79,6 +79,10 @@
             </td>
             <td>
                 <a asp-action="Description" asp-route-id="@item.ReservationID">Details</a>
+                @if (User.IsInRole("Manager"))
+                {
+                    <a asp-action="ChangeTicketPrices" asp-route-ReservavtionId="@item.ReservationID">Change Prices</a>
+                }
             </td>
         </tr>
         }
