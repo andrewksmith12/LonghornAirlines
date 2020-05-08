@@ -35,9 +35,9 @@
                 Order Total
             </th>
             <th>
-                Is Confirmed
+                Edit Reservation
             </th>
-            <th>Edit Reservation</th>
+            <th>Change Seats<th>
             <th></th>
         </tr>
     </thead>
@@ -64,25 +64,35 @@
                 @Html.DisplayFor(modelItem => item.ReservationTotal)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReservationComplete)
                 <!--ReservationType: 0=one way 1=round trip-->
-                @if (item.ReservationType == 0)
-                {
-                    <a asp-action="Edit" asp-route-id="@item.ReservationID">Edit</a>
-                }
-                else
-                {
-                    <a asp-action="EditRoundTrip" asp-route-ReservationID="@item.ReservationID" asp-route-Leg="0">Edit First Leg Flight</a>
-                    <br />
-                    <a asp-action="EditRoundTrip" asp-route-ReservationID="@item.ReservationID" asp-route-Leg="1">Edit Return Flight</a>
-                }
+
+                <ul class="list-group">
+                    @if (item.ReservationType == 0)
+                    {
+                        <li class="list-group-item"><a asp-action="Edit" asp-route-id="@item.ReservationID">Edit</a></li>
+                    }
+                    else
+                    {
+                        <li class="list-group-item">
+                            <a asp-action="EditRoundTrip" asp-route-ReservationID="@item.ReservationID" asp-route-Leg="0">Edit First Leg Flight</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="EditRoundTrip" asp-route-ReservationID="@item.ReservationID" asp-route-Leg="1">Edit Return Flight</a>
+                        </li>
+                    }
+                </ul>
             </td>
             <td>
-                <a asp-action="Description" asp-route-id="@item.ReservationID">Details</a>
-                @if (User.IsInRole("Manager"))
-                {
-                    <a asp-action="ChangeTicketPrices" asp-route-ReservavtionId="@item.ReservationID">Change Prices</a>
-                }
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a asp-action="Description" asp-route-id="@item.ReservationID">Details</a>
+                    </li>
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <li class="list-group-item"><a asp-action="ChangeTicketPrices" asp-route-ReservationID="@item.ReservationID">Change Prices</a></li>
+                    }
+                </ul>
+                
             </td>
         </tr>
         }
