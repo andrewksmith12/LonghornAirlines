@@ -18,14 +18,14 @@ namespace LonghornAirlines.Utilities
             Int32 intMaxID; //the current maximum course number
             {
                 IList<AppUser> customers = new List<AppUser>();
-                //intMaxID = _context.Users.AdvantageNumber.Max(); //this is the highest number in the database right now
+                intMaxID = _context.Users.Max(u => u.AdvantageNumber); //this is the highest number in the database right now
             }
 
             //add one to the current max to find the next one
-            //intNextCourseNumber = intMaxCourseNumber + 1;
+            int intNextID = intMaxID + 1;
 
             //return the value
-            return 9999999;
+            return intNextID;
         }
 
     }
