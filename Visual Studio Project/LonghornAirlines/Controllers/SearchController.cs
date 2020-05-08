@@ -92,6 +92,7 @@ namespace LonghornAirlines.Controllers
             {
                 query = query.Where(c => c.AdvantageNumber == (customerSearchModel.AdvantageNumber));
             }
+            query = query.Where(c => c.AdvantageNumber != null);
             List<AppUser> SelectedUsers = query.ToList();
             try
             {

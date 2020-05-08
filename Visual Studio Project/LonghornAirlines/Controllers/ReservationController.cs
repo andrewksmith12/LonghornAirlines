@@ -350,7 +350,7 @@ namespace LonghornAirlines.Views
 
 
         // Creates blank reservation
-        private async Task<Models.Business.Reservation> CreateBlankReservation(TypeOfReservation type, Int32? CustomerID)
+        private async Task<Models.Business.Reservation> CreateBlankReservation(TypeOfReservation type, int? CustomerID)
         {
             Models.Business.Reservation reservation = new Models.Business.Reservation
             {
