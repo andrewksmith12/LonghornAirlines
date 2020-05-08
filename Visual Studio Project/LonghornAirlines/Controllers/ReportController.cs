@@ -12,7 +12,7 @@ using System;
 
 namespace LonghornAirlines.Controllers
 {
-    [Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Manager")]
     public class ReportController : Controller
     {
         private AppDbContext _db;

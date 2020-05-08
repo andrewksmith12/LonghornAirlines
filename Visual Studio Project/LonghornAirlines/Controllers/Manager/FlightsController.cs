@@ -9,9 +9,11 @@ using LonghornAirlines.DAL;
 using LonghornAirlines.Models.Business;
 using LonghornAirlines.Models.Users;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LonghornAirlines.Controllers.Manager
 {
+    [Authorize(Roles = "Manager")]
     public class FlightsController : Controller
     {
         private readonly AppDbContext _context;
@@ -29,6 +31,7 @@ namespace LonghornAirlines.Controllers.Manager
             return View(await _context.Flights.ToListAsync());
         }
 
+        [Authorize(Roles = "Employees")]
         // GET: Flights/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -120,7 +123,8 @@ namespace LonghornAirlines.Controllers.Manager
                 return NotFound();
             }
 
-            var flight = await _context.Flights
+            var flight = await _context.Flights.Include(f => f.FlightInfo).ThenInclude(f=> f.Route).ThenInclude(f => f.CityFrom)
+                .Include(f => f.FlightInfo).ThenInclude(f => f.Route).ThenInclude(f => f.CityTo)
                 .FirstOrDefaultAsync(m => m.FlightID == id);
             if (flight == null)
             {
@@ -135,11 +139,37 @@ namespace LonghornAirlines.Controllers.Manager
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var flight = await _context.Flights.FindAsync(id);
-            _context.Flights.Remove(flight);
+            Flight dbFlight = _context.Flights.Include(m => m.Tickets).ThenInclude(m => m.Customer).FirstOrDefault(m => m.FlightID == id);
+            dbFlight.Canceled = true;
+            foreach (Ticket t in dbFlight.Tickets)
+            {
+                if (t.Reservation.ReservationMethod == PaymentOptions.Miles)
+                {
+                    if (Info.FIRST_CLASS_SEATS.Contains(t.Seat))
+                    {
+                        t.Reservation.Customer.Mileage += Info.MILES_PER_TICKET_FIRST_CLASS;
+                    }
+                    else
+                    {
+                        t.Reservation.Customer.Mileage += Info.MILES_PER_TICKET_ECONOMY;
+                    }
+
+                }
+                if (t.UpgradeWithMilage == true)
+                {
+                    t.Reservation.Customer.Mileage += Info.MILES_PER_TICKET_UPGRADE;
+                }
+                var email = t.Customer.Email;
+                String emailStuff = "We regret to inform you that your flight on" + dbFlight.Date.ToString() + " has been canceled.\nIf you paid with miles, they have been refunded.";
+                Utilities.EmailMessaging.SendEmail(email, "Flight Cancelled", emailStuff);
+                _context.Update(dbFlight);
+            }
+            _context.SaveChanges();
+            _context.Flights.Remove(dbFlight);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            return RedirectToAction("Details","FlightInfos", new { id = dbFlight.FlightInfo.FlightInfoID } );
+
+            }
 
         [HttpGet]
         public IActionResult CheckIn(int id)
