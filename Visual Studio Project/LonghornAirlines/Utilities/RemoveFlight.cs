@@ -40,40 +40,79 @@ namespace LonghornAirlines.Utilities
                     if (weekDay >= startWeekDay)
                     {
                         //Adds the flight for the first week
-                        Flight tempFlight = db.Flights.Include(m => m.Tickets).ThenInclude(m => m.Customer).FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
+                        Flight tempFlight = db.Flights.Include(m => m.Tickets).ThenInclude(m => m.Customer)
+                            .Include(f => f.Tickets).ThenInclude(f => f.Reservation)
+                            .FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
                         {
                             if (tempFlight != null)
                             {
                                 tempFlight.Canceled = true;
-                                foreach(Ticket t in tempFlight.Tickets)
+                                foreach (Ticket t in tempFlight.Tickets)
                                 {
+                                    if (t.Reservation.ReservationMethod == PaymentOptions.Miles)
+                                    {
+                                        if (Info.FIRST_CLASS_SEATS.Contains(t.Seat))
+                                        {
+                                            t.Reservation.Customer.Mileage += Info.MILES_PER_TICKET_FIRST_CLASS;
+                                        }
+                                        else
+                                        {
+                                            t.Reservation.Customer.Mileage += Info.MILES_PER_TICKET_ECONOMY;
+                                        }
+
+                                    }
+                                    if (t.UpgradeWithMilage == true)
+                                    {
+                                        t.Reservation.Customer.Mileage += Info.MILES_PER_TICKET_UPGRADE;
+                                    }
                                     var email = t.Customer.Email;
-                                    String emailStuff = "We regret to inform you that your flight on" + tempFlight.Date.ToString() +" has been canceled.\nIf you paid with miles, they have been refunded.";
+                                    String emailStuff = "We regret to inform you that your flight on" + tempFlight.Date.ToString() + " has been canceled.\nIf you paid with miles, they have been refunded.";
                                     Utilites.EmailMessaging.SendEmail(email, "Flight Cancelled", emailStuff);
                                 }
-
-
-
                                 db.Update(tempFlight);
                                 db.SaveChanges();
                             }
                         };
-
                     }
+
                     flightDate = flightDate.AddDays(7);
                     //Adds flights for all weeks after first week
                     while (flightDate <= endDate)
                     {
-                        Flight tempFlight = db.Flights.FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
+                        Flight tempFlight = db.Flights.Include(m => m.Tickets).ThenInclude(m => m.Customer)
+                            .Include(f => f.Tickets).ThenInclude(f => f.Reservation)
+                            .FirstOrDefault(m => m.FlightInfo.FlightInfoID == flightInfo.FlightInfoID && m.Date.DayOfYear == flightDate.DayOfYear);
                         {
                             if (tempFlight != null)
                             {
                                 tempFlight.Canceled = true;
-                                db.Update(tempFlight);
-                                db.SaveChanges();
-                            }
-                        };
-                        flightDate = flightDate.AddDays(7);
+                                foreach (Ticket t in tempFlight.Tickets)
+                                {
+                                    if (t.Reservation.ReservationMethod == PaymentOptions.Miles)
+                                    {
+                                        if (Info.FIRST_CLASS_SEATS.Contains(t.Seat))
+                                        {
+                                            t.Reservation.Customer.Mileage += Info.MILES_PER_TICKET_FIRST_CLASS;
+                                        }
+                                        else
+                                        {
+                                            t.Reservation.Customer.Mileage += Info.MILES_PER_TICKET_ECONOMY;
+                                        }
+
+                                    }
+                                    if (t.UpgradeWithMilage == true)
+                                    {
+                                        t.Reservation.Customer.Mileage += Info.MILES_PER_TICKET_UPGRADE;
+                                    }
+                                    var email = t.Customer.Email;
+                                    String emailStuff = "We regret to inform you that your flight on" + tempFlight.Date.ToString() + " has been canceled.\nIf you paid with miles, they have been refunded.";
+                                    Utilites.EmailMessaging.SendEmail(email, "Flight Cancelled", emailStuff);
+                                    db.Update(tempFlight);
+                                    db.SaveChanges();
+                                }
+                            };
+                            flightDate = flightDate.AddDays(7);
+                        }
                     }
                 }
             }
