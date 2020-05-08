@@ -50,7 +50,7 @@ namespace LonghornAirlines.Models.Users
         public String ZIP { get; set; }
 
         [Display(Name = "Middle Initial: ")]
-        [StringLength(0, MinimumLength = 1, ErrorMessage = "Middle Initial must be between 0 and 1 characters")]
+        [StringLength(1, MinimumLength = 0, ErrorMessage = "Middle Initial must be between 0 and 1 characters")]
         public String MI { get; set; }
 
         [Display(Name = "Active")]

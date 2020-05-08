@@ -268,8 +268,9 @@ namespace LonghornAirlines.Controllers
 
         public IActionResult UserList()
         {
-            var PersonList = _db.Users.ToList().Select(p => new RegisterViewModel()
+            var PersonList = _db.Users.ToList().Select(p => new EditViewModel1()
             {
+                IDNUM = p.UserID,
                 FirstName = p.FirstName,
                 LastName = p.LastName,
                 MI = p.MI,
@@ -286,37 +287,47 @@ namespace LonghornAirlines.Controllers
         }
         [Authorize]
         [HttpGet]
-        public IActionResult EditUser(string id)
+        public IActionResult EditUser(int id)
         {
-            AppUser user = _db.Users.Find(id);
-            return View(user);
+            if (id != null && User.IsInRole("Employee"))
+            {
+                AppUser user = _db.Users.FirstOrDefault(f => f.UserID == id);
+                return View(user);
+            }
+            else
+            {
+                var user = _userManager.FindByEmailAsync(User.Identity.Name);
+                AppUser appUser = user.Result;
+                return View(appUser);
+            }
         }
         [Authorize]
         [HttpPost]
-        public ActionResult EditUser(AppUser userprofile, String firstname, String lastname, String mi, DateTime birthday, String advantagenumber, string street, string city, string state, string zip, string email, string phonenumber)
+        public ActionResult EditUser([Bind("FirstName,LastName,MI,Birthday,Street,City,State,ZIP,PhoneNumber")] AppUser user, int UserID)
         {
-            string username = User.Identity.Name;
-                // Get the userprofile
-            AppUser user = _db.Users.FirstOrDefault(u => u.UserName.Equals(username));
-
-                // Update fields
-            user.FirstName = userprofile.FirstName;
-            user.LastName = userprofile.LastName;
-            user.MI = userprofile.MI;
-            user.Birthday = userprofile.Birthday;
-            user.AdvantageNumber = userprofile.AdvantageNumber;
-            user.Street = userprofile.Street;
-            user.City = userprofile.City;
-            user.State = userprofile.State;
-            user.ZIP = userprofile.ZIP;
-            user.Email = userprofile.Email;
-            user.PhoneNumber = userprofile.PhoneNumber;
-
-                _db.Entry(user).State = EntityState.Modified;
-
+            // Get the userprofile
+            AppUser dbUser = _db.Users.FirstOrDefault(u => u.UserID == UserID);
+            dbUser.FirstName = user.FirstName;
+            dbUser.LastName = user.LastName;
+            dbUser.MI = user.MI;
+            dbUser.Birthday = user.Birthday;
+            dbUser.PhoneNumber = user.PhoneNumber;
+            dbUser.Street = user.Street;
+            dbUser.City = user.City;
+            dbUser.State = user.State;
+            dbUser.ZIP = user.ZIP;
+            if (ModelState.IsValid)
+            {
+                _db.Entry(dbUser).State = EntityState.Modified;
                 _db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return (View());
+            }
 
-                return RedirectToAction("Index");
+           
 
         }
     }
