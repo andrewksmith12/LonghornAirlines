@@ -4,7 +4,7 @@
 using System.Net.Mail;
 using System.Net;
 
-namespace LonghornAirlines.Utilites
+namespace LonghornAirlines.Utilities
 {
     public static class EmailMessaging
     {
