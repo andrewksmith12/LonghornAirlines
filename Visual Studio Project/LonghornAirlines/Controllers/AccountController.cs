@@ -257,5 +257,29 @@ namespace LonghornAirlines.Controllers
                 ModelState.AddModelError("", error.Description);
             }
         }
+
+        public IActionResult ViewName()
+        {
+            return View();
+        }
+
+        public IActionResult CustomerList()
+        {
+            var PersonList = _db.Users.ToList().Select(p => new RegisterViewModel()
+            {
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                MI = p.MI,
+                Birthday = p.Birthday,
+                AdvantageNumber = p.AdvantageNumber,
+                Street = p.Street,
+                City = p.City,
+                State = p.State,
+                ZIP = p.ZIP,
+                Email = p.Email,
+                PhoneNumber = p.PhoneNumber
+            });
+            return View(PersonList);
+        }
     }
 }

@@ -95,6 +95,7 @@
         <td>@Html.DisplayFor(ModelItem => f.CoPilot)</td>
         <td>@Html.DisplayFor(ModelItem => f.Attendant)</td>
         <td>@Html.DisplayFor(ModelItem => f.hasDeparted)</td>
+        <td><a asp-action="Details" asp-controller="Flights" type="submit" asp-route-id=@f.FlightID>Details</a> | <a asp-action="Edit" asp-controller="Flights" type="submit" asp-route-id=@f.FlightID>Edit</a></td>
     </tr>
     }
 
