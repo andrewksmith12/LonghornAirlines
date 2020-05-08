@@ -1,0 +1,122 @@
+﻿@model LonghornAirlines.Models.ViewModels.TicketSeatChangeModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@section imageContent
+{
+
+    <form asp-action="ChangeSeats" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-4">
+                <div id="container" style="height:700px"></div>
+                <p id="seatLabel">Selected Seat: @Model.SeatID</p>
+                <input type="hidden" id="SeatID" name="SeatID" />
+            </div>
+            <div class="col-8">
+                <div class="card">
+                    Ticket Holder: @Html.DisplayFor(tcm => tcm.CustomerID)
+                    @Html.HiddenFor(tcm => tcm.CustomerID)
+                </div>
+            </div>
+        </div>
+
+        <p>If upgrading to first class, do you plan on paying with miles for the upgrade?</p>
+        @Html.CheckBoxFor(m => m.UpgradeWithMiles)
+        <a href="#" class="submitForm">Save</a>
+        <object style="width: 0px; height: 0px;" data="~/static/drawing.svg" type="image/svg+xml" id="house"></object>
+
+        <script>
+            anychart.onDocumentLoad(function () {
+                // note that you should use onDocumentLoad to get image contect
+                var imageElement = document.getElementById("house");
+                // get the SVG content
+                var svgData = imageElement.contentDocument;
+                var takenSeats = @Json.Serialize(ViewBag.takenSeats);
+                var userSeat = "@Model.SeatID";
+                function isTaken(id) {
+                    if (id == userSeat) {
+                        return false;
+                    }
+                    for (i = 0; i < takenSeats.length; i++) {
+                        if (takenSeats[i] == id) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                function getColor(id) {
+                    if (isTaken(id)) {
+                        return "gray";
+                    }
+                    else {
+                        return "green"
+                    }
+                }
+                chart = anychart.seatMap();
+                seatMapSeries = chart.choropleth();
+                seatMapSeries.data([
+                   { id: "g0", value: "First Class"},
+                    { id: "g1", value: "Budget" },
+                    { id: "1A", value: "1A", info: "@ViewBag.firstClassFare", fill:getColor("1A") },
+                   { id: "1B", value: "1B", info: "@ViewBag.firstClassFare", fill:getColor("1B") },
+                   { id: "2A", value: "2A", info: "@ViewBag.firstClassFare", fill:getColor("2A") },
+                   { id: "2B", value: "2B", info: "@ViewBag.firstClassFare", fill:getColor("2B") },
+                   { id: "3A", value: "3A", info: "@ViewBag.baseFare", fill:getColor("3A") },
+                   { id: "3B", value: "3B", info: "@ViewBag.baseFare", fill:getColor("3B") },
+                   { id: "3C", value: "3C", info: "@ViewBag.baseFare", fill:getColor("3C") },
+                   { id: "3D", value: "3D", info: "@ViewBag.baseFare", fill:getColor("3D") },
+                   { id: "4A", value: "4A", info: "@ViewBag.baseFare", fill:getColor("4A") },
+                   { id: "4B", value: "4B", info: "@ViewBag.baseFare", fill:getColor("4B") },
+                   { id: "4C", value: "4C", info: "@ViewBag.baseFare", fill:getColor("4C") },
+                   { id: "4D", value: "4D", info: "@ViewBag.baseFare", fill:getColor("4D") },
+                   { id: "5A", value: "5A", info: "@ViewBag.baseFare", fill:getColor("5A") },
+                   { id: "5B", value: "5B", info: "@ViewBag.baseFare", fill:getColor("5B") },
+                   { id: "5C", value: "5C", info: "@ViewBag.baseFare", fill:getColor("5C") },
+                   { id: "5D", value: "5D", info: "@ViewBag.baseFare", fill:getColor("5D") },
+               ]);
+                // set SVG data to the chart
+                chart.geoData(svgData);
+
+                // set the tooltips
+                tooltips = seatMapSeries.tooltip();
+
+                // set the tooltips titles and body texts
+                tooltips.titleFormat("{%id}");
+                tooltips.format("{%info}");
+
+                // set the tooltips colors
+                tooltips.background("green 0.8");
+                tooltips.separator("white");
+
+                // add a listener
+                chart.listen('pointClick', function (e) {
+                    var seat = e.iterator.get("id");
+                    if (isTaken(seat) && seat != userSeat) {
+                        window.alert("Seat is not available");
+                        document.getElementById("seatLabel").innerHTML = "Selected Seat: Unavailable Seat";
+                    }
+                    else {
+                        document.getElementById("seatLabel").innerHTML = "Selected Seat:" + seat;
+                        document.getElementById("SeatID").value = seat;
+                    }
+                });
+                $(document).ready(function () {
+                    $("a.submitForm").click(function () {
+                        if (isTaken(document.getElementById("SeatID").value)) {
+                            window.alert("Seat is not available");
+                        }
+                        else {
+                            $("form").submit();
+                        }
+                    });
+                });
+                // set container id for the chart
+                chart.container("container");
+                // initiate chart drawing
+                chart.draw();
+            });
+        </script>
+    </form>
+}

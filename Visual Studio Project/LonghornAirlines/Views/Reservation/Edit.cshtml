@@ -4,6 +4,7 @@
 }
 
 @section imageContent{
+@ViewBag.ErrorMessage
     <form asp-action="ChangeDate">
         @Html.HiddenFor(rem => rem.ReservationID)
         @Html.HiddenFor(rem => rem.isRoundTrip)

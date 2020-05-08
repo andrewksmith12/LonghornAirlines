@@ -366,6 +366,14 @@ namespace LonghornAirlines.Views
             await _context.SaveChangesAsync();
             return reservation;
         }
+
+        public IActionResult ChangeSeats(Int32 id)
+        {
+            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).ThenInclude(f => f.Route).ThenInclude(f => f.CityTo).FirstAsync(r => r.ReservationID == id);
+
+            return View(reservation);
+        }
+
         private void CreateTickets(Int32 ReservationID, Int32 flightID, Int32 passengerCount)
         {
             Models.Business.Reservation reservation = _context.Reservations.Include(r => r.Tickets).First(r=> r.ReservationID == ReservationID);
@@ -516,13 +524,16 @@ namespace LonghornAirlines.Views
 
 
         // GET: Reservations/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, String errorMessage)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
+            if (errorMessage != null && errorMessage != "")
+            {
+                ViewBag.ErrorMessage = errorMessage;
+            }
             var reservation = await _context.Reservations.Include(r=>r.Tickets).ThenInclude(t => t.Flight).FirstAsync(r=>r.ReservationID==id);
             int prevFlightID = -1;
             if(reservation.ReservationType == TypeOfReservation.OneWay)
@@ -555,6 +566,12 @@ namespace LonghornAirlines.Views
 
         public async Task<ActionResult> ChangeDate(ReservationEditModel rem)
         {
+            if (rem.NewDate < DateTime.Now)
+            {
+                String message = "You cannot change reservations to the past";
+                return RedirectToAction("Edit", "Reservation", new { id = rem.ReservationID, errorMessage = message });
+            }
+
             Models.Business.Reservation r = await _context.Reservations.Include(res => res.Tickets).FirstAsync(res => res.ReservationID == rem.ReservationID);
             Ticket t = _context.Tickets.Include(tic => tic.Flight).ThenInclude(f => f.FlightInfo).First(tic=> tic.TicketID == r.Tickets.First().TicketID);
             FlightInfo info = _context.FlightInfos.Include(fi => fi.Route).First(fi => fi.FlightInfoID == t.Flight.FlightInfo.FlightInfoID);

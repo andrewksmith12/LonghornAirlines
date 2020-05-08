@@ -11,4 +11,11 @@ namespace LonghornAirlines.Models.ViewModels
         public Int32 CustomerID { get; set; }
         public String SeatID { get; set; }
     }
+    public class TicketSeatChangeModel
+    {
+        public Int32 TicketID { get; set; }
+        public Int32 CustomerID { get; set; }
+        public String SeatID { get; set; }
+        public Boolean UpgradeWithMiles { get; set; }
+    }
 }
