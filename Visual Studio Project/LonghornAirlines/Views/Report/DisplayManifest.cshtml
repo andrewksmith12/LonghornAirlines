@@ -5,12 +5,10 @@
 @{
     ViewData["Title"] = "Manifest";
 }
-@section imageContent
-{
     <h1>Manifest</h1>
 
     <div>
-        <h4>Flight Number: @Html.DisplayNameFor(model => model.FlightInfo.FlightNumber)</h4>
+        <h4>Flight Number: @Model.FlightInfo.FlightNumber     Flight Instance (FlightID): @Model.FlightID</h4>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
@@ -57,16 +55,33 @@
             <th>Seat Selection</th>
         </tr>
         <tbody>
-            @foreach (Ticket t in Model.Tickets)
+            @if (@ViewBag.checkedIn == true)
             {
-                <tr>
-                    <td>@t.TicketID</td>
-                    <td>@t.Customer.NormalizedUserName</td>
-                    <td>@t.Flight.FlightInfo.FlightNumber</td>
-                    <td>@t.Flight.Date</td>
-                    <td>@t.Flight.FlightInfo.FlightTime</td>
-                    <td>@t.Seat</td>
-                </tr>
+                @foreach (Ticket t in Model.Tickets.Where(t => t.CheckedIn == true))
+                {
+                    <tr>
+                        <td>@t.TicketID</td>
+                        <td>@t.Customer.NormalizedUserName</td>
+                        <td>@t.Flight.FlightInfo.FlightNumber</td>
+                        <td>@t.Flight.Date</td>
+                        <td>@t.Flight.FlightInfo.FlightTime</td>
+                        <td>@t.Seat</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                @foreach (Ticket t in Model.Tickets)
+                {
+                    <tr>
+                        <td>@t.TicketID</td>
+                        <td>@t.Customer.NormalizedUserName</td>
+                        <td>@t.Flight.FlightInfo.FlightNumber</td>
+                        <td>@t.Flight.Date</td>
+                        <td>@t.Flight.FlightInfo.FlightTime</td>
+                        <td>@t.Seat</td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
@@ -76,4 +91,3 @@
         <a asp-action="Edit" asp-route-id="@Model.FlightID">Edit</a> |
         <a asp-action="Index">Back to List</a>
     </div>
-}
