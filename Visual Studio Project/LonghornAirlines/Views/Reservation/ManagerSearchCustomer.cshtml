@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "ManagerSearchCustomer";
 }
-
+@section imageContent{ 
     <form asp-action="ManagerSearchCustomer">
         @Html.HiddenFor(mcs => mcs.FlightID)
         @Html.HiddenFor(mcs => mcs.isRoundTrip)
@@ -20,3 +20,4 @@
         </div>
         <input class="btn btn-info" type="submit" value="Search">
     </form>
+}

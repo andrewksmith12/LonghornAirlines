@@ -29,6 +29,7 @@ namespace LonghornAirlines.Controllers
             query = query.Where(f => f.Date.Date == bookingSearchModel.DepartDate.Date);
             query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == bookingSearchModel.DepartCityID);
             query = query.Where(f => f.FlightInfo.Route.CityTo.CityID == bookingSearchModel.ArriveCityID);
+            query = query.Where(f => f.hasDeparted == false);
             query = query.Where(f => f.Canceled == false);
             foreach(Flight f in query)
             {
