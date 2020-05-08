@@ -20,7 +20,10 @@
                 @Html.DisplayNameFor(model => model.ReservationID)
             </th>
             <th>
-                Trip To:
+                Trip To
+            </th>
+            <th>
+                Departing
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ReservationType)
@@ -31,7 +34,9 @@
             <th>
                 Order Total
             </th>
-            <th>Is Confirmed</th>
+            <th>
+                Is Confirmed
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -46,6 +51,9 @@
                 @Html.DisplayFor(modelItem => item.Tickets.First().Flight.FlightInfo.Route.CityTo.CityName)
             </td>
             <td>
+                @item.Tickets.First().Flight.Date.ToShortDateString()
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ReservationType)
             </td>
             <td>
@@ -55,6 +63,7 @@
                 @Html.DisplayFor(modelItem => item.ReservationTotal)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.ReservationComplete)
             </td>
             <td>
                 <a asp-action="Description" asp-route-id="@item.ReservationID">Details</a>

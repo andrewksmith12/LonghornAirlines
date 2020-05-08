@@ -12,6 +12,7 @@
             <th>Ticket No</th>
             <th>Ticket Holder</th>
             <th>Flight Number</th>
+            <th>Destination City</th>
             <th>Flight Date</th>
             <th>Flight Time</th>
             <th>Current Seat</th>
@@ -32,8 +33,9 @@
                             @t.Customer.FirstName
                         }
                     </td>
-                    <td>@t.Flight.FlightInfo.FlightNumber To @t.Flight.FlightInfo.Route.CityTo</td>
-                    <td>@t.Flight.Date</td>
+                    <td>@t.Flight.FlightInfo.FlightNumber </td>
+                    <td>@t.Flight.FlightInfo.Route.CityTo.CityName</td>
+                    <td>@t.Flight.Date.ToShortDateString()</td>
                     <td>@t.Flight.FlightInfo.FlightTime</td>
                     <td>@t.Seat</td>
                     <td><a class="btn btn-outline-danger" asp-controller="Tickets" asp-action="Edit" asp-route-id="@t.TicketID" >Choose Seat</a></td>
