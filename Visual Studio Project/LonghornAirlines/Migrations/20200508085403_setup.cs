@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LonghornAirlines.Migrations
 {
-    public partial class Setup : Migration
+    public partial class setup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -275,7 +275,10 @@ namespace LonghornAirlines.Migrations
                     Canceled = table.Column<bool>(nullable: false),
                     PilotId = table.Column<string>(nullable: true),
                     AttendantId = table.Column<string>(nullable: true),
-                    CoPilotId = table.Column<string>(nullable: true)
+                    CoPilotId = table.Column<string>(nullable: true),
+                    PilotCheckIn = table.Column<bool>(nullable: false),
+                    CoPilotCheckIn = table.Column<bool>(nullable: false),
+                    AttendantCheckIn = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -317,7 +320,8 @@ namespace LonghornAirlines.Migrations
                     CustomerId = table.Column<string>(nullable: true),
                     ReservationID = table.Column<int>(nullable: true),
                     FlightID = table.Column<int>(nullable: true),
-                    UpgradeWithMilage = table.Column<bool>(nullable: false)
+                    UpgradeWithMilage = table.Column<bool>(nullable: false),
+                    CheckedIn = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
