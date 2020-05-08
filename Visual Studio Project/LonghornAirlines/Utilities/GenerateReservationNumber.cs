@@ -17,7 +17,7 @@ namespace LonghornAirlines.Utilities
             }
             catch (Exception)
             {
-                intMaxReservationNumber = 1;
+                intMaxReservationNumber = 9999;
             }
 
             //add one to the current max to find the next one

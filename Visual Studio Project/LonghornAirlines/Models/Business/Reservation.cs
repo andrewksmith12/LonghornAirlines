@@ -23,6 +23,9 @@ namespace LonghornAirlines.Models.Business
         [Display(Name = "Reservation ID: ")]
         public Int32 ReservationID { get; set; }
 
+        [Display(Name = "Reservation Number: ")]
+        public Int32 ReservationNumber { get; set; }
+
         [Display(Name = "Reservation Type: ")]
         public TypeOfReservation ReservationType { get; set; }
 

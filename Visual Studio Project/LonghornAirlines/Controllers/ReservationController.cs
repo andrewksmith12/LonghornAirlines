@@ -354,6 +354,7 @@ namespace LonghornAirlines.Views
         {
             Models.Business.Reservation reservation = new Models.Business.Reservation
             {
+                ReservationNumber = Utilities.GenerateReservationNumber.GetReservationNum(_context),
                 ReservationType = type,
                 ReservationComplete = false,
                 Tickets = new List<Ticket>()
