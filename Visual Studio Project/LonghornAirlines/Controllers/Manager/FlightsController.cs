@@ -255,7 +255,7 @@ namespace LonghornAirlines.Controllers.Manager
                             {
                                 if(dbFlight.AttendantCheckIn == true)
                                 {
-                                    return View("Index");
+                                    return RedirectToAction("DisplayManifest","Report", new { id = dbFlight.FlightID });
                                 }
                                 else
                                 {
