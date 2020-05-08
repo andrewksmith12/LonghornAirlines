@@ -334,9 +334,12 @@ namespace LonghornAirlines.Views
 
         public async Task<ActionResult> ChangeTicketPrices(Int32 ReservationID)
         {
-            Models.Business.Reservation r = await _context.Reservations.Include(res => res.Tickets).FirstAsync(res => res.ReservationID == res.ReservationID);
+            Models.Business.Reservation reservation = await _context.Reservations.
+                Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).
+                ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).ThenInclude(f => f.Route).
+                ThenInclude(f => f.CityTo).FirstAsync(r => r.ReservationID == ReservationID);
 
-            return View(r);
+            return View(reservation);
         }
 
         public async Task<ActionResult> ChangeDate(ReservationEditModel rem)

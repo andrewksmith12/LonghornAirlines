@@ -1,0 +1,30 @@
+﻿@model LonghornAirlines.Models.Business.Ticket
+
+@{
+    ViewData["Title"] = "ChangeTicketPrice";
+}
+@section imageContent{
+    <h1>ChangeTicketPrice</h1>
+
+    <h4>Ticket</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="SavePriceChange">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="TicketID" />
+                <div class="form-group">
+                    <label asp-for="Fare" class="control-label"></label>
+                    <input asp-for="Fare" class="form-control" />
+                    <span asp-validation-for="Fare" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="Seat" />
+                <input type="hidden" asp-for="UpgradeWithMilage" />
+                <input type="hidden" asp-for="CheckedIn" />
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+}

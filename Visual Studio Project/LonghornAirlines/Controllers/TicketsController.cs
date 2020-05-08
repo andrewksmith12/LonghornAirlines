@@ -31,6 +31,22 @@ namespace LonghornAirlines.Controllers
             return View(await _context.Tickets.ToListAsync());
         }
 
+        public async Task<IActionResult> ChangeTicketPrice(Int32 id)
+        {
+            Ticket ticket = await _context.Tickets.FirstAsync(t => t.TicketID == id);
+            return View(ticket);
+        }
+
+        public async Task<IActionResult> SavePriceChange(Ticket ticket)
+        {
+            Ticket _dbTicket = await _context.Tickets.Include(t => t.Reservation).FirstAsync(t => t.TicketID == ticket.TicketID);
+            _dbTicket.Fare = ticket.Fare;
+            _context.Update(_dbTicket);
+            await _context.SaveChangesAsync();
+            //TODO: SEND EMAIL NOTIFYING CHANGE OF PRICE 
+            return RedirectToAction("ChangeTicketPrices","Reservation", new { ReservationID = _dbTicket.Reservation.ReservationID });
+        }
+
         // GET: Tickets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
