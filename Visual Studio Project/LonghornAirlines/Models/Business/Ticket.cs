@@ -50,13 +50,6 @@ namespace LonghornAirlines.Models.Business
                                      "5A", "5B", "5C", "5D"};
                 Decimal ticketFare;
 
-                //Ticket must have had its fare changed mannually.
-                //Therefore override all other changes
-                if(Fare != Flight.BaseFare && Fare != Flight.FirstClassFare)
-                {
-                    return Fare;
-                }
-
                 if (firstClassSeats.Contains(this.Seat) && !this.UpgradeWithMilage)
                 {
                     ticketFare = this.Flight.FirstClassFare;
