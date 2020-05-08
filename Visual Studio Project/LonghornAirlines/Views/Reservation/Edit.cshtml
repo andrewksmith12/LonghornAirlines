@@ -1,0 +1,19 @@
+﻿@model LonghornAirlines.Models.ViewModels.ReservationEditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@section imageContent{
+    <form asp-action="ChangeDate">
+        @Html.HiddenFor(rem => rem.ReservationID)
+        @Html.HiddenFor(rem => rem.isRoundTrip)
+        @Html.HiddenFor(rem => rem.PassengerCount)
+        @Html.HiddenFor(rem => rem.PrevFlightID)
+        <h2>Choose new date for Flight @Model.PrevFlightID</h2>
+        <div class="form-group">
+            <label asp-for="NewDate" class="control-label"></label>
+            <input type="date" min="2020-04-15" max="2020-06-30" asp-for="NewDate" class="form-control" />
+        </div>
+        <input class="btn btn-info" type="submit" value="Look for flight availability on new date" />
+    </form>
+}

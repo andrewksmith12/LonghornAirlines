@@ -31,7 +31,7 @@
             <th>
                 Order Total
             </th>
-            <th>Is Confirmed</th>
+            <th>Edit Reservation</th>
             <th></th>
         </tr>
     </thead>
@@ -55,6 +55,17 @@
                 @Html.DisplayFor(modelItem => item.ReservationTotal)
             </td>
             <td>
+                <!--ReservationType: 0=one way 1=round trip-->
+                @if (item.ReservationType == 0)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.ReservationID">Edit</a>
+                }
+                else
+                {
+                    <a asp-action="EditRoundTrip" asp-route-ReservationID="@item.ReservationID" asp-route-Leg="0">Edit First Leg Flight</a>
+                    <br />
+                    <a asp-action="EditRoundTrip" asp-route-ReservationID="@item.ReservationID" asp-route-Leg="1">Edit Return Flight</a>
+                }
             </td>
             <td>
                 <a asp-action="Description" asp-route-id="@item.ReservationID">Details</a>

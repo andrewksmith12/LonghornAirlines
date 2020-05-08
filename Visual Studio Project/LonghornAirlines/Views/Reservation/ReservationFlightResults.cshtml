@@ -1,0 +1,100 @@
+﻿@model IEnumerable<LonghornAirlines.Models.Business.Flight>
+@{
+    ViewData["Title"] = "View";
+}
+@section imageContent
+{
+    @if (User.Identity.IsAuthenticated == false)
+    {
+        <h1>Sign in or create an account to create a reservation. </h1>
+    }
+    else
+    {
+        @if (ViewBag.isRoundTrip)
+        {
+            <h1>Select your first leg flight</h1>
+        }
+        else
+        {
+            <h1>Select your flight</h1>
+        }
+    }
+
+
+    <h4>
+        From @ViewBag.CityFromName To @ViewBag.CityToName
+    </h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Flight Number
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    From
+                </th>
+                <th>
+                    To
+                </th>
+                <th>
+                    Economy
+                </th>
+                <th>
+                    First Class
+                </th>
+                <th>
+                    Flight Time
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.FlightInfo.FlightInfoID
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityFrom.CityCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FlightInfo.Route.CityTo.CityCode)
+                    </td>
+                    <td>
+                        @item.FlightInfo.BaseFare
+                    </td>
+                    <td>
+                        @item.FlightInfo.FirstClassFare
+                    </td>
+                    <td>
+                        @item.FlightInfo.FlightTime
+                    </td>
+                    <td>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                                <a asp-controller="Reservation"
+                                   asp-action="ModifyReservation"
+                                   asp-route-FlightID="@item.FlightID"
+                                   asp-route-PrevFlightID="@ViewBag.PrevFlightID"
+                                   asp-route-ReservationID="@ViewBag.ReservationID"
+                                   class="btn btn-outline-primary">Select Flight</a>
+
+                        }
+                        else
+                        {
+                            <a asp-action="Login" asp-controller="Account">Log in</a>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
