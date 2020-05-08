@@ -43,7 +43,13 @@ namespace LonghornAirlines.Views
             else if (User.IsInRole("Manager"))
             {
                 //TODO: Manager Reservation Creation
-                return View();
+                TempData["FlightID"] = FlightID;
+                TempData["isRoundTrip"] = isRoundTrip;
+                TempData["NumPassengers"] = NumPassengers;
+                TempData["cityToID"] = cityToID;
+                TempData["cityFromID"] = cityFromID;
+                TempData["returnDate"] = returnDate;
+                return RedirectToAction("ReservationCustomer", "Reservation");
             }
             else
             {
@@ -51,10 +57,118 @@ namespace LonghornAirlines.Views
             }
         }
 
+        public async Task<IActionResult> ManagerCreate(int FlightID, bool isRoundTrip, int NumPassengers, Int32 cityToID, Int32 cityFromID, DateTime returnDate, Int32 CustomerID)
+        {
+            if (!isRoundTrip)
+            {
+                return await CreateOneWayReservation(FlightID, NumPassengers, CustomerID);
+            }
+            else
+            {
+                return await CreateRoundTripReservation(FlightID, NumPassengers, cityToID, cityFromID, returnDate, CustomerID);
+            }
+        }
+
+        public IActionResult ReservationCustomer()
+        {
+            ViewBag.FlightID = TempData["FlightID"];
+            ViewBag.isRoundTrip = TempData["isRoundTrip"];
+            ViewBag.NumPassengers = TempData["NumPassengers"];
+            ViewBag.cityToID = TempData["cityToID"];
+            ViewBag.cityFromID = TempData["cityFromID"];
+            ViewBag.returnDate = TempData["returnDate"];
+            return View("AddCustomer");
+        }
+
+        [HttpGet]
+        public IActionResult ManagerSearchCustomer(Int32 FlightID, Boolean isRoundTrip, Int32 NumPassengers, Int32 cityToID, Int32 cityFromID, DateTime returnDate)
+        {
+            ManagerCustomerSearch mcs = new ManagerCustomerSearch
+            {
+                FlightID = FlightID,
+                isRoundTrip = isRoundTrip,
+                NumPassengers = NumPassengers,
+                cityToID = cityToID,
+                cityFromID = cityFromID,
+                returnDate = returnDate
+            };
+            return View(mcs);
+        }
+        
+        [HttpPost]
+        public IActionResult ManagerSearchCustomer(ManagerCustomerSearch mcs)
+        {
+            var query = from c in _context.Users
+                        select c;
+            if (mcs.LastName != null && mcs.LastName != "")
+            {
+                query = query.Where(c => c.LastName.Contains(mcs.LastName));
+            }
+            if (mcs.AdvantageNumber != null)
+            {
+                query = query.Where(c => c.AdvantageNumber == (mcs.AdvantageNumber));
+            }
+            List<AppUser> SelectedUsers = query.ToList();
+            ViewBag.FlightID = mcs.FlightID;
+            ViewBag.isRoundTrip = mcs.isRoundTrip;
+            ViewBag.NumPassengers = mcs.NumPassengers;
+            ViewBag.cityToID = mcs.cityToID;
+            ViewBag.cityFromID = mcs.cityFromID;
+            ViewBag.returnDate = mcs.returnDate;
+            return View("ReservationCustomersList", SelectedUsers);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> ManagerCreateCustomer(Int32 FlightID, Boolean isRoundTrip, Int32 NumPassengers, Int32 cityToID, Int32 cityFromID, DateTime returnDate)
+        {
+            ManagerCustomerCreation mcc = new ManagerCustomerCreation
+            {
+                FlightID = FlightID,
+                isRoundTrip = isRoundTrip,
+                NumPassengers = NumPassengers,
+                cityToID = cityToID,
+                cityFromID = cityFromID,
+                returnDate = returnDate
+            };
+            return View("ManagerCreateCustomer", mcc);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManagerCreateCustomer(ManagerCustomerCreation mcc)
+        {
+            AppUser user = new AppUser
+            {
+                //TODO: Add the rest of the custom user fields here
+                UserName = mcc.Email,
+                Email = mcc.Email,
+                FirstName = mcc.FirstName,
+                LastName = mcc.LastName,
+                Birthday = mcc.Birthday,
+                PhoneNumber = mcc.PhoneNumber,
+                ZIP = mcc.ZIP,
+                State = mcc.State,
+                Street = mcc.Street,
+                City = mcc.City,
+                AdvantageNumber = Utilities.GenerateAccountNumber.GetFFNum(_context),
+                UserID = Convert.ToInt32(mcc.AdvantageNumber),
+                Mileage = 0
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(user, mcc.Password);
+            if (result.Succeeded)
+            {
+                //TODO: Add user to desired role. This example adds the user to the customer role
+                await _userManager.AddToRoleAsync(user, "Customer");
+                return await ManagerCreate(mcc.FlightID, mcc.isRoundTrip, mcc.NumPassengers, mcc.cityToID, mcc.cityFromID, mcc.returnDate, user.UserID);
+            }
+
+            return View("Error", new { message = "Customer Creation Failed"});
+        }
+
         // GET: Reservation/Details/5
         // Details page shows all tickets and allows for ticket change
         // This is the default page everyone sees after a reservation is created
-        public async Task<ActionResult> Description(int id)
+        public async Task<IActionResult> Description(int id)
         {
             Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).ThenInclude(f => f.Route).ThenInclude(f => f.CityTo).FirstAsync(r => r.ReservationID == id);
             return View(reservation);
@@ -64,20 +178,22 @@ namespace LonghornAirlines.Views
         // Branches off into one way reservations or round trip reservations
         public async Task<IActionResult> CustomerCreate(int FlightID, bool isRoundTrip, int NumPassengers, Int32 cityToID, Int32 cityFromID, DateTime returnDate)
         {
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+
             if (!isRoundTrip){
-                return await CreateOneWayReservation(FlightID, NumPassengers);
+                return await CreateOneWayReservation(FlightID, NumPassengers, user.UserID);
             }
             else
             {
-                return await CreateRoundTripReservation(FlightID, NumPassengers, cityToID, cityFromID, returnDate);
+                return await CreateRoundTripReservation(FlightID, NumPassengers, cityToID, cityFromID, returnDate, user.UserID);
             }
         }
 
         // Handles creating one way reservations
         // Creates a blank one way reservation and adds {passengerCount} tickets to it if it's empty
-        public async Task<ActionResult> CreateOneWayReservation(Int32 flightID, Int32 passengerCount)
+        public async Task<ActionResult> CreateOneWayReservation(Int32 flightID, Int32 passengerCount, Int32? CustomerID)
         {
-            Models.Business.Reservation reservation = await CreateBlankReservation(TypeOfReservation.OneWay);
+            Models.Business.Reservation reservation = await CreateBlankReservation(TypeOfReservation.OneWay, null);
 
             if (reservation.Tickets.Count() > 0)
             {
@@ -92,9 +208,10 @@ namespace LonghornAirlines.Views
             }
         }
 
+        //Last Action for modifying reservation
         public async Task<ActionResult> ModifyReservation(Int32 ReservationID, Int32 FlightID, Int32 PrevFlightID)
         {
-            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Flight).FirstAsync(r => r.ReservationID == ReservationID);
+            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(r => r.Tickets).ThenInclude(t => t.Flight).FirstAsync(r => r.ReservationID == ReservationID);
             Flight flight = await _context.Flights.Include(f => f.Tickets).FirstAsync(f => f.FlightID == FlightID);
 
             Flight prevFlight = _context.Flights.Include(f => f.Tickets).First(f => f.FlightID == PrevFlightID);
@@ -111,11 +228,33 @@ namespace LonghornAirlines.Views
                     _context.Update(flight);
                 }
             }
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            //if modification was done by customer, charge $50
+            if (User.IsInRole("Customer"))
+            {
+                HashSet<AppUser> reservationCustomers = new HashSet<AppUser>();
+                foreach(Ticket t in reservation.Tickets)
+                {
+                    reservationCustomers.Add(t.Customer);
+                    if (t.Flight.FlightID == FlightID)
+                    {
+                        t.Fare += 50;
+                        _context.Update(t);
+                    }
+                }
+                foreach(AppUser customer in reservationCustomers)
+                {
+                    Utilities.EmailMessaging.SendEmail(customer.Email, "Team 6: Reservation Modification", "Your reservation has been modified. You've been charged $50.00 on your flight.");
+                }
+                await _context.SaveChangesAsync();
+                ViewBag.ReservationID = ReservationID;
+                return View("Charge");
+            }
             return RedirectToAction("Description", new { id = reservation.ReservationID });
         }
 
         //0 - First Leg
+        //1 - Return Leg
         //1 - Return Leg
         public async Task<ActionResult> EditRoundTrip(Int32 ReservationID, Int32 Leg)
         {
@@ -143,9 +282,9 @@ namespace LonghornAirlines.Views
 
         
         //TODO: Implement Round Trip
-        public async Task<ActionResult> CreateRoundTripReservation(Int32 flightID, Int32 passengerCount, Int32 cityToID, Int32 cityFromID, DateTime returnDate)
+        public async Task<ActionResult> CreateRoundTripReservation(Int32 flightID, Int32 passengerCount, Int32 cityToID, Int32 cityFromID, DateTime returnDate, Int32? CustomerID)
         {
-            Models.Business.Reservation reservation = await CreateBlankReservation(TypeOfReservation.RoundTrip);
+            Models.Business.Reservation reservation = await CreateBlankReservation(TypeOfReservation.RoundTrip, CustomerID);
             CreateTickets(reservation.ReservationID, flightID, passengerCount);
             await _context.SaveChangesAsync();
 
@@ -198,15 +337,18 @@ namespace LonghornAirlines.Views
 
 
         // Creates blank reservation
-        private async Task<Models.Business.Reservation> CreateBlankReservation(TypeOfReservation type)
+        private async Task<Models.Business.Reservation> CreateBlankReservation(TypeOfReservation type, Int32? CustomerID)
         {
             Models.Business.Reservation reservation = new Models.Business.Reservation
             {
                 ReservationType = type,
-                Customer = await _userManager.FindByNameAsync(User.Identity.Name),
                 ReservationComplete = false,
                 Tickets = new List<Ticket>()
             };
+            if (CustomerID.HasValue)
+            {
+                reservation.Customer = await _context.Users.FirstAsync(u => u.UserID == CustomerID.Value);
+            }
             _context.Reservations.Add(reservation);
             await _context.SaveChangesAsync();
             return reservation;
@@ -295,12 +437,27 @@ namespace LonghornAirlines.Views
             return View(reservation);
         }
 
+        //Last Action for Reservation Creation
         public async Task<IActionResult> Finalize(int? id)
         {
-            Models.Business.Reservation reservation = await _context.Reservations.FirstAsync(r => r.ReservationID == id);
-            reservation.ReservationComplete = true;
-            _context.Update(reservation);
-            _context.SaveChanges();
+
+
+            Models.Business.Reservation dbReservation = _context.Reservations.Include(r => r.Customer).Include(r => r.Tickets).ThenInclude(r => r.Customer)
+                .Include(r => r.Tickets).ThenInclude(r => r.Flight).ThenInclude(r => r.FlightInfo).ThenInclude(r => r.Route).ThenInclude(r => r.CityFrom)
+                .Include(r => r.Tickets).ThenInclude(r => r.Flight).ThenInclude(r => r.FlightInfo).ThenInclude(r => r.Route).ThenInclude(r => r.CityTo)
+                .FirstOrDefault(r => r.ReservationID == id);
+            dbReservation.ReservationComplete = true;
+            _context.Update(dbReservation);
+            await _context.SaveChangesAsync();
+            String EmailBody = "Thanks for your reservation. Your subtotal is: " + dbReservation.ReservationSubtotal + "The tax fee is: " + dbReservation.SalesTax + "Your total is: " + dbReservation.ReservationTotal;
+            Utilities.EmailMessaging.SendEmail(dbReservation.Customer.Email, "Reservation Confirmation", EmailBody);
+
+            foreach (Ticket dbticket in dbReservation.Tickets)
+            {
+                String email = dbticket.Customer.Email;
+                String emailStuff = "Your Flight on Longhorn Airlines has been Booked!\nYour reservation number is " + dbReservation.ReservationID + "\nand your ticket number is " + dbticket.TicketID + "\nWe look forward to seeing you on " + dbticket.Flight.Date.ToString() + "\n at " + dbticket.Flight.FlightInfo.FlightTime.ToString() + " for your flight from " + dbticket.Flight.FlightInfo.Route.CityFrom.CityName + " to " + dbticket.Flight.FlightInfo.Route.CityTo.CityName + ".";
+                Utilities.EmailMessaging.SendEmail(email, "Reservation Confirmation", emailStuff);
+            }
             return RedirectToAction("Index", "Home");
         }
 

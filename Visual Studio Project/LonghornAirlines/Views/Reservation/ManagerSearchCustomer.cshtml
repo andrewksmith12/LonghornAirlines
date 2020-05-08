@@ -1,0 +1,22 @@
+﻿@model Models.ViewModels.ManagerCustomerSearch
+@{
+    ViewData["Title"] = "ManagerSearchCustomer";
+}
+
+    <form asp-action="ManagerSearchCustomer">
+        @Html.HiddenFor(mcs => mcs.FlightID)
+        @Html.HiddenFor(mcs => mcs.isRoundTrip)
+        @Html.HiddenFor(mcs => mcs.NumPassengers)
+        @Html.HiddenFor(mcs => mcs.cityToID)
+        @Html.HiddenFor(mcs => mcs.cityFromID)
+        @Html.HiddenFor(mcs => mcs.returnDate)
+        <div class="form-group">
+            @Html.LabelFor(mcs => mcs.LastName)
+            @Html.TextBoxFor(mcs => mcs.LastName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(mcs => mcs.AdvantageNumber)
+            @Html.TextBoxFor(mcs => mcs.AdvantageNumber)
+        </div>
+        <input class="btn btn-info" type="submit" value="Search">
+    </form>

@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "AddCustomer";
+}
+
+<a asp-action="ManagerSearchCustomer" asp-controller="Reservation" 
+   asp-route-FlightID="@ViewBag.FlightID"
+   asp-route-isRoundTrip="@ViewBag.isRoundTrip"
+   asp-route-NumPassengers="@ViewBag.NumPassengers"
+   asp-route-cityToID="@ViewBag.cityToID"
+   asp-route-cityFromID="@ViewBag.cityFromID"
+   asp-route-returnDate="@ViewBag.returnDate">
+    Find existing customer
+</a>
+<br />
+<a asp-action="ManagerCreateCustomer" asp-controller="Reservation"
+   asp-route-FlightID="@ViewBag.FlightID"
+   asp-route-isRoundTrip="@ViewBag.isRoundTrip"
+   asp-route-NumPassengers="@ViewBag.NumPassengers"
+   asp-route-cityToID="@ViewBag.cityToID"
+   asp-route-cityFromID="@ViewBag.cityFromID"
+   asp-route-returnDate="@ViewBag.returnDate">
+    Set up new customer
+</a>
