@@ -7,6 +7,10 @@
             <form asp-action="DisplayReport" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
+                    <span style="display:inline-block; width:20px;"></span><label class="form-check-label"><input class="form-check-input" type="checkbox" asp-for="TotalSeatsSold" />@Html.DisplayNameFor(model => model.TotalSeatsSold)    </label>
+                    <span style="display:inline-block; width:20px;"></span><label class="form-check-label"><input class="form-check-input" type="checkbox" asp-for="TotalRevenue" />@Html.DisplayNameFor(model => model.TotalRevenue)    </label>
+                </div>
+                <div class="form-group">
                     <label class="control-label">Departing City</label>
                     @Html.ListBox("DepartCityID", (MultiSelectList)ViewBag.AllCities, new { @class = "form-control" })
                     <span asp-validation-for="DepartCityID" class="text-danger"></span>
@@ -31,12 +35,6 @@
                 </div>
                 <div class="form-group">
                     <span style="display:inline-block; width:20px;"></span><label class="form-check-label"><input class="form-check-input" type="checkbox" asp-for="FirstClass" />@Html.DisplayNameFor(model => model.FirstClass)    </label>
-                </div>
-                <div class="form-group">
-                    <span style="display:inline-block; width:20px;"></span><label class="form-check-label"><input class="form-check-input" type="checkbox" asp-for="TotalSeatsSold" />@Html.DisplayNameFor(model => model.TotalSeatsSold)    </label>
-                </div>
-                <div class="form-group">
-                    <span style="display:inline-block; width:20px;"></span><label class="form-check-label"><input class="form-check-input" type="checkbox" asp-for="TotalRevenue" />@Html.DisplayNameFor(model => model.TotalRevenue)    </label>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Create Report" class="btn btn-primary" />

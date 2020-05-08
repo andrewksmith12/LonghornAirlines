@@ -91,7 +91,7 @@ namespace LonghornAirlines.Controllers
             int NumofPassengers = SelectedTickets.Count;
             ViewBag.PassengerCount = NumofPassengers;
             decimal totalRevenue = SelectedTickets.Sum(t => t.Fare);
-            ViewBag.Revenue = totalRevenue;
+            ViewBag.Revenue = "$" + totalRevenue;
             return View("DisplayReport", rvm);
 
         }

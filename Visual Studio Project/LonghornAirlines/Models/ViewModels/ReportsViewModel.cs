@@ -35,7 +35,6 @@ namespace LonghornAirlines.Models.ViewModels
         public Boolean TotalSeatsSold { get; set; }
 
         [Display(Name = "Total Revenue ")]
-        [DisplayFormat(DataFormatString = "{0:C}")]
         public Boolean TotalRevenue { get; set; }
 
 
