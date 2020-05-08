@@ -40,7 +40,7 @@ namespace LonghornAirlines.Views
             {
                 return await CustomerCreate(FlightID, isRoundTrip, NumPassengers, cityToID, cityFromID, returnDate);
             }
-            else if (User.IsInRole("Manager"))
+            else if (User.IsInRole("Manager") || User.IsInRole("Agent"))
             {
                 //TODO: Manager Reservation Creation
                 TempData["FlightID"] = FlightID;
@@ -467,7 +467,7 @@ namespace LonghornAirlines.Views
             //get all the reservations from the database
             List<Models.Business.Reservation> reservations = new List<Models.Business.Reservation>();
 
-            if (User.IsInRole("Manager"))
+            if (User.IsInRole("Manager") || User.IsInRole("Agent"))
             {
                 reservations = _context.Reservations.Include(r => r.Tickets)
                     .ThenInclude (r => r.Flight)
@@ -513,7 +513,7 @@ namespace LonghornAirlines.Views
                 return View("Error", new String[] { "Cannot find this reservation!" });
             }
 
-            if (User.IsInRole("Manager") == false && reservation.Customer.UserName != User.Identity.Name) //they are trying to see something that isn't theirs
+            if (User.IsInRole("Manager") == false && User.IsInRole("Agent") == false && reservation.Customer.UserName != User.Identity.Name) //they are trying to see something that isn't theirs
             {
                 return View("Error", new String[] { "Unauthorized: You are attempting to view another customer's reservation!" });
             }
