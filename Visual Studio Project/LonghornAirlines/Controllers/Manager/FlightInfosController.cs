@@ -39,6 +39,9 @@ namespace LonghornAirlines.Controllers
 
             var flightInfo = await _context.FlightInfos.Include(fi => fi.Flights).Include(fi => fi.Route).ThenInclude(fi => fi.CityFrom)
                 .Include(fi => fi.Route).ThenInclude(fi => fi.CityTo)
+                .Include(fi => fi.Flights).ThenInclude(fi => fi.Pilot)
+                .Include(fi => fi.Flights).ThenInclude(fi => fi.CoPilot)
+                .Include(fi => fi.Flights).ThenInclude(fi => fi.Attendant)
                 .FirstOrDefaultAsync(m => m.FlightInfoID == id);
             if (flightInfo == null)
             {

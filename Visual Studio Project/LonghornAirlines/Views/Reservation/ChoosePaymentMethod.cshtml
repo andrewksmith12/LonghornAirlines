@@ -36,7 +36,9 @@
                     </ul>
                 </div>
                 <div class="card-body">
-                    <a asp-action="Confirm" asp-controller="Reservation" asp-route-id="@Model.ReservationID" asp-route-PaymentMethod="Mileage" class="btn btn-light btn-lg">Confirm</a>
+                    @if (ViewBag.RemainingMiles > 0)
+                    {<a asp-action="Confirm" asp-controller="Reservation" asp-route-id="@Model.ReservationID" asp-route-PaymentMethod="Mileage" class="btn btn-light btn-lg">Confirm</a>}
+                    else { <button class="btn btn-light btn-lg">Insufficient Miles</button> }
                 </div>
             </div>
         </div>

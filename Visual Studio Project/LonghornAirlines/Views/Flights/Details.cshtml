@@ -41,6 +41,12 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Attendant.FullName)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BaseFare)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BaseFare)
+        </dd>
         <dt class="col-sm-2"></dt>
     </dl>
 </div>
@@ -72,5 +78,5 @@
 
 <div>
     <a asp-action="Edit" asp-route-id="@Model.FlightID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Details" asp-controller="FlightInfos" asp-route-id=@Model.FlightInfo.FlightInfoID>Back to List</a>
 </div>
