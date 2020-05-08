@@ -1,0 +1,55 @@
+﻿@model LonghornAirlines.Models.Business.Reservation
+@{
+    ViewData["Title"] = "Reservation Details";
+}
+
+@section imageContent{
+    <h1>Welcome to your Reservation</h1>
+    <h5>Confirm all information is correct and proceed to seat selection!</h5>
+
+    <table class="table">
+        <tr>
+            <th>Ticket No</th>
+            <th>Ticket Holder</th>
+            <th>Flight Number</th>
+            <th>Destination City</th>
+            <th>Flight Date</th>
+            <th>Flight Time</th>
+            <th>Current Seat</th>
+            <th>Seat Selection</th>
+        </tr>
+        <tbody>
+            @foreach (Ticket t in Model.Tickets)
+            {
+                <tr>
+                    <td>@t.TicketID</td>
+                    <td>
+                        @if (t.Customer == null)
+                        {
+                            <p>No customer selected for this ticket</p>
+                        }
+                        else
+                        {
+                            @t.Customer.FirstName
+                        }
+                    </td>
+                    <td>@t.Flight.FlightInfo.FlightNumber </td>
+                    <td>@t.Flight.FlightInfo.Route.CityTo.CityName</td>
+                    <td>@t.Flight.Date.ToShortDateString()</td>
+                    <td>@t.Flight.FlightInfo.FlightTime</td>
+                    <td>@t.Seat</td>
+                    <td><a class="btn btn-outline-danger" asp-controller="Tickets" asp-action="ChangeSeat" asp-route-id="@t.TicketID">Choose Seat</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-info" onclick="submission()">Return</a>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+function submission() {
+    window.location.href = '@Url.Action("Index", "Reservation");
+}
+    </script>
+}
