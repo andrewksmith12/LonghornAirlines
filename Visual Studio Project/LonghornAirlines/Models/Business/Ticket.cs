@@ -9,13 +9,16 @@ namespace LonghornAirlines.Models.Business
 {
     public class Ticket
     {
+        private const Decimal SENIOR_DISCOUNT = .1m;
+        private const Decimal CHILD_DISCOUNT = .15m;
+
         [Display(Name = "Ticket ID: ")]
         public Int32 TicketID { get; set; }
 
         [Display(Name = "Fare: ")]
         [DisplayFormat (DataFormatString = "{0:C}")]
         public Decimal Fare { get; set; }
-
+               
         [Display(Name = "Seat Number: ")]
         public String Seat { get; set; }
         
@@ -34,5 +37,44 @@ namespace LonghornAirlines.Models.Business
 
         [Display(Name = "Checked In?")]
         public Boolean CheckedIn { get; set; }
+
+        public Decimal GetDiscountedFare()
+        {
+            String[] firstClassSeats = { "1A", "1B", "2A", "2B" };
+            String[] budgetSeats = { "3A", "3B", "3C", "3D",
+                                     "4A", "4B", "4C", "4D",
+                                     "5A", "5B", "5C", "5D"};
+            Decimal ticketFare;
+
+            if (firstClassSeats.Contains(this.Seat))
+            {
+                ticketFare = this.Flight.FirstClassFare;
+            }
+            else
+            {
+                ticketFare = this.Flight.BaseFare;
+                DateTime today = DateTime.Now.Date;
+                Decimal discount = 0;
+                //Age Discounts
+                try
+                {
+                    Int16 age = Convert.ToInt16(Math.Floor(today.Subtract(this.Customer.Birthday.Date).TotalDays / 365));
+                    if (age > 65)
+                    {
+                        discount = SENIOR_DISCOUNT;
+                    }
+                    else if (age < 12)
+                    {
+                        discount = CHILD_DISCOUNT;
+                    }
+                }
+                catch
+                {
+                    discount = 0;
+                }
+                ticketFare *= (1 - discount);
+            }
+            return ticketFare;
+        }
     }
 }

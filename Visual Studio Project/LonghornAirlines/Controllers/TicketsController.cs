@@ -194,7 +194,7 @@ namespace LonghornAirlines.Controllers
                                      "4A", "4B", "4C", "4D",
                                      "5A", "5B", "5C", "5D"};
             Decimal fare;
-            
+
             if (firstClassSeats.Contains(seatID))
             {
                 fare = ticket.Flight.FirstClassFare;
