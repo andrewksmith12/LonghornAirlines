@@ -35,6 +35,8 @@ namespace LonghornAirlines.Controllers
         public SelectList SelectListCities()
         {
             List<City> cityList = _db.Cities.ToList();
+            City allCity = new City { CityID = 0, CityName = "All Cities" };
+            cityList.Add(allCity);
             SelectList Cities = new SelectList(cityList.OrderBy(m => m.CityID), "CityID", "CityName");
             return Cities;
         }
@@ -111,17 +113,17 @@ namespace LonghornAirlines.Controllers
 
             if (mvm.DepartCityID != 0)
             {
-                query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == mvm.DepartCityID);
+                query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == DepartCityID);
             }
 
             if (mvm.ArriveCityID != 0)
             {
-                query = query.Where(f => f.FlightInfo.Route.CityTo.CityID == mvm.ArriveCityID);
+                query = query.Where(f => f.FlightInfo.Route.CityTo.CityID == ArriveCityID);
             }
 
             if (mvm.FlightNumber != null)
             {
-                query = query.Where(f => f.FlightInfo.FlightNumber >= mvm.FlightNumber);
+                query = query.Where(f => f.FlightInfo.FlightNumber == mvm.FlightNumber);
             }
 
             List<Flight> SelectedFlights = query.ToList();
