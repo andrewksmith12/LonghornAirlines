@@ -91,6 +91,56 @@ namespace LonghornAirlines.Views
                 return RedirectToAction("Description", new { id = reservation.ReservationID });
             }
         }
+
+        public async Task<ActionResult> ModifyReservation(Int32 ReservationID, Int32 FlightID, Int32 PrevFlightID)
+        {
+            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Flight).FirstAsync(r => r.ReservationID == ReservationID);
+            Flight flight = await _context.Flights.Include(f => f.Tickets).FirstAsync(f => f.FlightID == FlightID);
+
+            Flight prevFlight = _context.Flights.Include(f => f.Tickets).First(f => f.FlightID == PrevFlightID);
+            foreach (Ticket t in reservation.Tickets)
+            {
+                if (t.Flight.FlightID == PrevFlightID)
+                {
+                    t.Flight = flight;
+                    t.Seat = "";
+                    prevFlight.Tickets.Remove(t);
+                    flight.Tickets.Add(t);
+                    _context.Update(t);
+                    _context.Update(prevFlight);
+                    _context.Update(flight);
+                }
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Description", new { id = reservation.ReservationID });
+        }
+
+        //0 - First Leg
+        //1 - Return Leg
+        public async Task<ActionResult> EditRoundTrip(Int32 ReservationID, Int32 Leg)
+        {
+            var reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Flight).FirstAsync(r => r.ReservationID == ReservationID);
+            int prevFlightID = -1;
+
+            if(Leg == 0)
+            {
+                prevFlightID = reservation.Tickets.First().Flight.FlightID;
+            }
+            else
+            {
+                prevFlightID = reservation.Tickets.Last().Flight.FlightID;
+            }
+
+            ReservationEditModel rem = new ReservationEditModel
+            {
+                ReservationID = reservation.ReservationID,
+                NewDate = DateTime.Now,
+                isRoundTrip = reservation.ReservationType == TypeOfReservation.RoundTrip,
+                PrevFlightID = prevFlightID
+            };
+            return View("Edit", rem);
+        }
+
         
         //TODO: Implement Round Trip
         public async Task<ActionResult> CreateRoundTripReservation(Int32 flightID, Int32 passengerCount, Int32 cityToID, Int32 cityFromID, DateTime returnDate)
@@ -252,6 +302,81 @@ namespace LonghornAirlines.Views
             _context.Update(reservation);
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
+        }
+
+        // GET: Reservations/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var reservation = await _context.Reservations.Include(r=>r.Tickets).ThenInclude(t => t.Flight).FirstAsync(r=>r.ReservationID==id);
+            int prevFlightID = -1;
+            if(reservation.ReservationType == TypeOfReservation.OneWay)
+            {
+                prevFlightID = reservation.Tickets.First().Flight.FlightID;
+            }
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+            ReservationEditModel rem = new ReservationEditModel
+            {
+                ReservationID = reservation.ReservationID,
+                NewDate = DateTime.Now,
+                isRoundTrip = reservation.ReservationType == TypeOfReservation.RoundTrip,
+                PrevFlightID = prevFlightID
+            };
+            return View(rem);
+        }
+
+        public async Task<ActionResult> ChangeDate(ReservationEditModel rem)
+        {
+            Models.Business.Reservation r = await _context.Reservations.Include(res => res.Tickets).FirstAsync(res => res.ReservationID == rem.ReservationID);
+            Ticket t = _context.Tickets.Include(tic => tic.Flight).ThenInclude(f => f.FlightInfo).First(tic=> tic.TicketID == r.Tickets.First().TicketID);
+            FlightInfo info = _context.FlightInfos.Include(fi => fi.Route).First(fi => fi.FlightInfoID == t.Flight.FlightInfo.FlightInfoID);
+            Route route = _context.Routes.Include(ro => ro.CityFrom).Include(ro => ro.CityTo).First(ro => ro.RouteID == info.Route.RouteID);
+            BookingSearchModel bsm = new BookingSearchModel
+            {
+                DepartCityID = route.CityFrom.CityID,
+                DepartDate = rem.NewDate,
+                ArriveCityID = route.CityTo.CityID,
+                PassengerCount = rem.PassengerCount,
+                ReservationID = r.ReservationID,
+                isRoundTrip = rem.isRoundTrip
+            };
+            ViewBag.CityToName = _context.Cities.FirstOrDefault(c => c.CityID == bsm.ArriveCityID).CityName;
+            ViewBag.CityFromName = _context.Cities.FirstOrDefault(c => c.CityID == bsm.DepartCityID).CityName;
+            var query = from f in _context.Flights
+                        select f;
+
+            query = query.Where(f => f.Date.Date == bsm.DepartDate.Date);
+            query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == bsm.DepartCityID);
+            query = query.Where(f => f.FlightInfo.Route.CityTo.CityID == bsm.ArriveCityID);
+            query = query.Where(f => f.Canceled == false);
+            foreach (Flight f in query)
+            {
+                //If there are not enough seats on flight delete flight from query
+                if (!Utilities.GetTakenSeats.isAvailable(f.FlightID, bsm.PassengerCount, _context))
+                {
+                    query = query.Where(flight => flight.FlightID != f.FlightID);
+                }
+            }
+            //Passing Booking Search Model information to view bag so it goes to ReservationController
+            //There's probably a better way to do this
+            ViewBag.DepartingFlightsQty = query.Count();
+            ViewBag.isRoundTrip = bsm.isRoundTrip;
+            ViewBag.passengerCount = bsm.PassengerCount;
+            ViewBag.ReturnDate = bsm.ArriveDate;
+            ViewBag.ReservationID = bsm.ReservationID;
+            ViewBag.PrevFlightID = rem.PrevFlightID;
+            return View("ReservationFlightResults", query.Include(f => f.FlightInfo)
+                .Include(f => f.FlightInfo.Route)
+                .Include(f => f.FlightInfo.Route.CityFrom)
+                .Include(f => f.FlightInfo.Route.CityTo)
+                .ToList());
         }
     }
 }

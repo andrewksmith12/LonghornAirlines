@@ -29,7 +29,14 @@ namespace LonghornAirlines.Controllers
             query = query.Where(f => f.FlightInfo.Route.CityFrom.CityID == bookingSearchModel.DepartCityID);
             query = query.Where(f => f.FlightInfo.Route.CityTo.CityID == bookingSearchModel.ArriveCityID);
             query = query.Where(f => f.Canceled == false);
-
+            foreach(Flight f in query)
+            {
+                //If there are not enough seats on flight delete flight from query
+                if(!Utilities.GetTakenSeats.isAvailable(f.FlightID, bookingSearchModel.PassengerCount, _db))
+                {
+                    query = query.Where(flight => flight.FlightID != f.FlightID);
+                }
+            }
             //Passing Booking Search Model information to view bag so it goes to ReservationController
             //There's probably a better way to do this
             ViewBag.DepartingFlightsQty = query.Count();

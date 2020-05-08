@@ -24,5 +24,11 @@ namespace LonghornAirlines.Utilities
 
             return seats;
         }
+
+        public static Boolean isAvailable(int FlightID, int RequiredSeats, AppDbContext _context)
+        {
+            int numOfTakenSeats = FromFlight(FlightID, _context).Count;
+            return RequiredSeats <= (16 - numOfTakenSeats);
+        }
     }
 }
