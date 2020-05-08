@@ -8,12 +8,12 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label class="control-label">Departing City</label>
-                    @Html.DropDownListFor(model => model.DepartCityID, (SelectList)ViewBag.AllCities, new { @class = "form-control" })
+                    @Html.ListBox("DepartCityID", (MultiSelectList)ViewBag.AllCities, new { @class = "form-control" })
                     <span asp-validation-for="DepartCityID" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Arriving City</label>
-                    @Html.DropDownListFor(model => model.ArriveCityID, (SelectList)ViewBag.AllCities, new { @class = "form-control" })
+                    @Html.ListBox("ArriveCityID", (MultiSelectList)ViewBag.AllCities, new { @class = "form-control" })
                     <span asp-validation-for="ArriveCityID" class="text-danger"></span>
                 </div>
                 <div class="form-group">
