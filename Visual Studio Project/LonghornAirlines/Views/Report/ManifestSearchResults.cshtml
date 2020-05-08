@@ -1,0 +1,35 @@
+﻿@model LonghornAirlines.Models.ViewModels.ReportsViewModel
+@{
+    ViewData["Title"] = "View";
+}
+@section imageContent
+{
+    <h1>Report</h1>
+
+    <h4>
+        @*From @ViewBag.CityFromName To @ViewBag.CityToName*@
+        @*From @ViewBag.DepartDate To @ViewBag.ArriveDate*@
+    </h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Flight Number
+                </th>
+                <th>
+                    
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    
+                </td>
+                <td>
+                    @ViewBag.Revenue
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

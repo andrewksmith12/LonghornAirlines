@@ -134,6 +134,7 @@ namespace LonghornAirlines.Controllers
                 query = query.Where(f => f.hasDeparted != mvm.hasNotDeparted);
             }
 
+            List<Flight> SelectedFlights = query.ToList();
             return View("DisplayManifest");
         }
     }
