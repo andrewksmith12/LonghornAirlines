@@ -52,11 +52,11 @@ namespace LonghornAirlines.Models.Business
 
                 if (firstClassSeats.Contains(this.Seat) && !this.UpgradeWithMilage)
                 {
-                    ticketFare = this.Flight.FirstClassFare;
+                    ticketFare = Fare * 1.2m;
                 }
                 else if (budgetSeats.Contains(this.Seat))
                 {
-                    ticketFare = this.Flight.BaseFare;
+                    ticketFare = Fare;
                     DateTime today = DateTime.Now.Date;
                     Decimal discount = 0;
                     //Age Discounts
