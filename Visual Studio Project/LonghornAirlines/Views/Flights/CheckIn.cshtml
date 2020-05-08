@@ -1,0 +1,79 @@
+﻿@model LonghornAirlines.Models.Business.Flight
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewData["Title"] = "CheckIn";
+}
+
+<h1>CheckIn</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Pilot</th>
+            <th>Co-Pilot</th>
+            <th>Flight Attendant</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Pilot.FullName) <button class="btn btn-primary">Check In</button>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CoPilot.FullName)<button class="btn btn-primary">Check In</button>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Attendant.FullName) <button class="btn btn-primary">Check In</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Customer Name
+            </th>
+            <th>
+                Seat
+            </th>
+            <th>
+                Fare
+            </th>
+            <th>
+                Check In
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (Ticket t in Model.Tickets) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => t.Customer.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => t.Seat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => t.Fare)
+            </td>
+            @if (t.CheckedIn == false)
+            {
+                <td>
+                    <a class="btn btn-primary" type="submit" asp-action="CheckInTicket" asp-route-id=@t.TicketID>Check In</a>
+                </td>
+            }
+            @if (t.CheckedIn == true)
+            {
+                <td>
+                    <button class="btn btn-success">Checked In</button>
+                </td>
+            }
+
+        </tr>  
+}    
+    </tbody>
+</table>
+<button class="btn btn-primary" type="submit" asp-action="FinalizeCheckin">Finalize Checkin- Get Manifest</button>

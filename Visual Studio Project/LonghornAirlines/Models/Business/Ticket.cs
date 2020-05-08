@@ -31,5 +31,8 @@ namespace LonghornAirlines.Models.Business
 
         [Display(Name = "Use Milage for Upgrade to First Class")]
         public Boolean UpgradeWithMilage { get; set; }
+
+        [Display(Name = "Checked In?")]
+        public Boolean CheckedIn { get; set; }
     }
 }
