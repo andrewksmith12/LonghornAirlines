@@ -1,5 +1,8 @@
 ﻿@model LonghornAirlines.Models.Business.Flight
 @{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@{
     ViewData["Title"] = "Manifest";
 }
 @section imageContent
@@ -7,7 +10,7 @@
     <h1>Manifest</h1>
 
     <div>
-        <h4>Flight</h4>
+        <h4>Flight Number: @Html.DisplayNameFor(model => model.FlightInfo.FlightNumber)</h4>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
