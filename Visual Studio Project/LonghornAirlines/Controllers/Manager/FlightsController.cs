@@ -273,7 +273,10 @@ namespace LonghornAirlines.Controllers.Manager
 
         public IActionResult FinalizeCheckin(int id)
         {
-            Flight dbFlight = _context.Flights.Include(f => f.Tickets).ThenInclude(f => f.Customer).Include(f => f.Pilot).Include(f => f.CoPilot).Include(f => f.Attendant).FirstOrDefault(f => f.FlightID == id);
+            Flight dbFlight = _context.Flights.Include(f => f.Tickets).ThenInclude(f => f.Customer)
+                .Include(f => f.Pilot).Include(f => f.CoPilot).Include(f => f.Attendant)
+                .Include(f => f.FlightInfo).ThenInclude(f => f.Route)
+                .FirstOrDefault(f => f.FlightID == id);
             if (dbFlight.Pilot != null)
             {
                 if (dbFlight.CoPilot != null)
@@ -289,6 +292,14 @@ namespace LonghornAirlines.Controllers.Manager
                                     dbFlight.hasDeparted = true;
                                     _context.Flights.Update(dbFlight);
                                     _context.SaveChanges();
+
+                                    foreach (Ticket t in dbFlight.Tickets)
+                                    {
+                                        if (t.CheckedIn == true && t.Reservation.ReservationMethod != PaymentOptions.Miles)
+                                        {
+                                            t.Customer.Mileage += dbFlight.FlightInfo.Route.Distance;
+                                        }                                    }
+
                                     return RedirectToAction("DisplayManifest","Report", new { id = dbFlight.FlightID });
                                 }
                                 else

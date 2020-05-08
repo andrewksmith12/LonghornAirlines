@@ -23,7 +23,7 @@
 <body>
     <nav class="navbar navbar-expand-md" style="background-color: RGB(253,216,71)">
         <a class="navbar-brand" style="color:white" href="/Home">
-            Longhorn Airlines
+            <img src="~/static/UT_Flight_Logo.png" height="80" alt="Longhorn Airlines"/>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon">
@@ -71,11 +71,9 @@
 
         </div>
     </nav>
-    <!-- Full Page Image Header with Vertically Centered Content -->
-
 
     <!-- Page Content -->
-    <section class="py-5" id="scrollTo">
+    <section class="py-5"  id="scrollTo">
         <div class="container">
             @RenderSection("pageContent", required: false)
             @RenderBody()
