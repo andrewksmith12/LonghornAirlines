@@ -70,5 +70,14 @@ namespace LonghornAirlines.Models.Business
         {
             get { return ReservationSubtotal + SalesTax; }
         }
+
+        [Display(Name = "Reservation Total in Miles")]
+        public Int32 ReservationMileageCost
+        {
+            get
+            {
+                return Tickets.Sum(c => c.GetMileageFare());
+            }
+        }
     }
 }
