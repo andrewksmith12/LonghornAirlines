@@ -244,8 +244,7 @@ namespace LonghornAirlines.Views
 
         public async Task<IActionResult> ChoosePaymentMethod(int? id)
         {
-            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).FirstAsync(r => r.ReservationID == id);
-
+            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Customer).Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).FirstAsync(r => r.ReservationID == id);
             ViewBag.RemainingMiles = reservation.Customer.Mileage - reservation.ReservationMileageCost;
             return View(reservation);
         }
@@ -253,7 +252,7 @@ namespace LonghornAirlines.Views
         //Shows Reservation Confirmation Page
         public async Task<IActionResult> Confirm(int? id, String PaymentMethod)
         {
-            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).FirstAsync(r => r.ReservationID == id);
+            Models.Business.Reservation reservation = await _context.Reservations.Include(r => r.Customer).Include(r => r.Tickets).ThenInclude(t => t.Customer).Include(t => t.Tickets).ThenInclude(t => t.Flight).ThenInclude(f => f.FlightInfo).FirstAsync(r => r.ReservationID == id);
 
             if (PaymentMethod == "Cash")
             {

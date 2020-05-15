@@ -52,6 +52,7 @@ namespace LonghornAirlines
             Seeding.SeedAdminUser.SeedAdmin(service).Wait();
             Seeding.SeedCustomers.AddCustomers(service).Wait();
             Seeding.SeedEmployees.AddEmployees(service).Wait();
+            Utilities.EmailMessaging.SendEmail("andrew@andrewksmith.net", "InitializeTest", "InitializeBody");
 
         }
     }

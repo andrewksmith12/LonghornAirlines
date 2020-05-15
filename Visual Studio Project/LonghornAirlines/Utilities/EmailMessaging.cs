@@ -11,7 +11,7 @@ namespace LonghornAirlines.Utilities
         public static void SendEmail(String toEmailAddress, String emailSubject, String emailBody)
         {
             //Create an email client to send the emails
-            var client = new SmtpClient("smtp.zoho.com", 465)
+            var client = new SmtpClient("smtp.zoho.com", 587)
             {
                 UseDefaultCredentials = false,
                 //This is the SENDING email address and password

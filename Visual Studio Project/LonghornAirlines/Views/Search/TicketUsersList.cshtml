@@ -16,6 +16,7 @@
                 <th>
                     Last Name
                 </th>
+                <th>Email</th>
                 <th>
                     Select
                 </th>
@@ -34,6 +35,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.LastName)
                     </td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
                     <td>
                         @if (User.Identity.IsAuthenticated)
                         {
