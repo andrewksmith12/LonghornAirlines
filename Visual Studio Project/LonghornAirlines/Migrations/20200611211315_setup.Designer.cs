@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LonghornAirlines.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200508165601_setup")]
+    [Migration("20200611211315_setup")]
     partial class setup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
